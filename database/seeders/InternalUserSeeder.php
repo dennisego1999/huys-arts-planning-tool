@@ -2,21 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Collection;
 
 class InternalUserSeeder extends Seeder
 {
-    private array $teams = [
-        'Modern',
-        'Hiphop',
-        'Ballet',
-        'Circus',
-    ];
-
     private array $users = [
         [
             'first_name' => 'Dennis',
@@ -24,7 +15,6 @@ class InternalUserSeeder extends Seeder
             'email' => 'dennis.ego@artcoresociety.com',
             'password' => 'Arty007*',
             'roles' => ['admin'],
-            'teams' => ['Modern', 'Hiphop'],
         ],
     ];
 
@@ -35,27 +25,11 @@ class InternalUserSeeder extends Seeder
      */
     public function run()
     {
-        $this->seedTeams();
-        $this->createUsers();
+        $this->createDefaultUser();
     }
 
-    private function seedTeams(): void
+    private function createDefaultUser(): void
     {
-        foreach ($this->teams as $team) {
-            $team = Team::updateOrCreate(
-                ['name' => $team],
-                ['user_id' => 1]
-            );
-        }
-    }
-
-    private function createUsers(): void
-    {
-        // Get the teams
-        $teams = Team::query()
-            ->select(['id', 'name'])
-            ->get();
-
         foreach ($this->users as $user) {
             // Skip if the user already exists
             if (User::where('email', $user['email'])->exists()) {
@@ -63,11 +37,11 @@ class InternalUserSeeder extends Seeder
             }
 
             // Create the user
-            $this->createUser($user, $teams);
+            $this->createUser($user);
         }
     }
 
-    private function createUser(array $user, Collection $teams = null): void
+    private function createUser(array $user): void
     {
         // Create the user
         $userModel = User::factory()->create([
@@ -80,25 +54,7 @@ class InternalUserSeeder extends Seeder
         // Give the user the correct roles
         $userModel->syncRoles($user['roles'] ?? []);
 
-        // Retrieve the teams of the user in reverse order
-        if (isset($user['teams'])) {
-            $teams = Team::query()
-                ->select('id')
-                ->whereIn('name', $user['teams'])
-                ->get()
-                ->reverse();
-        }
-
-        // Abort without teams
-        if (blank($teams)) {
-            return;
-        }
-
-        // Give the user the teams
-        $userModel->teams()->sync($teams->pluck('id'));
-
-        // Ensure the user has a current team
-        $userModel->setAttribute('current_team_id', $teams->first()?->id);
+        // Save the user
         $userModel->saveQuietly();
     }
 }
