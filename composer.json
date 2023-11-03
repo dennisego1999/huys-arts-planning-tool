@@ -12,6 +12,8 @@
         "laravel/jetstream": "^3.0",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "spatie/laravel-medialibrary": "^10.0.0",
+        "spatie/laravel-permission": "^6.0",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
