@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { nextTick, ref } from "vue";
 import { usePage, Link } from "@inertiajs/vue3";
 import { router } from "@inertiajs/vue3";
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
@@ -9,6 +9,7 @@ import { Bars3Icon, HomeIcon, XMarkIcon } from "@heroicons/vue/24/outline";
 const sidebarOpen = ref(false);
 const navigationItems = [
     { name: 'Dashboard', href: route('dashboard'), icon: HomeIcon, current: true },
+    { name: 'Users', href: '#', icon: HomeIcon, current: false },
 ];
 
 //Define function
@@ -19,6 +20,11 @@ function goToProfile() {
     //Visit profile route
     router.visit(route('profile.show'));
 }
+
+nextTick(() => {
+    //Remove data props
+    document.getElementById('app').removeAttribute('data-page');
+});
 </script>
 
 <template>
@@ -78,19 +84,19 @@ function goToProfile() {
                         <li>
                             <ul role="list" class="-mx-2 space-y-1">
                                 <li v-for="item in navigationItems" :key="item.name">
-                                    <a :href="item.href" :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
+                                    <Link :href="item.href" :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
                                         <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-indigo-200 group-hover:text-white', 'h-6 w-6 shrink-0']" aria-hidden="true" />
                                         {{ item.name }}
-                                    </a>
+                                    </Link>
                                 </li>
                             </ul>
                         </li>
                         <li v-if="usePage().props.auth.user" class="-mx-6 mt-auto">
-                            <Link @click="goToProfile" class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-indigo-700">
+                            <div @click="goToProfile" class="flex items-center cursor-pointer gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-indigo-700">
                                 <img class="h-8 w-8 rounded-full bg-indigo-700" :src="usePage().props.auth.user.profile_photo_url" alt="profile photo" />
                                 <span class="sr-only">Your profile</span>
                                 <span aria-hidden="true">{{ usePage().props.auth.user.full_name }}</span>
-                            </Link>
+                            </div>
                         </li>
                     </ul>
                 </nav>
@@ -103,10 +109,10 @@ function goToProfile() {
                 <Bars3Icon class="h-6 w-6" aria-hidden="true" />
             </button>
             <div class="flex-1 text-sm font-semibold leading-6 text-white">Dashboard</div>
-            <Link v-if="usePage().props.auth.user" @click="goToProfile">
+            <div v-if="usePage().props.auth.user" @click="goToProfile">
                 <span class="sr-only">Your profile</span>
                 <img class="h-8 w-8 rounded-full bg-indigo-700" :src="usePage().props.auth.user.profile_photo_url" alt="profile photo" />
-            </Link>
+            </div>
         </div>
 
         <main class="py-10 lg:pl-72">
