@@ -8,7 +8,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
-import DashboardLayout from "@/Layouts/DashboardLayout.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 const props = defineProps({
     user: Object,
@@ -132,32 +132,37 @@ const clearPhotoFileInput = () => {
             <!-- First Name -->
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="first_name" value="First Name" />
+
                 <TextInput
-                    id="name"
+                    id="first_name"
                     v-model="form.first_name"
                     type="text"
                     class="mt-1 block w-full"
                     autocomplete="first_name"
                 />
+
                 <InputError :message="form.errors.first_name" class="mt-2" />
             </div>
 
             <!-- Last Name -->
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="last_name" value="Last Name" />
+
                 <TextInput
-                    id="name"
+                    id="last_name"
                     v-model="form.last_name"
                     type="text"
                     class="mt-1 block w-full"
                     autocomplete="last_name"
                 />
+
                 <InputError :message="form.errors.last_name" class="mt-2" />
             </div>
 
             <!-- Email -->
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="email" value="Email" />
+
                 <TextInput
                     id="email"
                     v-model="form.email"
@@ -165,6 +170,7 @@ const clearPhotoFileInput = () => {
                     class="mt-1 block w-full"
                     autocomplete="username"
                 />
+
                 <InputError :message="form.errors.email" class="mt-2" />
 
                 <div v-if="$page.props.jetstream.hasEmailVerification && user.email_verified_at === null">

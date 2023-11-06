@@ -1,8 +1,8 @@
 <script setup>
-import DashboardLayout from "@/Layouts/DashboardLayout.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 defineOptions({
-    layout: DashboardLayout
+    layout: AppLayout
 });
 </script>
 

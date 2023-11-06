@@ -3,3 +3,8 @@
 @tailwind utilities;
 
 @import "components/transitions";
+
+// Add global styles
+html {
+    scroll-behavior: smooth;
+}

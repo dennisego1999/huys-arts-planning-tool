@@ -1,11 +1,11 @@
 <script setup>
-import DashboardLayout from "@/Layouts/DashboardLayout.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link, useForm } from "@inertiajs/vue3";
 import { useClearToast, useShowToast } from "@/Composables/Toastification";
 
 //Define options
 defineOptions({
-    layout: DashboardLayout
+    layout: AppLayout
 });
 
 //Define props

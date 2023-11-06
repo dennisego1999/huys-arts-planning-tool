@@ -2,12 +2,12 @@
 import { MagnifyingGlassIcon, TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon } from "@heroicons/vue/20/solid";
 import {Link, useForm, usePage} from "@inertiajs/vue3";
 import { debounce } from "lodash";
-import DashboardLayout from "@/Layouts/DashboardLayout.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 
 //Define options
 defineOptions({
-    layout: DashboardLayout
+    layout: AppLayout
 });
 
 //Define props
@@ -43,7 +43,7 @@ const submitForm = debounce(() => {
         <div class="flex justify-between items-center flex-1 gap-2 mb-4">
             <form class="w-full" @submit.prevent>
                 <div class="relative">
-                    <MagnifyingGlassIcon class="absolute right-4 top-1/2 -translate-y-1/2 w-6 text-gray-300"/>
+                    <MagnifyingGlassIcon class="absolute z-10 right-4 top-1/2 -translate-y-1/2 w-6 text-gray-300"/>
 
                     <input
                         v-model="form.search"
@@ -51,7 +51,7 @@ const submitForm = debounce(() => {
                         type="text"
                         name="search"
                         placeholder="Search"
-                        class="text-black w-full rounded-md border-none pl-4 pr-14 py-5 bg-gray-50 focus:ring-0 focus:ring-offset-0 focus:border-none"
+                        class="drop-shadow-lg text-black w-full rounded-md border-none pl-4 pr-14 py-5 bg-gray-50 focus:ring-0 focus:ring-offset-0 focus:border-none"
                     >
                 </div>
             </form>
@@ -60,7 +60,7 @@ const submitForm = debounce(() => {
         <TransitionGroup
             tag="ul"
             name="list"
-            class="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-md"
+            class="relative z-0 divide-y divide-gray-100 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-md"
             appear
         >
             <li

@@ -19,9 +19,9 @@ class UsersController extends Controller
                     ->where('first_name', 'like', $request->input('search') . '%')
                     ->orWhere('last_name', 'like', $request->input('search') . '%'));
             })
-            ->paginate(6);
+            ->paginate(10);
 
-        return Inertia::render('Admin/Users/Index', [
+        return Inertia::render('Users/Index', [
             'users' => $users,
         ]);
     }
@@ -38,14 +38,14 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        return Inertia::render('Admin/Users/Show', [
+        return Inertia::render('Users/Show', [
             'user' => $user
         ]);
     }
 
     public function edit(User $user)
     {
-        return Inertia::render('Admin/Users/Edit', [
+        return Inertia::render('Users/Edit', [
             'user' => $user,
         ]);
     }

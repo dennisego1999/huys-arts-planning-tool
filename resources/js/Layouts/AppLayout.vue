@@ -175,7 +175,7 @@ nextTick(() => {
             </Link>
         </div>
 
-        <main class="py-10 lg:pl-72">
+        <main class="py-4 sm:py-6 lg:py-8 lg:pl-72">
             <div class="px-4 sm:px-6 lg:px-8">
                 <Transition name="fade" mode="out-in">
                     <slot/>
