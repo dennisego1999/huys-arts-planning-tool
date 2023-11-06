@@ -26,5 +26,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
-    Route::resource('user-management', UserManagementController::class);
+    Route::resource('users', UserManagementController::class)
+        ->only('index', 'create', 'store', 'destroy', 'edit', 'update')
+        ->parameters(['user' => 'user']);
 });

@@ -19,7 +19,7 @@ class UserManagementController extends Controller
             ->paginate(6);
 
 
-        return Inertia::render('UserManagement', [
+        return Inertia::render('Admin/UserManagement/Index', [
             'users' => $users,
         ]);
     }
@@ -41,7 +41,9 @@ class UserManagementController extends Controller
 
     public function edit($id)
     {
-        //
+        return Inertia::render('Admin/UserManagement/Edit', [
+            'user' => User::find($id),
+        ]);
     }
 
     public function update(Request $request, $id)

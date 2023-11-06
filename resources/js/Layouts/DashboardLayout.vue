@@ -1,16 +1,29 @@
 <script setup>
 import { nextTick, ref } from "vue";
-import { usePage, Link } from "@inertiajs/vue3";
-import { router } from "@inertiajs/vue3";
+import { usePage, Link, router } from "@inertiajs/vue3";
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { Bars3Icon, HomeIcon, XMarkIcon, UsersIcon } from "@heroicons/vue/24/outline";
 
 //Define variables
 const sidebarOpen = ref(false);
-const navigationItems = [
-    { name: 'Dashboard', href: route('dashboard'), icon: HomeIcon },
-    { name: 'Users', href: route('user-management.index'), icon: UsersIcon },
-];
+const navigationItems = ref([
+    { name: 'Dashboard', href: route('dashboard'), icon: HomeIcon, current: route(usePage().props.currentRouteName) === route('dashboard') },
+    { name: 'Users', href: route('users.index'), icon: UsersIcon, current: route(usePage().props.currentRouteName) === route('users.index') },
+]);
+
+//Define function
+function setActiveNavItem(item) {
+    //Disable previous
+    const previousActiveNavItem = navigationItems.value.find(itemToReset => itemToReset.current);
+    if(previousActiveNavItem) {
+        previousActiveNavItem.current = false;
+    }
+
+    if(item) {
+        //Enable new nav item
+        item.current = true;
+    }
+}
 
 nextTick(() => {
     //Remove data props
@@ -47,8 +60,13 @@ nextTick(() => {
                                         <li>
                                             <ul role="list" class="-mx-2 space-y-1">
                                                 <li v-for="item in navigationItems" :key="item.name">
-                                                    <Link class="transition-colors" :href="item.href" :class="[item.href === route(usePage().props.currentRouteName) ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                                        <component :is="item.icon" :class="[item.href === route(usePage().props.currentRouteName) ? 'text-white' : 'text-indigo-200 group-hover:text-white', 'h-6 w-6 shrink-0']" aria-hidden="true" />
+                                                    <Link
+                                                        class="transition-colors"
+                                                        :href="item.href"
+                                                        :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"
+                                                        @click="setActiveNavItem(item)"
+                                                    >
+                                                        <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-indigo-200 group-hover:text-white', 'h-6 w-6 shrink-0']" aria-hidden="true" />
                                                         {{ item.name }}
                                                     </Link>
                                                 </li>
@@ -75,15 +93,24 @@ nextTick(() => {
                         <li>
                             <ul role="list" class="-mx-2 space-y-1">
                                 <li v-for="item in navigationItems" :key="item.name">
-                                    <Link class="transition-colors" :href="item.href" :class="[item.href === route(usePage().props.currentRouteName) ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']">
-                                        <component :is="item.icon" :class="[item.href === route(usePage().props.currentRouteName) ? 'text-white' : 'text-indigo-200 group-hover:text-white', 'h-6 w-6 shrink-0']" aria-hidden="true" />
+                                    <Link
+                                        class="transition-colors"
+                                        :href="item.href"
+                                        :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"
+                                        @click="setActiveNavItem(item)"
+                                    >
+                                        <component :is="item.icon" :class="[item.current ? 'text-white' : 'text-indigo-200 group-hover:text-white', 'h-6 w-6 shrink-0']" aria-hidden="true" />
                                         {{ item.name }}
                                     </Link>
                                 </li>
                             </ul>
                         </li>
                         <li v-if="usePage().props.auth.user" class="-mx-6 mt-auto">
-                            <Link :href="route('profile.show')" class="flex items-center cursor-pointer gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-indigo-700">
+                            <Link
+                                class="flex items-center cursor-pointer gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-indigo-700"
+                                :href="route('profile.show')"
+                                @click="setActiveNavItem(null)"
+                            >
                                 <img class="h-8 w-8 rounded-full bg-indigo-700" :src="usePage().props.auth.user.profile_photo_url" alt="profile photo" />
                                 <span class="sr-only">Your profile</span>
                                 <span aria-hidden="true">{{ usePage().props.auth.user.full_name }}</span>

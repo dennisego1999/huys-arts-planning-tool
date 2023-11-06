@@ -1,6 +1,6 @@
 <script setup>
 import { ChevronRightIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
-import { useForm } from "@inertiajs/vue3";
+import { Link, useForm } from "@inertiajs/vue3";
 import { debounce } from "lodash";
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
@@ -31,7 +31,7 @@ const submitForm = debounce(() => {
             if (!data[attr]) delete data[attr];
         });
         return data;
-    }).get(route('user-management.index'), {
+    }).get(route('users.index'), {
         preserveScroll: true,
         preserveState: true,
     });
@@ -63,7 +63,11 @@ const submitForm = debounce(() => {
             class="divide-y divide-gray-100 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-md"
             appear
         >
-            <li v-for="(user, index) in users.data" :key="'user-' + index" class="relative cursor-pointer flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6">
+            <li
+                v-for="(user, index) in users.data"
+                :key="'user-' + index"
+                class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6"
+            >
                 <div class="flex min-w-0 gap-x-4">
                     <img v-if="user.profile_photo_url" class="h-12 w-12 flex-none rounded-full bg-gray-50"
                          :src="user.profile_photo_url" alt="profile photo"/>
@@ -79,9 +83,10 @@ const submitForm = debounce(() => {
                     </div>
                 </div>
 
-                <div class="flex shrink-0 items-center gap-x-4">
+                <Link :href="route('users.edit', {user: user})" class="flex shrink-0 items-center gap-1 cursor-pointer">
+                    <p>Edit</p>
                     <ChevronRightIcon class="h-5 w-5 flex-none text-gray-400" aria-hidden="true"/>
-                </div>
+                </Link>
             </li>
         </TransitionGroup>
 
