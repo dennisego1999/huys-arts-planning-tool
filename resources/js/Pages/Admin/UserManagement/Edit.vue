@@ -1,6 +1,7 @@
 <script setup>
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
 import { Link, useForm } from "@inertiajs/vue3";
+import { useClearToast, useShowToast } from "@/Composables/Toastification";
 
 //Define options
 defineOptions({
@@ -26,8 +27,33 @@ const form = useForm({
 //Define functions
 function submitForm() {
     form.put(route('users.update', {user: props.user}), {
+        onSuccess: () => {
+            const successId = 'user-updated-toast';
+
+            useClearToast(successId);
+            useShowToast(
+                null,
+                'User has been updated...',
+                'success',
+                {
+                    id: successId,
+                }
+            );
+        },
         onError: error => {
             console.error(error);
+
+            const errorId = 'user-updated-error-toast';
+
+            useClearToast(errorId);
+            useShowToast(
+                null,
+                'Something went wrong...',
+                'error',
+                {
+                    id: errorId,
+                }
+            );
         }
     });
 }
@@ -52,6 +78,8 @@ function submitForm() {
                             id="first-name"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
+
+                        <small v-if="form.errors.first_name" class="text-red-500">{{ form.errors.first_name }}</small>
                     </div>
                 </div>
 
@@ -65,6 +93,8 @@ function submitForm() {
                             id="last-name"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
+
+                        <small v-if="form.errors.last_name" class="text-red-500">{{ form.errors.last_name }}</small>
                     </div>
                 </div>
 
@@ -78,6 +108,8 @@ function submitForm() {
                             type="email"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
+
+                        <small v-if="form.errors.email" class="text-red-500">{{ form.errors.email }}</small>
                     </div>
                 </div>
 
@@ -91,6 +123,8 @@ function submitForm() {
                             id="street-address"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
+
+                        <small v-if="form.errors.address" class="text-red-500">{{ form.errors.address }}</small>
                     </div>
                 </div>
 
@@ -104,6 +138,8 @@ function submitForm() {
                             id="city"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
+
+                        <small v-if="form.errors.city" class="text-red-500">{{ form.errors.city }}</small>
                     </div>
                 </div>
 
@@ -117,6 +153,8 @@ function submitForm() {
                             id="region"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
+
+                        <small v-if="form.errors.province" class="text-red-500">{{ form.errors.province }}</small>
                     </div>
                 </div>
 
@@ -130,6 +168,8 @@ function submitForm() {
                             id="postal-code"
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
+
+                        <small v-if="form.errors.zip" class="text-red-500">{{ form.errors.zip }}</small>
                     </div>
                 </div>
             </div>

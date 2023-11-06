@@ -52,7 +52,7 @@ class UserManagementController extends Controller
         $formData = $request->validated();
         $userUpdateAction->handle($formData, $user);
 
-        return redirect()->back();
+        return redirect()->route('users.index');
     }
 
     public function destroy($id)
