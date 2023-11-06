@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\UserUpdateAction;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,7 +19,6 @@ class UserManagementController extends Controller
                     ->orWhere('last_name', 'like', $request->input('search') . '%'));
             })
             ->paginate(6);
-
 
         return Inertia::render('Admin/UserManagement/Index', [
             'users' => $users,
@@ -39,16 +40,19 @@ class UserManagementController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
         return Inertia::render('Admin/UserManagement/Edit', [
-            'user' => User::find($id),
+            'user' => $user,
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, UserUpdateAction $userUpdateAction, User $user)
     {
-        //
+        $formData = $request->validated();
+        $userUpdateAction->handle($formData, $user);
+
+        return redirect()->back();
     }
 
     public function destroy($id)

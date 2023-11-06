@@ -1,14 +1,14 @@
 <script setup>
 import { nextTick, ref } from "vue";
-import { usePage, Link, router } from "@inertiajs/vue3";
+import { usePage, Link } from "@inertiajs/vue3";
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { Bars3Icon, HomeIcon, XMarkIcon, UsersIcon } from "@heroicons/vue/24/outline";
 
 //Define variables
 const sidebarOpen = ref(false);
 const navigationItems = ref([
-    { name: 'Dashboard', href: route('dashboard'), icon: HomeIcon, current: route(usePage().props.currentRouteName) === route('dashboard') },
-    { name: 'Users', href: route('users.index'), icon: UsersIcon, current: route(usePage().props.currentRouteName) === route('users.index') },
+    { name: 'Dashboard', href: route('dashboard'), icon: HomeIcon, current: usePage().props.currentRouteName === 'dashboard' },
+    { name: 'Users', href: route('users.index'), icon: UsersIcon, current: usePage().props.currentRouteName === 'users.index' },
 ]);
 
 //Define function
