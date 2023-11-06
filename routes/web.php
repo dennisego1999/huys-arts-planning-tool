@@ -2,10 +2,9 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImpersonateController;
 use App\Http\Controllers\UsersController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,11 +20,16 @@ use Inertia\Inertia;
 Route::get('/', HomeController::class)->name('home');
 
 Route::middleware([
-    'auth:sanctum',
+    'auth:web',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+    Route::impersonate();
+
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
+    Route::post('/impersonate/{user}', ImpersonateController::class)->name('impersonate');
+
     Route::resource('users', UsersController::class)
         ->parameters(['user' => 'user']);
 });

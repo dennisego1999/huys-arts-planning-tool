@@ -14,7 +14,7 @@ class InternalUserSeeder extends Seeder
             'last_name' => 'Ego',
             'email' => 'dennis.ego@artcoresociety.com',
             'password' => 'Arty007*',
-            'roles' => ['admin'],
+            'roles' => ['super_admin'],
         ],
     ];
 

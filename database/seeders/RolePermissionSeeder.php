@@ -10,6 +10,16 @@ class RolePermissionSeeder extends Seeder
 {
     private array $roles = [
         [
+            'name' => 'super_admin',
+            'permissions' => [
+                'impersonate',
+                'manage-users',
+                'manage-classes',
+                'manage-translations',
+                'access-dashboard',
+            ]
+        ],
+        [
             'name' => 'admin',
             'permissions' => [
                 'manage-users',
@@ -21,6 +31,7 @@ class RolePermissionSeeder extends Seeder
         [
             'name' => 'teacher',
             'permissions' => [
+                'manage-classes',
                 'access-dashboard',
             ]
         ],

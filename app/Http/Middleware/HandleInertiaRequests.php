@@ -90,6 +90,7 @@ class HandleInertiaRequests extends Middleware
         return [
             'can' => [
                 'manageUsers' => auth()->check() ? auth()->user()->can('manage-users', User::class) : false,
+                'impersonate' => auth()->check() ? auth()->user()->can('impersonate', User::class) : false,
             ]
         ];
     }
