@@ -1,5 +1,5 @@
 <script setup>
-import { MagnifyingGlassIcon, TrashIcon, PencilIcon, EyeIcon } from "@heroicons/vue/20/solid";
+import { MagnifyingGlassIcon, TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon } from "@heroicons/vue/20/solid";
 import {Link, useForm, usePage} from "@inertiajs/vue3";
 import { debounce } from "lodash";
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
@@ -43,7 +43,7 @@ const submitForm = debounce(() => {
         <div class="flex justify-between items-center flex-1 gap-2 mb-4">
             <form class="w-full" @submit.prevent>
                 <div class="relative">
-                    <MagnifyingGlassIcon class="absolute right-4 top-1/2 -translate-y-1/2 w-6"/>
+                    <MagnifyingGlassIcon class="absolute right-4 top-1/2 -translate-y-1/2 w-6 text-gray-300"/>
 
                     <input
                         v-model="form.search"
@@ -51,7 +51,7 @@ const submitForm = debounce(() => {
                         type="text"
                         name="search"
                         placeholder="Search"
-                        class="w-full rounded-md border-none pl-4 pr-14 py-5 bg-gray-50 focus:ring-0 focus:ring-offset-0 focus:border-none"
+                        class="text-black w-full rounded-md border-none pl-4 pr-14 py-5 bg-gray-50 focus:ring-0 focus:ring-offset-0 focus:border-none"
                     >
                 </div>
             </form>
@@ -91,7 +91,9 @@ const submitForm = debounce(() => {
                         as="button"
                         class="flex shrink-0 items-center gap-1"
                     >
-                        <small>Impersonate</small>
+                        <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
+                            <SparklesIcon class="h-5 w-5 flex-none text-white"/>
+                        </div>
                     </Link>
 
                     <Link
@@ -108,8 +110,8 @@ const submitForm = debounce(() => {
                         :href="route('users.edit', {user: user})"
                         class="flex shrink-0 items-center gap-1"
                     >
-                        <div class="p-2 rounded-md bg-green-400 cursor-pointer">
-                            <PencilIcon class="h-5 w-5 flex-none text-white"/>
+                        <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
+                            <PencilSquareIcon class="h-5 w-5 flex-none text-white"/>
                         </div>
                     </Link>
 

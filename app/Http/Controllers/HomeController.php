@@ -9,6 +9,7 @@ class HomeController extends Controller
 {
     public function __invoke(Request $request)
     {
-        return Inertia::render('Home');
+        //Redirect to dashboard
+        return redirect()->route('dashboard');
     }
 }
