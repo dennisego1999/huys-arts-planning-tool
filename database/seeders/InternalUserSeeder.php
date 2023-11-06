@@ -25,10 +25,10 @@ class InternalUserSeeder extends Seeder
      */
     public function run()
     {
-        $this->createDefaultUser();
+        $this->createUsers();
     }
 
-    private function createDefaultUser(): void
+    private function createUsers(): void
     {
         foreach ($this->users as $user) {
             // Skip if the user already exists
@@ -39,6 +39,8 @@ class InternalUserSeeder extends Seeder
             // Create the user
             $this->createUser($user);
         }
+
+        User::factory(20)->create();
     }
 
     private function createUser(array $user): void
