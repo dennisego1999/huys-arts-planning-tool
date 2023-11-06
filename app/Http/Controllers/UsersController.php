@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\UserDestroyAction;
 use App\Actions\UserUpdateAction;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class UserManagementController extends Controller
+class UsersController extends Controller
 {
     public function index(Request $request)
     {
@@ -20,7 +21,7 @@ class UserManagementController extends Controller
             })
             ->paginate(6);
 
-        return Inertia::render('Admin/UserManagement/Index', [
+        return Inertia::render('Admin/Users/Index', [
             'users' => $users,
         ]);
     }
@@ -35,14 +36,16 @@ class UserManagementController extends Controller
         //
     }
 
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return Inertia::render('Admin/Users/Show', [
+            'user' => $user
+        ]);
     }
 
     public function edit(User $user)
     {
-        return Inertia::render('Admin/UserManagement/Edit', [
+        return Inertia::render('Admin/Users/Edit', [
             'user' => $user,
         ]);
     }
@@ -55,8 +58,12 @@ class UserManagementController extends Controller
         return redirect()->route('users.index');
     }
 
-    public function destroy($id)
+    public function destroy(UserDestroyAction $userDestroyAction, User $user)
     {
-        //
+        $this->authorize('manage-users', User::class);
+
+        $userDestroyAction->handle($user);
+
+        return redirect()->back();
     }
 }

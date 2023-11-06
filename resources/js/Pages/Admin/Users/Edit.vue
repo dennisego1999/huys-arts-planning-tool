@@ -42,7 +42,6 @@ function submitForm() {
         },
         onError: error => {
             console.error(error);
-
             const errorId = 'user-updated-error-toast';
 
             useClearToast(errorId);

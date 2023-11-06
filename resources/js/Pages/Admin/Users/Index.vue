@@ -1,5 +1,5 @@
 <script setup>
-import { ChevronRightIcon, MagnifyingGlassIcon } from "@heroicons/vue/20/solid";
+import { MagnifyingGlassIcon, TrashIcon, PencilIcon, EyeIcon } from "@heroicons/vue/20/solid";
 import { Link, useForm } from "@inertiajs/vue3";
 import { debounce } from "lodash";
 import DashboardLayout from "@/Layouts/DashboardLayout.vue";
@@ -83,10 +83,25 @@ const submitForm = debounce(() => {
                     </div>
                 </div>
 
-                <Link :href="route('users.edit', {user: user})" class="flex shrink-0 items-center gap-1 cursor-pointer">
-                    <p>Edit</p>
-                    <ChevronRightIcon class="h-5 w-5 flex-none text-gray-400" aria-hidden="true"/>
-                </Link>
+                <div class="flex justify-between items-center gap-2">
+                    <Link :href="route('users.show', {user: user})" class="flex shrink-0 items-center gap-1">
+                        <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
+                            <EyeIcon class="h-5 w-5 flex-none text-white"/>
+                        </div>
+                    </Link>
+
+                    <Link :href="route('users.edit', {user: user})" class="flex shrink-0 items-center gap-1">
+                        <div class="p-2 rounded-md bg-green-400 cursor-pointer">
+                            <PencilIcon class="h-5 w-5 flex-none text-white"/>
+                        </div>
+                    </Link>
+
+                    <Link :href="route('users.destroy', {user: user})" method="delete" as="button" class="flex shrink-0 items-center gap-1">
+                        <div class="p-2 rounded-md bg-red-400 cursor-pointer">
+                            <TrashIcon class="h-5 w-5 flex-none text-white"/>
+                        </div>
+                    </Link>
+                </div>
             </li>
         </TransitionGroup>
 

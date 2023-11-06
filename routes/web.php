@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +26,6 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
-    Route::resource('users', UserManagementController::class)
-        ->only('index', 'create', 'store', 'destroy', 'edit', 'update')
+    Route::resource('users', UsersController::class)
         ->parameters(['user' => 'user']);
 });
