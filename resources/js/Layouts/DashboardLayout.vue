@@ -1,10 +1,12 @@
 <script setup>
 import { nextTick, ref } from "vue";
-import { usePage, Link } from "@inertiajs/vue3";
+import { usePage, Link, router } from "@inertiajs/vue3";
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
 import { Bars3Icon, HomeIcon, XMarkIcon, UsersIcon } from "@heroicons/vue/24/outline";
+import NavigationDropdown from "@/Components/NavigationDropdown.vue";
 
 //Define variables
+const isNavigationDropdownOpen = ref(false);
 const sidebarOpen = ref(false);
 const navigationItems = ref([
     {
@@ -37,6 +39,25 @@ function setActiveNavItem(item) {
     }
 }
 
+function toggleNavigationDropdown() {
+    isNavigationDropdownOpen.value = !isNavigationDropdownOpen.value;
+}
+
+function closeNavigationDropdown() {
+    isNavigationDropdownOpen.value = false;
+}
+
+function openProfile() {
+    //Set active item
+    setActiveNavItem(null);
+
+    //Close dropdown
+    closeNavigationDropdown();
+
+    //Got to profile
+    router.visit(route('profile.show'));
+}
+
 nextTick(() => {
     //Remove data props
     document.getElementById('app').removeAttribute('data-page');
@@ -67,6 +88,7 @@ nextTick(() => {
                                 <div class="flex h-16 shrink-0 items-center">
                                     <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="Your Company" />
                                 </div>
+
                                 <nav class="flex flex-1 flex-col">
                                     <ul role="list" class="flex flex-1 flex-col gap-y-7">
                                         <li>
@@ -120,15 +142,21 @@ nextTick(() => {
                             </ul>
                         </li>
                         <li v-if="usePage().props.auth.user" class="-mx-6 mt-auto">
-                            <Link
+                            <Transition name="fade">
+                                <NavigationDropdown
+                                    v-if="isNavigationDropdownOpen"
+                                    @openProfile="openProfile"
+                                />
+                            </Transition>
+
+                            <div
+                                @click="toggleNavigationDropdown"
                                 class="flex items-center cursor-pointer gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-indigo-700"
-                                :href="route('profile.show')"
-                                @click="setActiveNavItem(null)"
                             >
                                 <img class="h-8 w-8 rounded-full bg-indigo-700" :src="usePage().props.auth.user.profile_photo_url" alt="profile photo" />
                                 <span class="sr-only">Your profile</span>
                                 <span aria-hidden="true">{{ usePage().props.auth.user.full_name }}</span>
-                            </Link>
+                            </div>
                         </li>
                     </ul>
                 </nav>
