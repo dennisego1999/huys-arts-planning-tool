@@ -1,10 +1,8 @@
 <script setup>
-
 defineProps({
     title: String,
     text: String
 });
-
 </script>
 
 <template>

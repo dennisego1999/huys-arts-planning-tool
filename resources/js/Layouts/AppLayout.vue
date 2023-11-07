@@ -1,8 +1,8 @@
 <script setup>
-import { nextTick, ref } from "vue";
-import { usePage, Link, router } from "@inertiajs/vue3";
-import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
-import { Bars3Icon, HomeIcon, XMarkIcon, UsersIcon } from "@heroicons/vue/24/outline";
+import {nextTick, ref} from "vue";
+import {usePage, Link, router} from "@inertiajs/vue3";
+import {Dialog, DialogPanel, TransitionChild, TransitionRoot} from "@headlessui/vue";
+import {Bars3Icon, HomeIcon, XMarkIcon, UsersIcon} from "@heroicons/vue/24/outline";
 import NavigationDropdown from "@/Components/NavigationDropdown.vue";
 
 //Define variables

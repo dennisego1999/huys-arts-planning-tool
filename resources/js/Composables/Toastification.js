@@ -1,6 +1,6 @@
-import Toastification from '@/Components/Toastification.vue';
-import {useToast} from 'vue-toastification';
-import {nextTick} from 'vue';
+import Toastification from "@/Components/Toastification.vue";
+import {useToast} from "vue-toastification";
+import {nextTick} from "vue";
 
 //Create toast instance
 const toastPopup = useToast();

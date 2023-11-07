@@ -1,7 +1,7 @@
 <script setup>
-import { MagnifyingGlassIcon, TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon } from "@heroicons/vue/20/solid";
+import {MagnifyingGlassIcon, TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon} from "@heroicons/vue/20/solid";
 import {Link, useForm, usePage} from "@inertiajs/vue3";
-import { debounce } from "lodash";
+import {debounce} from "lodash";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 
