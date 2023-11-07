@@ -1,7 +1,8 @@
 <script setup>
+import {useI18n} from "vue-i18n";
+import {debounce} from "lodash";
 import {MagnifyingGlassIcon, TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon, PlusCircleIcon} from "@heroicons/vue/20/solid";
 import {Link, router, useForm, usePage} from "@inertiajs/vue3";
-import {debounce} from "lodash";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 
@@ -14,6 +15,9 @@ defineOptions({
 const props = defineProps({
     users: Object,
 });
+
+//Set translation
+const {t} = useI18n();
 
 //Get url params
 const queryString = window.location.search;
@@ -50,7 +54,7 @@ const submitForm = debounce(() => {
                         @input="submitForm"
                         type="text"
                         name="search"
-                        placeholder="Search"
+                        :placeholder="t('spa.pages.dashboard.search')"
                         class="drop-shadow-lg text-black w-full rounded-md border-none pl-4 pr-14 py-5 bg-gray-50 focus:ring-0 focus:ring-offset-0 focus:border-none"
                     >
                 </div>
@@ -92,7 +96,7 @@ const submitForm = debounce(() => {
 
                 <div class="flex justify-between items-center gap-12">
                     <div class="flex flex-col gap-2 justify-start items-center">
-                        <p class="text-bases">Status</p>
+                        <p class="text-bases">{{ t('spa.pages.dashboard.status') }}</p>
 
                         <div
                             v-if="!!user.email_verified_at"

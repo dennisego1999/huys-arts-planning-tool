@@ -1,10 +1,13 @@
 <script setup>
-import AppLayout from "@/Layouts/AppLayout.vue";
-import {Link, useForm} from "@inertiajs/vue3";
+import {useI18n} from "vue-i18n";
+import {useForm} from "@inertiajs/vue3";
 import {useClearToast, useShowToast} from "@/Composables/Toastification";
+import AppLayout from "@/Layouts/AppLayout.vue";
 import InputError from "@/Components/InputError.vue";
-import PrimaryButton from "../../Components/PrimaryButton.vue";
-import SecondaryButton from "../../Components/SecondaryButton.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import InputLabel from "@/Components/InputLabel.vue";
 
 //Define options
 defineOptions({
@@ -15,6 +18,9 @@ defineOptions({
 const props = defineProps({
     user: Object
 });
+
+//Set translation
+const {t} = useI18n();
 
 //Define variables
 const form = useForm({
@@ -64,115 +70,103 @@ function submitForm() {
 <template>
     <form @submit.prevent>
         <div class="flex flex-col gap-8">
-            <div>
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Profile</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-600">This information will be displayed publicly so be careful what you share.</p>
-            </div>
-
             <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 md:col-span-2">
                 <div class="sm:col-span-3">
-                    <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name</label>
-                    <div class="mt-2">
-                        <input
-                            v-model="form.first_name"
-                            type="text"
-                            name="first-name"
-                            id="first-name"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
+                    <InputLabel for="first-name" :value="t('spa.pages.users.form.first_name')"/>
 
-                        <InputError :message="form.errors.first_name" class="mt-2" />
-                    </div>
+                    <TextInput
+                        v-model="form.first_name"
+                        type="text"
+                        name="first-name"
+                        id="first-name"
+                        class="mt-1 block w-full"
+                    />
+
+                    <InputError :message="form.errors.first_name" class="mt-2" />
                 </div>
 
                 <div class="sm:col-span-3">
-                    <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name</label>
-                    <div class="mt-2">
-                        <input
-                            v-model="form.last_name"
-                            type="text"
-                            name="last-name"
-                            id="last-name"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
+                    <InputLabel for="last-name" :value="t('spa.pages.users.form.last_name')"/>
 
-                        <InputError :message="form.errors.last_name" class="mt-2" />
-                    </div>
+                    <TextInput
+                        v-model="form.last_name"
+                        type="text"
+                        name="last-name"
+                        id="last-name"
+                        class="mt-1 block w-full"
+                    />
+
+                    <InputError :message="form.errors.last_name" class="mt-2" />
                 </div>
 
                 <div class="sm:col-span-4">
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
-                    <div class="mt-2">
-                        <input
-                            v-model="form.email"
-                            id="email"
-                            name="email"
-                            type="email"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
+                    <InputLabel for="email" :value="t('spa.pages.users.form.email')"/>
 
-                        <InputError :message="form.errors.email" class="mt-2" />
-                    </div>
+                    <TextInput
+                        v-model="form.email"
+                        type="text"
+                        name="email"
+                        id="email"
+                        class="mt-1 block w-full"
+                    />
+
+                    <InputError :message="form.errors.email" class="mt-2" />
                 </div>
 
                 <div class="col-span-full">
-                    <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">Street address</label>
-                    <div class="mt-2">
-                        <input
-                            v-model="form.address"
-                            type="text"
-                            name="street-address"
-                            id="street-address"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
+                    <InputLabel for="street-address" :value="t('spa.pages.users.form.address')"/>
 
-                        <InputError :message="form.errors.address" class="mt-2" />
-                    </div>
+                    <TextInput
+                        v-model="form.address"
+                        type="text"
+                        name="street-address"
+                        id="street-address"
+                        class="mt-1 block w-full"
+                    />
+
+                    <InputError :message="form.errors.address" class="mt-2" />
                 </div>
 
                 <div class="sm:col-span-2 sm:col-start-1">
-                    <label for="city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
-                    <div class="mt-2">
-                        <input
-                            v-model="form.city"
-                            type="text"
-                            name="city"
-                            id="city"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
+                    <InputLabel for="city" :value="t('spa.pages.users.form.city')"/>
 
-                        <InputError :message="form.errors.city" class="mt-2" />
-                    </div>
+                    <TextInput
+                        v-model="form.city"
+                        type="text"
+                        name="city"
+                        id="city"
+                        class="mt-1 block w-full"
+                    />
+
+                    <InputError :message="form.errors.city" class="mt-2" />
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label for="region" class="block text-sm font-medium leading-6 text-gray-900">State / Province</label>
-                    <div class="mt-2">
-                        <input
-                            v-model="form.province"
-                            type="text"
-                            name="region"
-                            id="region"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
+                    <InputLabel for="province" :value="t('spa.pages.users.form.province')"/>
 
-                        <InputError :message="form.errors.province" class="mt-2" />
-                    </div>
+                    <TextInput
+                        v-model="form.province"
+                        type="text"
+                        name="province"
+                        id="province"
+                        class="mt-1 block w-full"
+                    />
+
+                    <InputError :message="form.errors.province" class="mt-2" />
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label for="postal-code" class="block text-sm font-medium leading-6 text-gray-900">ZIP / Postal code</label>
-                    <div class="mt-2">
-                        <input
-                            v-model="form.zip"
-                            type="text"
-                            name="postal-code"
-                            id="postal-code"
-                            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
+                    <InputLabel for="zip" :value="t('spa.pages.users.form.zip')"/>
 
-                        <InputError :message="form.errors.zip" class="mt-2" />
-                    </div>
+                    <TextInput
+                        v-model="form.zip"
+                        type="text"
+                        name="zip"
+                        id="zip"
+                        class="mt-1 block w-full"
+                    />
+
+                    <InputError :message="form.errors.zip" class="mt-2" />
                 </div>
             </div>
         </div>

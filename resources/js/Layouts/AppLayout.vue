@@ -1,30 +1,34 @@
 <script setup>
+import {useI18n} from "vue-i18n";
 import {nextTick, ref} from "vue";
 import {usePage, Link, router} from "@inertiajs/vue3";
 import {Dialog, DialogPanel, TransitionChild, TransitionRoot} from "@headlessui/vue";
 import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon} from "@heroicons/vue/24/outline";
 import NavigationDropdown from "@/Components/NavigationDropdown.vue";
 
+//Set translation
+const {t} = useI18n();
+
 //Define variables
 const isNavigationDropdownOpen = ref(false);
 const sidebarOpen = ref(false);
 const navigationItems = ref([
     {
-        name: 'Dashboard',
+        name: t('spa.pages.dashboard.label'),
         href: route('dashboard'),
         icon: HomeIcon,
         check: !!usePage().props.auth.user.email_verified_at,
         current: usePage().props.currentRouteName === 'dashboard'
     },
     {
-        name: 'Users',
+        name: t('spa.pages.users.label'),
         href: route('users.index'),
         icon: UserIcon,
         check: !!usePage().props.auth.user.email_verified_at,
         current: usePage().props.currentRouteName === 'users.index'
     },
     {
-        name: 'Dance groups',
+        name: t('spa.pages.dance_groups.label'),
         href: route('dance-groups.index'),
         icon: UserGroupIcon,
         check: !!usePage().props.auth.user.email_verified_at,
