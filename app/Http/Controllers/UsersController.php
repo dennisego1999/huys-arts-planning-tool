@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\UserCreateAction;
 use App\Actions\UserDestroyAction;
 use App\Actions\UserUpdateAction;
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,12 +30,15 @@ class UsersController extends Controller
 
     public function create()
     {
-        //
+        return Inertia::render('Users/Create');
     }
 
-    public function store(Request $request)
+    public function store(CreateUserRequest $request, UserCreateAction $userCreateAction)
     {
-        //
+        $formData = $request->validated();
+        $userCreateAction->handle($formData);
+
+        return redirect()->route('users.index');
     }
 
     public function show(User $user)

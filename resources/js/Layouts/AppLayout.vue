@@ -2,7 +2,7 @@
 import {nextTick, ref} from "vue";
 import {usePage, Link, router} from "@inertiajs/vue3";
 import {Dialog, DialogPanel, TransitionChild, TransitionRoot} from "@headlessui/vue";
-import {Bars3Icon, HomeIcon, XMarkIcon, UsersIcon} from "@heroicons/vue/24/outline";
+import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon} from "@heroicons/vue/24/outline";
 import NavigationDropdown from "@/Components/NavigationDropdown.vue";
 
 //Define variables
@@ -13,15 +13,19 @@ const navigationItems = ref([
         name: 'Dashboard',
         href: route('dashboard'),
         icon: HomeIcon,
-        check: true,
         current: usePage().props.currentRouteName === 'dashboard'
     },
     {
         name: 'Users',
         href: route('users.index'),
-        icon: UsersIcon,
-        check: usePage().props.policies.can.manageUsers,
+        icon: UserIcon,
         current: usePage().props.currentRouteName === 'users.index'
+    },
+    {
+        name: 'Dance groups',
+        href: route('dance-groups.index'),
+        icon: UserGroupIcon,
+        current: usePage().props.currentRouteName === 'dance-groups.index'
     },
 ]);
 
@@ -95,7 +99,6 @@ nextTick(() => {
                                             <ul role="list" class="-mx-2 space-y-1">
                                                 <li v-for="item in navigationItems" :key="item.name">
                                                     <Link
-                                                        v-if="item.check"
                                                         class="transition-colors"
                                                         :href="item.href"
                                                         :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"
@@ -129,7 +132,6 @@ nextTick(() => {
                             <ul role="list" class="-mx-2 space-y-1">
                                 <li v-for="item in navigationItems" :key="item.name">
                                     <Link
-                                        v-if="item.check"
                                         class="transition-colors"
                                         :href="item.href"
                                         :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"

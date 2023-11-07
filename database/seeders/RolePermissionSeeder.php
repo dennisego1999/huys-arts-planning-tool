@@ -14,7 +14,8 @@ class RolePermissionSeeder extends Seeder
             'permissions' => [
                 'impersonate',
                 'manage-users',
-                'manage-classes',
+                'manage-dance-groups',
+                'manage-dance-lessons',
                 'manage-translations',
                 'access-dashboard',
             ]
@@ -23,7 +24,8 @@ class RolePermissionSeeder extends Seeder
             'name' => 'admin',
             'permissions' => [
                 'manage-users',
-                'manage-classes',
+                'manage-dance-groups',
+                'manage-dance-lessons',
                 'manage-translations',
                 'access-dashboard',
             ]
@@ -31,7 +33,8 @@ class RolePermissionSeeder extends Seeder
         [
             'name' => 'teacher',
             'permissions' => [
-                'manage-classes',
+                'manage-dance-groups',
+                'manage-dance-lessons',
                 'access-dashboard',
             ]
         ],

@@ -2,6 +2,9 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 import {Link, useForm} from "@inertiajs/vue3";
 import {useClearToast, useShowToast} from "@/Composables/Toastification";
+import InputError from "@/Components/InputError.vue";
+import PrimaryButton from "../../Components/PrimaryButton.vue";
+import SecondaryButton from "../../Components/SecondaryButton.vue";
 
 //Define options
 defineOptions({
@@ -78,7 +81,7 @@ function submitForm() {
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
 
-                        <small v-if="form.errors.first_name" class="text-red-500">{{ form.errors.first_name }}</small>
+                        <InputError :message="form.errors.first_name" class="mt-2" />
                     </div>
                 </div>
 
@@ -93,7 +96,7 @@ function submitForm() {
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
 
-                        <small v-if="form.errors.last_name" class="text-red-500">{{ form.errors.last_name }}</small>
+                        <InputError :message="form.errors.last_name" class="mt-2" />
                     </div>
                 </div>
 
@@ -108,7 +111,7 @@ function submitForm() {
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
 
-                        <small v-if="form.errors.email" class="text-red-500">{{ form.errors.email }}</small>
+                        <InputError :message="form.errors.email" class="mt-2" />
                     </div>
                 </div>
 
@@ -123,7 +126,7 @@ function submitForm() {
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
 
-                        <small v-if="form.errors.address" class="text-red-500">{{ form.errors.address }}</small>
+                        <InputError :message="form.errors.address" class="mt-2" />
                     </div>
                 </div>
 
@@ -138,7 +141,7 @@ function submitForm() {
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
 
-                        <small v-if="form.errors.city" class="text-red-500">{{ form.errors.city }}</small>
+                        <InputError :message="form.errors.city" class="mt-2" />
                     </div>
                 </div>
 
@@ -153,7 +156,7 @@ function submitForm() {
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
 
-                        <small v-if="form.errors.province" class="text-red-500">{{ form.errors.province }}</small>
+                        <InputError :message="form.errors.province" class="mt-2" />
                     </div>
                 </div>
 
@@ -168,23 +171,20 @@ function submitForm() {
                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
 
-                        <small v-if="form.errors.zip" class="text-red-500">{{ form.errors.zip }}</small>
+                        <InputError :message="form.errors.zip" class="mt-2" />
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="mt-6 flex items-center justify-start gap-x-6">
-            <Link :href="route('users.index')" class="text-sm font-semibold leading-6 text-gray-900">
+            <SecondaryButton :href="route('users.index')">
                 Cancel
-            </Link>
+            </SecondaryButton>
 
-            <button
-                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                @click="submitForm"
-            >
+            <PrimaryButton @click="submitForm">
                 Save
-            </button>
+            </PrimaryButton>
         </div>
     </form>
 </template>

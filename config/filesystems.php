@@ -45,9 +45,9 @@ return [
         ],
 
         'assets' => [
-            'driver' => 'local',
-            'root' => storage_path('app/custom/assets'),
-            'visibility' => 'private',
+            'driver' => 'scoped',
+            'disk' => 'public',
+            'prefix' => 'assets',
         ],
 
         's3' => [

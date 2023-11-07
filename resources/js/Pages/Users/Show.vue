@@ -1,6 +1,6 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import {Link} from "@inertiajs/vue3";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 //Define options
 defineOptions({
@@ -123,9 +123,9 @@ const props = defineProps({
         </div>
 
         <div class="mt-6 flex items-center justify-start gap-x-6">
-            <Link :href="route('users.index')" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+            <PrimaryButton :href="route('users.index')">
                 Go back
-            </Link>
+            </PrimaryButton>
         </div>
     </form>
 </template>

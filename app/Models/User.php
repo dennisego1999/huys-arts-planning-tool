@@ -23,6 +23,12 @@ class User extends Authenticatable
     use HasRoles;
     use Impersonate;
 
+    /*
+    |--------------------------------------------------------------------------
+    | GLOBAL VARIABLES
+    |--------------------------------------------------------------------------
+    */
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -50,10 +56,29 @@ class User extends Authenticatable
         'full_name',
     ];
 
-    public function canBeImpersonated()
-    {
-        return true;
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | FUNCTIONS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS
+    |--------------------------------------------------------------------------
+    */
 
     public function getFullNameAttribute(): string
     {
@@ -63,5 +88,10 @@ class User extends Authenticatable
     protected function defaultProfilePhotoUrl(): string
     {
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->full_name) . '&color=569FB2&background=EBF4FF';
+    }
+
+    public function canBeImpersonated()
+    {
+        return true;
     }
 }

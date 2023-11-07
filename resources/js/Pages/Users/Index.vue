@@ -4,6 +4,7 @@ import {Link, useForm, usePage} from "@inertiajs/vue3";
 import {debounce} from "lodash";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 //Define options
 defineOptions({
@@ -40,7 +41,7 @@ const submitForm = debounce(() => {
 
 <template>
     <div>
-        <div class="flex justify-between items-center flex-1 gap-2 mb-4">
+        <div class="flex justify-between items-center flex-1 gap-2">
             <form class="w-full" @submit.prevent>
                 <div class="relative">
                     <MagnifyingGlassIcon class="absolute z-10 right-4 top-1/2 -translate-y-1/2 w-6 text-gray-300"/>
@@ -57,7 +58,14 @@ const submitForm = debounce(() => {
             </form>
         </div>
 
+        <div v-if="usePage().props.policies.can.manageUsers" class="flex justify-end items-center w-full h-fit my-4">
+            <PrimaryButton :href="route('users.create')">
+                Create new user
+            </PrimaryButton>
+        </div>
+
         <TransitionGroup
+            v-if="users.data && users.data.length > 0"
             tag="ul"
             name="list"
             class="relative z-0 divide-y divide-gray-100 overflow-hidden bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-md"
@@ -66,7 +74,7 @@ const submitForm = debounce(() => {
             <li
                 v-for="(user, index) in users.data"
                 :key="'user-' + index"
-                class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6"
+                class="relative flex justify-between items-center gap-x-6 px-4 py-5 hover:bg-gray-50 sm:px-6"
             >
                 <div class="flex min-w-0 gap-x-4">
                     <img v-if="user.profile_photo_url" class="h-12 w-12 flex-none rounded-full bg-gray-50"
@@ -83,52 +91,74 @@ const submitForm = debounce(() => {
                     </div>
                 </div>
 
-                <div class="flex justify-between items-center gap-2">
-                    <Link
-                        v-if="usePage().props.policies.can.impersonate"
-                        :href="route('impersonate', {user: user})"
-                        method="post"
-                        as="button"
-                        class="flex shrink-0 items-center gap-1"
-                    >
-                        <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
-                            <SparklesIcon class="h-5 w-5 flex-none text-white"/>
-                        </div>
-                    </Link>
+                <div class="flex justify-between items-center gap-12">
+                    <div class="flex flex-col gap-2 justify-start items-center">
+                        <p>Status</p>
 
-                    <Link
-                        :href="route('users.show', {user: user})"
-                        class="flex shrink-0 items-center gap-1"
-                    >
-                        <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
-                            <EyeIcon class="h-5 w-5 flex-none text-white"/>
+                        <div
+                            v-if="!!user.email_verified_at"
+                            class="p-1 rounded-md bg-green-400"
+                        >
+                            <small class="font-bold text-white">Verified</small>
                         </div>
-                    </Link>
 
-                    <Link
-                        v-if="usePage().props.policies.can.manageUsers"
-                        :href="route('users.edit', {user: user})"
-                        class="flex shrink-0 items-center gap-1"
-                    >
-                        <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
-                            <PencilSquareIcon class="h-5 w-5 flex-none text-white"/>
+                        <div
+                            v-else
+                            class="p-1 rounded-md bg-blue-400"
+                        >
+                            <small class="font-bold text-white">Registered</small>
                         </div>
-                    </Link>
+                    </div>
 
-                    <Link
-                        v-if="usePage().props.policies.can.manageUsers"
-                        :href="route('users.destroy', {user: user})"
-                        method="delete"
-                        as="button"
-                        class="flex shrink-0 items-center gap-1"
-                    >
-                        <div class="p-2 rounded-md bg-red-400 cursor-pointer">
-                            <TrashIcon class="h-5 w-5 flex-none text-white"/>
-                        </div>
-                    </Link>
+                    <div class="flex justify-between items-center gap-2">
+                        <Link
+                            v-if="usePage().props.policies.can.impersonate"
+                            :href="route('impersonate', {user: user})"
+                            method="post"
+                            as="button"
+                            class="flex shrink-0 items-center gap-1"
+                        >
+                            <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
+                                <SparklesIcon class="h-5 w-5 flex-none text-white"/>
+                            </div>
+                        </Link>
+
+                        <Link
+                            :href="route('users.show', {user: user})"
+                            class="flex shrink-0 items-center gap-1"
+                        >
+                            <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
+                                <EyeIcon class="h-5 w-5 flex-none text-white"/>
+                            </div>
+                        </Link>
+
+                        <Link
+                            v-if="usePage().props.policies.can.manageUsers"
+                            :href="route('users.edit', {user: user})"
+                            class="flex shrink-0 items-center gap-1"
+                        >
+                            <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
+                                <PencilSquareIcon class="h-5 w-5 flex-none text-white"/>
+                            </div>
+                        </Link>
+
+                        <Link
+                            v-if="usePage().props.policies.can.manageUsers"
+                            :href="route('users.destroy', {user: user})"
+                            method="delete"
+                            as="button"
+                            class="flex shrink-0 items-center gap-1"
+                        >
+                            <div class="p-2 rounded-md bg-red-400 cursor-pointer">
+                                <TrashIcon class="h-5 w-5 flex-none text-white"/>
+                            </div>
+                        </Link>
+                    </div>
                 </div>
             </li>
         </TransitionGroup>
+
+        <p v-else>No users found...</p>
 
         <Pagination v-if="users.data.length !== 0" :links="users.links"/>
     </div>

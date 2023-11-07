@@ -7,8 +7,6 @@ use Spatie\Permission\Traits\HasPermissions;
 
 class Role extends SpatieRole
 {
-
-
     /*
     |--------------------------------------------------------------------------
     | GLOBAL VARIABLES
