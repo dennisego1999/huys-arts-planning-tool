@@ -13,7 +13,7 @@ class DanceGroupsController extends Controller
 {
     public function index()
     {
-        return Inertia::render('DanceGroups/Index', [
+        return Inertia::render('Dashboard/DanceGroups/Index', [
             'groups' => DanceGroupResource::collection(DanceGroup::all()),
         ]);
     }
@@ -30,14 +30,14 @@ class DanceGroupsController extends Controller
 
     public function show(DanceGroup $danceGroup)
     {
-        return Inertia::render('DanceGroups/Show', [
+        return Inertia::render('Dashboard/DanceGroups/Show', [
             'group' => new DanceGroupResource($danceGroup),
         ]);
     }
 
     public function edit(DanceGroup $danceGroup)
     {
-        return Inertia::render('DanceGroups/Edit', [
+        return Inertia::render('Dashboard/DanceGroups/Edit', [
             'group' => new DanceGroupResource($danceGroup),
         ]);
     }
