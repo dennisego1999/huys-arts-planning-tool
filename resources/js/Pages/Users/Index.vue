@@ -1,10 +1,9 @@
 <script setup>
-import {MagnifyingGlassIcon, TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon} from "@heroicons/vue/20/solid";
-import {Link, useForm, usePage} from "@inertiajs/vue3";
+import {MagnifyingGlassIcon, TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon, PlusCircleIcon} from "@heroicons/vue/20/solid";
+import {Link, router, useForm, usePage} from "@inertiajs/vue3";
 import {debounce} from "lodash";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 //Define options
 defineOptions({
@@ -41,13 +40,7 @@ const submitForm = debounce(() => {
 
 <template>
     <div>
-        <div v-if="usePage().props.policies.can.manageUsers" class="flex justify-end items-center w-full h-fit">
-            <PrimaryButton :href="route('users.create')">
-                Create new user
-            </PrimaryButton>
-        </div>
-
-        <div class="flex justify-between items-center flex-1 gap-2 my-4">
+        <div class="flex justify-between items-center flex-1 gap-6 mb-4">
             <form class="w-full" @submit.prevent>
                 <div class="relative">
                     <MagnifyingGlassIcon class="absolute z-10 right-4 top-1/2 -translate-y-1/2 w-6 text-gray-300"/>
@@ -62,6 +55,12 @@ const submitForm = debounce(() => {
                     >
                 </div>
             </form>
+
+            <PlusCircleIcon
+                v-if="usePage().props.policies.can.manageUsers"
+                @click="router.visit(route('users.create'))"
+                class="text-gray-600 h-12 w-12 rounded-full overflow-hidden cursor-pointer"
+            />
         </div>
 
         <TransitionGroup

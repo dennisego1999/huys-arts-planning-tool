@@ -103,7 +103,7 @@ nextTick(() => {
                                                 <li v-for="item in navigationItems" :key="item.name">
                                                     <Link
                                                         v-if="item.check"
-                                                        class="transition-colors"
+                                                        class="transition-colors cursor-pointer"
                                                         :href="item.href"
                                                         :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"
                                                         @click="setActiveNavItem(item)"
@@ -137,7 +137,7 @@ nextTick(() => {
                                 <li v-for="item in navigationItems" :key="item.name">
                                     <Link
                                         v-if="item.check"
-                                        class="transition-colors"
+                                        class="transition-colors cursor-pointer"
                                         :href="item.href"
                                         :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"
                                         @click="setActiveNavItem(item)"
