@@ -41,7 +41,13 @@ const submitForm = debounce(() => {
 
 <template>
     <div>
-        <div class="flex justify-between items-center flex-1 gap-2">
+        <div v-if="usePage().props.policies.can.manageUsers" class="flex justify-end items-center w-full h-fit">
+            <PrimaryButton :href="route('users.create')">
+                Create new user
+            </PrimaryButton>
+        </div>
+
+        <div class="flex justify-between items-center flex-1 gap-2 my-4">
             <form class="w-full" @submit.prevent>
                 <div class="relative">
                     <MagnifyingGlassIcon class="absolute z-10 right-4 top-1/2 -translate-y-1/2 w-6 text-gray-300"/>
@@ -56,12 +62,6 @@ const submitForm = debounce(() => {
                     >
                 </div>
             </form>
-        </div>
-
-        <div v-if="usePage().props.policies.can.manageUsers" class="flex justify-end items-center w-full h-fit my-4">
-            <PrimaryButton :href="route('users.create')">
-                Create new user
-            </PrimaryButton>
         </div>
 
         <TransitionGroup
@@ -93,18 +93,18 @@ const submitForm = debounce(() => {
 
                 <div class="flex justify-between items-center gap-12">
                     <div class="flex flex-col gap-2 justify-start items-center">
-                        <p>Status</p>
+                        <p class="text-bases">Status</p>
 
                         <div
                             v-if="!!user.email_verified_at"
-                            class="p-1 rounded-md bg-green-400"
+                            class="p-1 rounded-md bg-green-400 pointer-events-none"
                         >
                             <small class="font-bold text-white">Verified</small>
                         </div>
 
                         <div
                             v-else
-                            class="p-1 rounded-md bg-blue-400"
+                            class="p-1 rounded-md bg-blue-400 pointer-events-none"
                         >
                             <small class="font-bold text-white">Registered</small>
                         </div>

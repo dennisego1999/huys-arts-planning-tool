@@ -13,18 +13,21 @@ const navigationItems = ref([
         name: 'Dashboard',
         href: route('dashboard'),
         icon: HomeIcon,
+        check: !!usePage().props.auth.user.email_verified_at,
         current: usePage().props.currentRouteName === 'dashboard'
     },
     {
         name: 'Users',
         href: route('users.index'),
         icon: UserIcon,
+        check: !!usePage().props.auth.user.email_verified_at,
         current: usePage().props.currentRouteName === 'users.index'
     },
     {
         name: 'Dance groups',
         href: route('dance-groups.index'),
         icon: UserGroupIcon,
+        check: !!usePage().props.auth.user.email_verified_at,
         current: usePage().props.currentRouteName === 'dance-groups.index'
     },
 ]);
@@ -99,6 +102,7 @@ nextTick(() => {
                                             <ul role="list" class="-mx-2 space-y-1">
                                                 <li v-for="item in navigationItems" :key="item.name">
                                                     <Link
+                                                        v-if="item.check"
                                                         class="transition-colors"
                                                         :href="item.href"
                                                         :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"
@@ -132,6 +136,7 @@ nextTick(() => {
                             <ul role="list" class="-mx-2 space-y-1">
                                 <li v-for="item in navigationItems" :key="item.name">
                                     <Link
+                                        v-if="item.check"
                                         class="transition-colors"
                                         :href="item.href"
                                         :class="[item.current ? 'bg-indigo-700 text-white' : 'text-indigo-200 hover:text-white hover:bg-indigo-700', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold']"
