@@ -3,6 +3,8 @@
 return [
     'buttons' => [
         'go_back' => 'Terug',
+        'cancel' => 'Annuleer',
+        'save' => 'Bewaar',
     ],
     'pages' => [
         'dashboard' => [

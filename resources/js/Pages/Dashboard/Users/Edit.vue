@@ -173,11 +173,11 @@ function submitForm() {
 
         <div class="mt-6 flex items-center justify-start gap-x-6">
             <SecondaryButton :href="route('users.index')">
-                Cancel
+                {{ t('spa.buttons.cancel') }}
             </SecondaryButton>
 
             <PrimaryButton @click="submitForm">
-                Save
+                {{ t('spa.buttons.save') }}
             </PrimaryButton>
         </div>
     </form>
