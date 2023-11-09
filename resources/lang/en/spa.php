@@ -2,43 +2,43 @@
 
 return [
     'buttons' => [
-        'go_back' => 'Terug',
-        'edit' => 'Pas aan',
-        'cancel' => 'Annuleer',
-        'save' => 'Bewaar',
-        'create_user' => 'Maak nieuwe user aan',
-        'close', 'Sluit',
+        'go_back' => 'Back',
+        'edit' => 'Edit',
+        'cancel' => 'Cancel',
+        'save' => 'Save',
+        'create_user' => 'Make a new user',
+        'close', 'Close',
     ],
     'pages' => [
         'dashboard' => [
             'label' => 'Dashboard',
-            'name' => 'Naam',
+            'name' => 'Name',
             'status' => 'Status',
-            'roles' => 'Rollen',
-            'actions' => 'Acties',
-            'search' => 'Zoeken',
+            'roles' => 'Roles',
+            'actions' => 'Actions',
+            'search' => 'Search',
         ],
         'users' => [
-            'label' => 'Gebruikers',
-            'description' => 'Een lijst van alle gebruikers met alle nodige informatie.',
+            'label' => 'Users',
+            'description' => 'A list of all users with all necessary information.',
             'form' => [
-                'first_name' => 'Voornaam',
-                'last_name' => 'Achternaam',
-                'email' => 'E-mailadres',
-                'password' => 'Wachtwoord',
-                'password_confirmation' => 'Bevestig wachtwoord',
-                'address' => 'Adres',
-                'city' => 'Stad',
-                'province' => 'Provincie',
-                'zip' => 'Postcode',
-                'roles' => 'Rollen'
+                'first_name' => 'First name',
+                'last_name' => 'Last name',
+                'email' => 'Email',
+                'password' => 'Password',
+                'password_confirmation' => 'Confirm password',
+                'address' => 'Address',
+                'city' => 'City',
+                'province' => 'Province',
+                'zip' => 'Zip',
+                'roles' => 'Roles'
             ]
         ],
         'dance_groups' => [
-            'label' => 'Dans groepen',
+            'label' => 'Dance groups',
             'members' => [
-                'label' => 'Leden',
-                'description' => 'Dit zijn de leden van {name}',
+                'label' => 'Members',
+                'description' => 'These are the members of {name}',
             ],
         ],
     ],
