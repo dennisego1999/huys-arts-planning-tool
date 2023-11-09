@@ -269,7 +269,7 @@ function submitForm() {
                     />
 
                     <PrimaryButton @click="closeAddMemberModal">
-                        {{ t('spa.buttons.wortel') }}
+                        {{ t('spa.buttons.close') }}
                     </PrimaryButton>
                 </div>
             </Modal>
