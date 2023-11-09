@@ -22,7 +22,7 @@ const {t} = useI18n();
 
 <template>
     <div class="flex flex-col">
-        <div class="flex justify-between items-start">
+        <div class="flex justify-between items-start gap-10">
             <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div class="sm:col-span-full">
                     <div class="flex flex-col gap-4">
@@ -60,6 +60,7 @@ const {t} = useI18n();
                 <PrimaryButton
                     v-if="usePage().props.policies.can.manageDanceGroups"
                     :href="route('dance-groups.edit', {dance_group: group})"
+                    class="whitespace-nowrap"
                 >
                     {{ t('spa.buttons.edit') }}
                 </PrimaryButton>
