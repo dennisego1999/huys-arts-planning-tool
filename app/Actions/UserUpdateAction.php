@@ -17,5 +17,8 @@ class UserUpdateAction
             'province' => $data['province'],
             'zip' => $data['zip'],
         ]);
+
+        //Sync roles
+        $user->syncRoles(collect($data['roles'])->pluck('name') ?? []);
     }
 }

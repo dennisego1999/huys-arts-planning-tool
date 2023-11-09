@@ -11,6 +11,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            gridTemplateColumns: {
+                '4-1fr': 'repeat(4, 1fr)'
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

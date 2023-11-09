@@ -28,11 +28,7 @@ nextTick(() => {
 
 <template>
     <div>
-        <div class="flex flex-col gap-1 mx-auto max-w-2xl lg:mx-0">
-            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Onze dans groepen</h2>
-        </div>
-
-        <div class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
+        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
             <Link
                 v-for="(group, index) in groups"
                 :key="'dance-group-' + index"

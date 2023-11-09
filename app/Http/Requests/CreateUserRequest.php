@@ -26,12 +26,13 @@ class CreateUserRequest extends FormRequest
         return [
             'first_name' => ['string'],
             'last_name' => ['string'],
-            'email' => ['string'],
+            'email' => ['string', 'unique:users', 'email'],
             'password' => ['required', 'confirmed', 'min:6'],
             'address' => ['string', 'nullable'],
             'city' => ['string', 'nullable'],
             'province' => ['string', 'nullable'],
             'zip' => ['string', 'nullable'],
+            'roles' => ['array'],
         ];
     }
 }

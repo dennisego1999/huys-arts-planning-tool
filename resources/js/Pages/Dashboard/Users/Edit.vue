@@ -8,6 +8,7 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
+import MultiselectDropdown from "@/Components/MultiselectDropdown.vue";
 
 //Define options
 defineOptions({
@@ -16,7 +17,8 @@ defineOptions({
 
 //Define props
 const props = defineProps({
-    user: Object
+    user: Object,
+    roles: Array,
 });
 
 //Set translation
@@ -31,6 +33,7 @@ const form = useForm({
     city: props.user.city,
     province: props.user.province,
     zip: props.user.zip,
+    roles: props.user.roles ?? [],
 });
 
 //Define functions
@@ -167,6 +170,20 @@ function submitForm() {
                     />
 
                     <InputError :message="form.errors.zip" class="mt-2" />
+                </div>
+
+                <div class="sm:col-span-4">
+                    <InputLabel for="roles" :value="t('spa.pages.users.form.roles')"/>
+
+                    <MultiselectDropdown
+                        v-model="form.roles"
+                        id="roles"
+                        class="mt-1"
+                        :options="roles"
+                        attribute="name"
+                    />
+
+                    <InputError :message="form.errors.roles" class="mt-2" />
                 </div>
             </div>
         </div>

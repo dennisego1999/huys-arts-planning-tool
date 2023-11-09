@@ -7,6 +7,7 @@ use App\Actions\UserDestroyAction;
 use App\Actions\UserUpdateAction;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -21,6 +22,7 @@ class UsersController extends Controller
                     ->where('first_name', 'like', $request->input('search') . '%')
                     ->orWhere('last_name', 'like', $request->input('search') . '%'));
             })
+            ->with(['roles'])
             ->paginate(10);
 
         return Inertia::render('Dashboard/Users/Index', [
@@ -30,7 +32,9 @@ class UsersController extends Controller
 
     public function create()
     {
-        return Inertia::render('Dashboard/Users/Create');
+        return Inertia::render('Dashboard/Users/Create', [
+            'roles' => Role::all(),
+        ]);
     }
 
     public function store(CreateUserRequest $request, UserCreateAction $userCreateAction)
@@ -51,7 +55,8 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         return Inertia::render('Dashboard/Users/Edit', [
-            'user' => $user,
+            'user' => $user->loadMissing(['roles']),
+            'roles' => Role::all(),
         ]);
     }
 

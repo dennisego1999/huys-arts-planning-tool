@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\DanceGroup;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DanceGroupsSeeder extends Seeder
@@ -41,6 +42,12 @@ class DanceGroupsSeeder extends Seeder
             $model = DanceGroup::factory()->create([
                 'name' => $group,
             ]);
+
+            // Add members
+            $users = User::all();
+            foreach ($users as $user) {
+                $model->members()->attach($user->id);
+            }
 
             // Save the dance group
             $model->saveQuietly();

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
@@ -68,6 +69,10 @@ class User extends Authenticatable implements MustVerifyEmail
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function danceGroups(): BelongsToMany
+    {
+        return $this->belongsToMany(DanceGroup::class, 'dance_group_member');
+    }
 
     /*
     |--------------------------------------------------------------------------

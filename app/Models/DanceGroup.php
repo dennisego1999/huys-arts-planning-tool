@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -57,6 +58,10 @@ class DanceGroup extends Model implements HasMedia
     | RELATIONS
     |--------------------------------------------------------------------------
     */
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'dance_group_member');
+    }
 
     /*
     |--------------------------------------------------------------------------

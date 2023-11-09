@@ -1,5 +1,6 @@
 <script setup>
 import {ref} from "vue";
+import {useI18n} from "vue-i18n";
 import {useForm} from "@inertiajs/vue3";
 import {PhotoIcon} from "@heroicons/vue/24/outline";
 import {useClearToast, useShowToast} from "@/Composables/Toastification";
@@ -17,6 +18,9 @@ defineOptions({
 const props = defineProps({
     group: Object,
 });
+
+//Set translation
+const {t} = useI18n();
 
 //Define variables
 const photoInput = ref(null);
@@ -97,18 +101,8 @@ function submitForm() {
 </script>
 
 <template>
-    <div class="flex flex-col gap-6">
-        <div class="flex items-center justify-end gap-x-6">
-            <SecondaryButton>
-                Cancel
-            </SecondaryButton>
-
-            <PrimaryButton @click="submitForm">
-                Save
-            </PrimaryButton>
-        </div>
-
-        <form class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6" @submit.prevent>
+    <div class="flex justify-between items-start gap-6">
+        <form class="flex-1 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6" @submit.prevent>
             <div class="sm:col-span-4">
                 <label for="name" class="block text-sm font-medium leading-6 text-gray-900">Name</label>
                 <div class="mt-2">
@@ -142,7 +136,7 @@ function submitForm() {
                 </div>
             </div>
 
-            <div class="col-span-full">
+            <div class="sm:col-span-4">
                 <label for="cover-photo" class="block text-sm font-medium leading-6 text-gray-900">Cover photo</label>
 
                 <div class="mt-2 flex flex-col gap-6 justify-center rounded-lg border border-dashed border-gray-900/25 p-6">
@@ -194,5 +188,15 @@ function submitForm() {
                 </div>
             </div>
         </form>
+
+        <div class="flex items-center justify-end gap-x-6">
+            <SecondaryButton :href="route('dance-groups.show', {dance_group: group})">
+                {{ t('spa.buttons.cancel') }}
+            </SecondaryButton>
+
+            <PrimaryButton @click="submitForm">
+                {{ t('spa.buttons.save') }}
+            </PrimaryButton>
+        </div>
     </div>
 </template>

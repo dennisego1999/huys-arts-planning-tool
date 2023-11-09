@@ -26,11 +26,12 @@ class UpdateUserRequest extends FormRequest
         return [
             'first_name' => ['string'],
             'last_name' => ['string'],
-            'email' => ['string'],
+            'email' => ['string', 'email'],
             'address' => ['string', 'nullable'],
             'city' => ['string', 'nullable'],
             'province' => ['string', 'nullable'],
             'zip' => ['string', 'nullable'],
+            'roles' => ['array'],
         ];
     }
 }

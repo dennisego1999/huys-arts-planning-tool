@@ -8,10 +8,16 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
+import MultiselectDropdown from "@/Components/MultiselectDropdown.vue";
 
 //Define options
 defineOptions({
     layout: AppLayout
+});
+
+//Define props
+const props = defineProps({
+    roles: Array,
 });
 
 //Set translation
@@ -28,6 +34,7 @@ const form = useForm({
     city: null,
     province: null,
     zip: null,
+    roles: []
 });
 
 //Define functions
@@ -110,6 +117,34 @@ function submitForm() {
                     <InputError :message="form.errors.email" class="mt-2" />
                 </div>
 
+                <div class="sm:col-span-3">
+                    <InputLabel for="password" :value="t('spa.pages.users.form.password')"/>
+
+                    <TextInput
+                        v-model="form.password"
+                        type="password"
+                        name="password"
+                        id="password"
+                        class="mt-1 block w-full"
+                    />
+
+                    <InputError :message="form.errors.password" class="mt-2" />
+                </div>
+
+                <div class="sm:col-span-3">
+                    <InputLabel for="password_confirmation" :value="t('spa.pages.users.form.password_confirmation')"/>
+
+                    <TextInput
+                        v-model="form.password_confirmation"
+                        type="password"
+                        name="password_confirmation"
+                        id="password_confirmation"
+                        class="mt-1 block w-full"
+                    />
+
+                    <InputError :message="form.errors.password_confirmation" class="mt-2" />
+                </div>
+
                 <div class="col-span-full">
                     <InputLabel for="street-address" :value="t('spa.pages.users.form.address')"/>
 
@@ -164,6 +199,20 @@ function submitForm() {
                     />
 
                     <InputError :message="form.errors.zip" class="mt-2" />
+                </div>
+
+                <div class="sm:col-span-4">
+                    <InputLabel for="roles" :value="t('spa.pages.users.form.roles')"/>
+
+                    <MultiselectDropdown
+                        v-model="form.roles"
+                        id="roles"
+                        class="mt-1"
+                        :options="roles"
+                        attribute="name"
+                    />
+
+                    <InputError :message="form.errors.roles" class="mt-2" />
                 </div>
             </div>
         </div>

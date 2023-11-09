@@ -16,6 +16,27 @@ class InternalUserSeeder extends Seeder
             'password' => 'Arty007*',
             'roles' => ['super_admin'],
         ],
+        [
+            'first_name' => 'Peter',
+            'last_name' => 'Sterckx',
+            'email' => 'peter.sterckx@artcoresociety.com',
+            'password' => 'Arty007*',
+            'roles' => ['admin'],
+        ],
+        [
+            'first_name' => 'Bob',
+            'last_name' => 'De Bouwer',
+            'email' => 'bob.debouwer@artcoresociety.com',
+            'password' => 'Arty007*',
+            'roles' => ['teacher'],
+        ],
+        [
+            'first_name' => 'Stephanie',
+            'last_name' => 'Clockx',
+            'email' => 'stephanie.clockx@artcoresociety.com',
+            'password' => 'Arty007*',
+            'roles' => ['student'],
+        ],
     ];
 
     /**
@@ -40,7 +61,7 @@ class InternalUserSeeder extends Seeder
             $this->createUser($user);
         }
 
-        User::factory(20)->create();
+        // User::factory(20)->create();
     }
 
     private function createUser(array $user): void
