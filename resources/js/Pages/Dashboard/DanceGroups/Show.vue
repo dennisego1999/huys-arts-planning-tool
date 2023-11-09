@@ -26,7 +26,7 @@ const {t} = useI18n();
             <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div class="sm:col-span-full">
                     <div class="flex flex-col gap-4">
-                        <h1 class="text-5xl">{{ group.name }}</h1>
+                        <h1 class="text-5xl font-bold">{{ group.name }}</h1>
                         <p class="text-lg">{{ group.description }}</p>
                     </div>
                 </div>
@@ -79,6 +79,7 @@ const {t} = useI18n();
                             {{ t('spa.pages.dance_groups.members.description', {name: group.name}) }}
                         </p>
                     </div>
+
                     <ul role="list" class="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                         <li v-for="member in group.members" :key="member.name" class="p-8 bg-gray-100 rounded-md">
                             <img class="mx-auto h-56 w-56 rounded-full" :src="member.profile_photo_url" alt="" />

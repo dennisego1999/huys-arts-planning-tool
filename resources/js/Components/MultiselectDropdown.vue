@@ -11,6 +11,10 @@ const props = defineProps({
     options: Array,
     attribute: String,
     modelValue: Array,
+    deletable: {
+        type: Boolean,
+        default: true,
+    }
 });
 
 //Define variables
@@ -38,8 +42,8 @@ function deleteOption(optionToBeDeleted) {
 </script>
 
 <template>
-    <div class="relative flex flex-wrap justify-start items-center w-full border-none">
-        <div class="relative flex justify-between items-center border-[1px] border-gray-300 rounded-md cursor-pointer px-3 py-2 w-full">
+    <div class="relative 10 flex flex-wrap justify-start items-center w-full border-none">
+        <div class="relative z-0 flex justify-between items-center border-[1px] border-gray-300 rounded-md cursor-pointer px-3 py-2 w-full">
             <div class="relative z-10 cursor-pointer pr-3">
                 <p v-if="selectedOptions.length === 0">Select</p>
 
@@ -51,14 +55,14 @@ function deleteOption(optionToBeDeleted) {
                     >
                         <p class="text-xs">{{ option[attribute] }}</p>
 
-                        <CloseIcon @click="deleteOption(option)" class="h-3 w-3"/>
+                        <CloseIcon v-if="deletable" @click="deleteOption(option)" class="h-3 w-3"/>
                     </div>
                 </div>
             </div>
 
             <AngleDownIcon
                 class="h-4 w-4 transition-transform"
-                :class="{'rotate-0': isDropDownOpen, 'rotate-180': !isDropDownOpen}"
+                :class="{'rotate-180': isDropDownOpen, 'rotate-0': !isDropDownOpen}"
             />
 
             <div
@@ -67,19 +71,21 @@ function deleteOption(optionToBeDeleted) {
             ></div>
         </div>
 
-        <div
-            v-if="isDropDownOpen"
-            class=" mt-1 w-full flex flex-col justify-start items-start border-[1px] border-gray-300 rounded-md cursor-pointer"
-        >
+        <Transition name="fade" mode="out-in">
             <div
-                v-for="(option, index) in options"
-                :key="'option-' + index"
-                @click="selectOption(option)"
-                class="cursor-pointer w-full px-3 py-2 select-none transition-all hover:bg-gray-500 hover:text-white"
-                :class="{'cursor-not-allowed opacity-20': selectedOptions.some(o => o[attribute] === option[attribute])}"
+                v-if="isDropDownOpen"
+                class="absolute z-10 -bottom-2 left-0 overflow-hidden translate-y-full mt-1 w-full h-fit flex flex-col justify-start items-start border-[1px] border-gray-300 rounded-md cursor-pointer"
             >
-                {{ option[attribute] }}
+                <div
+                    v-for="(option, index) in options"
+                    :key="'option-' + index"
+                    @click="selectOption(option)"
+                    class="bg-white w-full px-3 py-2 select-none transition-all"
+                    :class="[selectedOptions.some(o => o[attribute] === option[attribute]) ? 'cursor-not-allowed text-gray-300 ' : 'cursor-pointer hover:bg-gray-500 hover:text-white']"
+                >
+                    {{ option[attribute] }}
+                </div>
             </div>
-        </div>
+        </Transition>
     </div>
 </template>

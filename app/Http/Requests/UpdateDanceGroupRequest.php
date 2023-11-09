@@ -27,6 +27,7 @@ class UpdateDanceGroupRequest extends FormRequest
             'name' => ['string'],
             'description' => ['string'],
             'new_image' => ['image', 'mimes:jpg,png,jpeg,gif', 'nullable'],
+            'members' => 'array',
         ];
     }
 }

@@ -7,6 +7,7 @@ return [
         'cancel' => 'Annuleer',
         'save' => 'Bewaar',
         'create_user' => 'Maak nieuwe user aan',
+        'close', 'Sluit',
     ],
     'pages' => [
         'dashboard' => [

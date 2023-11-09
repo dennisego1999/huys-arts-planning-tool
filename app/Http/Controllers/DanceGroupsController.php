@@ -6,6 +6,7 @@ use App\Actions\DanceGroupUpdateAction;
 use App\Http\Requests\UpdateDanceGroupRequest;
 use App\Http\Resources\DanceGroupResource;
 use App\Models\DanceGroup;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -39,6 +40,7 @@ class DanceGroupsController extends Controller
     {
         return Inertia::render('Dashboard/DanceGroups/Edit', [
             'group' => new DanceGroupResource($danceGroup),
+            'users' => User::all(),
         ]);
     }
 
