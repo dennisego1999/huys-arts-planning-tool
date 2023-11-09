@@ -78,7 +78,7 @@ function deleteOption(optionToBeDeleted) {
         <Transition name="fade" mode="out-in">
             <div
                 v-if="isDropDownOpen"
-                class="absolute z-10 -bottom-2 left-0 overflow-hidden translate-y-full mt-1 w-full h-fit flex flex-col justify-start items-start border-[1px] border-gray-300 rounded-md cursor-pointer"
+                class="absolute z-10 -bottom-2 left-0 overflow-hidden translate-y-full mt-1 w-full h-fit max-h-48 overflow-y-auto flex flex-col justify-start items-start border-[1px] border-gray-300 rounded-md cursor-pointer"
             >
                 <div
                     v-for="(option, index) in options"
