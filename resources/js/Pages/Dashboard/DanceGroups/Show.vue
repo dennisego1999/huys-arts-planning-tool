@@ -22,18 +22,32 @@ const {t} = useI18n();
 
 <template>
     <div class="flex flex-col">
-        <div class="flex justify-between items-start gap-10">
-            <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div class="sm:col-span-full">
+        <div class="flex flex-col justify-between items-start gap-10">
+            <div class="flex items-center justify-end gap-4 w-full">
+                <SecondaryButton :href="route('dance-groups.index')">
+                    {{ t('spa.buttons.go_back') }}
+                </SecondaryButton>
+
+                <PrimaryButton
+                    v-if="usePage().props.policies.can.manageDanceGroups"
+                    :href="route('dance-groups.edit', {dance_group: group})"
+                    class="whitespace-nowrap"
+                >
+                    {{ t('spa.buttons.edit') }}
+                </PrimaryButton>
+            </div>
+
+            <div class="flex justify-between items-center gap-6">
+                <div class="flex-1">
                     <div class="flex flex-col gap-4">
                         <h1 class="text-5xl font-bold">{{ group.name }}</h1>
                         <p class="text-lg">{{ group.description }}</p>
                     </div>
                 </div>
 
-                <div class="sm:col-span-full">
+                <div class="flex-1">
                     <div
-                        class="mt-2 aspect-video w-full flex justify-center items-center rounded-lg overflow-hidden"
+                        class="aspect-video w-full flex justify-center items-center rounded-lg overflow-hidden drop-shadow-2xl"
                         :class="{'bg-gray-300': !group.image}"
                     >
                         <PhotoIcon
@@ -50,20 +64,6 @@ const {t} = useI18n();
                         >
                     </div>
                 </div>
-            </div>
-
-            <div class="flex items-center justify-start gap-4 mt-4">
-                <SecondaryButton :href="route('dance-groups.index')">
-                    {{ t('spa.buttons.go_back') }}
-                </SecondaryButton>
-
-                <PrimaryButton
-                    v-if="usePage().props.policies.can.manageDanceGroups"
-                    :href="route('dance-groups.edit', {dance_group: group})"
-                    class="whitespace-nowrap"
-                >
-                    {{ t('spa.buttons.edit') }}
-                </PrimaryButton>
             </div>
         </div>
 

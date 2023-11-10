@@ -13,7 +13,8 @@ return [
         'passwords',
         'validation',
         // Add custom files here
-        'spa'
+        'spa',
+        'buttons',
     ],
 
     'import_json_files' => true,

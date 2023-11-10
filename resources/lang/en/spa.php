@@ -7,7 +7,7 @@ return [
         'cancel' => 'Cancel',
         'save' => 'Save',
         'create_user' => 'Make a new user',
-        'close', 'Close',
+        'close' => 'Close',
     ],
     'pages' => [
         'dashboard' => [
