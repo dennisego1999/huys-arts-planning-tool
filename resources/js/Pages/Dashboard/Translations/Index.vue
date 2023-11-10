@@ -376,6 +376,8 @@ function updateTranslationInEditForm(value) {
                         class="text w-full"
                         @change="updateTranslationInEditForm($event.target.value)"
                     />
+
+                    <InputError class="mt-2" :message="editForm.errors['text.' + usePage().props.locales.currentLocale]" />
                 </div>
 
                 <div class="flex justify-start items-center gap-4">

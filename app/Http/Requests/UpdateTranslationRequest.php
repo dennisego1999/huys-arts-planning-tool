@@ -25,7 +25,7 @@ class UpdateTranslationRequest extends FormRequest
     {
         return [
             'text' => ['array'],
-            'text.*' => ['string'],
+            'text.*' => ['string', 'required'],
         ];
     }
 }
