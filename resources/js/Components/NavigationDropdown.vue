@@ -5,10 +5,6 @@ import {router} from "@inertiajs/vue3";
 const emit = defineEmits(['open-profile']);
 
 //Define functions
-function toggleDarkMode() {
-
-}
-
 function openProfile() {
     emit('open-profile');
 }
@@ -20,13 +16,6 @@ function logout() {
 
 <template>
     <div class="flex flex-col rounded-md overflow-hidden bg-white shadow-lg mx-4 mb-4">
-        <div
-            class="text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors py-2 px-3"
-            @click="toggleDarkMode"
-        >
-            Toggle dark mode
-        </div>
-
         <div
             class="text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors py-2 px-3"
             @click="openProfile"
