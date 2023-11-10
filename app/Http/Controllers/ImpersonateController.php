@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Inertia\Inertia;
 
 class ImpersonateController extends Controller
 {
@@ -13,7 +14,7 @@ class ImpersonateController extends Controller
             auth()->user()->impersonate($user);
         }
 
-        //Redirect back
-        return redirect()->back();
+        //Redirect back with hard page reload
+        return Inertia::location(route('dashboard'));
     }
 }

@@ -1,7 +1,7 @@
 <script setup>
 import {useI18n} from "vue-i18n";
 import {TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon} from "@heroicons/vue/20/solid";
-import {Link, useForm, usePage} from "@inertiajs/vue3";
+import {Link, router, useForm, usePage} from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -119,17 +119,15 @@ const form = useForm({
 
                             <div class="flex justify-start items-center px-3 py-5 text-sm text-gray-500 border-b border-b-gray-100">
                                 <div class="flex justify-start items-center gap-4 w-fit">
-                                    <Link
+                                    <div
                                         v-if="usePage().props.policies.can.impersonate"
-                                        :href="route('impersonate', {user: user})"
-                                        method="post"
-                                        as="button"
+                                        @click="router.post(route('impersonate', {user: user}))"
                                         class="flex shrink-0 items-center gap-1"
                                     >
                                         <div class="p-2 rounded-md bg-gray-300 cursor-pointer">
                                             <SparklesIcon class="h-5 w-5 flex-none text-white"/>
                                         </div>
-                                    </Link>
+                                    </div>
 
                                     <Link
                                         :href="route('users.show', {user: user})"
