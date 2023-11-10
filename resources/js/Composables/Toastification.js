@@ -2,12 +2,11 @@ import Toastification from "@/Components/Toastification.vue";
 import {useToast} from "vue-toastification";
 import {nextTick} from "vue";
 
-//Create toast instance
+// Create toast instance
 const toastPopup = useToast();
 
 async function useShowToast(title, text, type, options) {
-
-	//Set toast content and set default values
+	// Set toast content and set default values
 	const content = {
 		component: Toastification,
 		props: {
@@ -38,21 +37,16 @@ async function useShowToast(title, text, type, options) {
 	}
 
 	return toastPopup(content, options);
-
 }
 
 async function useClearToast(id) {
-
 	await nextTick();
 	toastPopup.dismiss(id);
-
 }
 
 async function useClearToasts() {
-
 	await nextTick();
 	toastPopup.clear();
-
 }
 
 export {
