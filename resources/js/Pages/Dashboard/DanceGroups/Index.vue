@@ -1,8 +1,10 @@
 <script setup>
-import AppLayout from "@/Layouts/AppLayout.vue";
-import {Link} from "@inertiajs/vue3";
-import {gsap} from "gsap";
 import {nextTick} from "vue";
+import {gsap} from "gsap";
+import {Link, useForm} from "@inertiajs/vue3";
+import AppLayout from "@/Layouts/AppLayout.vue";
+import SearchBar from "@/Components/SearchBar.vue";
+import Pagination from "@/Components/Pagination.vue";
 
 //Define options
 defineOptions({
@@ -11,7 +13,16 @@ defineOptions({
 
 //Define props
 const props = defineProps({
-    groups: Array,
+    groups: Object,
+});
+
+// Get url params
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+// Set forms variable
+const form = useForm({
+    search: urlParams.get('search') ? urlParams.get('search') : null,
 });
 
 nextTick(() => {
@@ -27,10 +38,12 @@ nextTick(() => {
 </script>
 
 <template>
-    <div>
-        <div class="mx-auto grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
+    <div class="flex flex-col gap-6">
+        <SearchBar :form="form" :href="route('dance-groups.index')"/>
+
+        <div v-if="groups.data.length !==0" class="mx-auto grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
             <Link
-                v-for="(group, index) in groups"
+                v-for="(group, index) in groups.data"
                 :key="'dance-group-' + index"
                 :href="route('dance-groups.show', {dance_group: group})"
                 class="dance-group drop-shadow-xl rounded-md bg-gray-50"
@@ -41,5 +54,9 @@ nextTick(() => {
                 <h3 class="text-lg font-semibold leading-8 tracking-tight text-gray-600 p-3">{{ group.name }}</h3>
             </Link>
         </div>
+
+        <p v-else>No dance groups found...</p>
+
+        <Pagination v-if="groups.data.length !== 0" :links="groups.meta.links"/>
     </div>
 </template>

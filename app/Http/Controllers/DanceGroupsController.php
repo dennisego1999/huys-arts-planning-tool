@@ -12,10 +12,16 @@ use Inertia\Inertia;
 
 class DanceGroupsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $danceGroups = DanceGroup::query()
+            ->when($request->input('search'), function ($query) use ($request) {
+                $query->where('name', 'like', '%' . $request->input('search') . '%');
+            })
+            ->paginate(8);
+
         return Inertia::render('Dashboard/DanceGroups/Index', [
-            'groups' => DanceGroupResource::collection(DanceGroup::all()),
+            'groups' => DanceGroupResource::collection($danceGroups),
         ]);
     }
 
