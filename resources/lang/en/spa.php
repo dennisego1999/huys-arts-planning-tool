@@ -6,11 +6,12 @@ return [
         'edit' => 'Edit',
         'cancel' => 'Cancel',
         'save' => 'Save',
-        'create_user' => 'Make a new user',
+        'create_user' => 'Make new user',
         'close' => 'Close',
         'scan' => 'Scan',
         'import' => 'Import',
         'export' => 'Export',
+        'create_dance_group' => 'Create new dance group',
     ],
     'pages' => [
         'dashboard' => [
@@ -39,6 +40,7 @@ return [
         ],
         'dance_groups' => [
             'label' => 'Dance groups',
+            'description' => 'A list of all dance groups.',
             'members' => [
                 'label' => 'Members',
                 'description' => 'These are the members of {name}',

@@ -1,10 +1,13 @@
 <script setup>
+import {useI18n} from "vue-i18n";
 import {nextTick} from "vue";
 import {gsap} from "gsap";
-import {Link, useForm} from "@inertiajs/vue3";
+import {Link, useForm, usePage} from "@inertiajs/vue3";
+import {PencilSquareIcon, TrashIcon} from "@heroicons/vue/20/solid";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import SearchBar from "@/Components/SearchBar.vue";
 import Pagination from "@/Components/Pagination.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 //Define options
 defineOptions({
@@ -15,6 +18,9 @@ defineOptions({
 const props = defineProps({
     groups: Object,
 });
+
+//Set translation
+const {t} = useI18n();
 
 // Get url params
 const queryString = window.location.search;
@@ -39,6 +45,24 @@ nextTick(() => {
 
 <template>
     <div class="flex flex-col gap-6">
+        <div class="sm:flex sm:items-center">
+            <div class="sm:flex-auto">
+                <h1 class="text-base font-semibold leading-6 text-gray-900">
+                    {{ t('spa.pages.dance_groups.label') }}
+                </h1>
+
+                <p class="mt-2 text-sm text-gray-700">
+                    {{ t('spa.pages.dance_groups.description') }}
+                </p>
+            </div>
+
+            <div class="flex justify-end items-center gap-4">
+                <PrimaryButton>
+                    {{ t('spa.buttons.create_dance_group') }}
+                </PrimaryButton>
+            </div>
+        </div>
+
         <SearchBar :form="form" :href="route('dance-groups.index')"/>
 
         <div v-if="groups.data.length !==0" class="mx-auto grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">

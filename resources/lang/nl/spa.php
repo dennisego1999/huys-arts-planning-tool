@@ -11,6 +11,7 @@ return [
         'scan' => 'Scan',
         'import' => 'Importeren',
         'export' => 'Exporteren',
+        'create_dance_group' => 'Maak nieuwe dans groep',
     ],
     'pages' => [
         'dashboard' => [
@@ -39,6 +40,7 @@ return [
         ],
         'dance_groups' => [
             'label' => 'Dans groepen',
+            'description' => 'Een lijst van alle dans groepen.',
             'members' => [
                 'label' => 'Leden',
                 'description' => 'Dit zijn de leden van {name}',
