@@ -31,7 +31,7 @@ const navigationItems = ref([
         name: t('spa.pages.dance_groups.label'),
         href: route('dance-groups.index'),
         icon: UserGroupIcon,
-        check: !!usePage().props.auth.user.email_verified_at && usePage().props.policies.can.manageDanceGroups,
+        check: !!usePage().props.auth.user.email_verified_at,
         current: usePage().props.currentRouteName === 'dance-groups.index'
     },
     {

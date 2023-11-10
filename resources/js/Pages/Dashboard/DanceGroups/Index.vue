@@ -56,7 +56,7 @@ nextTick(() => {
                 </p>
             </div>
 
-            <div class="flex justify-end items-center gap-4">
+            <div v-if="usePage().props.policies.can.manageDanceGroups" class="flex justify-end items-center gap-4">
                 <PrimaryButton>
                     {{ t('spa.buttons.create_dance_group') }}
                 </PrimaryButton>
