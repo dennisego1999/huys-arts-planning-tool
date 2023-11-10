@@ -3,7 +3,7 @@ import {useI18n} from "vue-i18n";
 import {nextTick, ref} from "vue";
 import {usePage, Link, router} from "@inertiajs/vue3";
 import {Dialog, DialogPanel, TransitionChild, TransitionRoot} from "@headlessui/vue";
-import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon} from "@heroicons/vue/24/outline";
+import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon, LanguageIcon} from "@heroicons/vue/24/outline";
 import NavigationDropdown from "@/Components/NavigationDropdown.vue";
 
 //Set translation
@@ -24,15 +24,22 @@ const navigationItems = ref([
         name: t('spa.pages.users.label'),
         href: route('users.index'),
         icon: UserIcon,
-        check: !!usePage().props.auth.user.email_verified_at,
+        check: !!usePage().props.auth.user.email_verified_at && usePage().props.policies.can.manageUsers,
         current: usePage().props.currentRouteName === 'users.index'
     },
     {
         name: t('spa.pages.dance_groups.label'),
         href: route('dance-groups.index'),
         icon: UserGroupIcon,
-        check: !!usePage().props.auth.user.email_verified_at,
+        check: !!usePage().props.auth.user.email_verified_at && usePage().props.policies.can.manageDanceGroups,
         current: usePage().props.currentRouteName === 'dance-groups.index'
+    },
+    {
+        name: t('spa.pages.translations.label'),
+        href: route('translations.index'),
+        icon: LanguageIcon,
+        check: !!usePage().props.auth.user.email_verified_at && usePage().props.policies.can.manageTranslations,
+        current: usePage().props.currentRouteName === 'translations.index'
     },
 ]);
 

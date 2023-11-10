@@ -8,7 +8,7 @@ import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import InputField from "@/Components/InputField.vue";
 
 const props = defineProps({
     requiresConfirmation: Boolean,
@@ -155,7 +155,7 @@ const disableTwoFactorAuthentication = () => {
                     <div v-if="confirming" class="mt-4">
                         <InputLabel for="code" value="Code" />
 
-                        <TextInput
+                        <InputField
                             id="code"
                             v-model="confirmationForm.code"
                             type="text"

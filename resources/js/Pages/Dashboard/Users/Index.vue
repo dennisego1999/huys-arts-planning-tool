@@ -1,11 +1,11 @@
 <script setup>
 import {useI18n} from "vue-i18n";
-import {debounce} from "lodash";
-import {MagnifyingGlassIcon, TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon} from "@heroicons/vue/20/solid";
+import {TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon} from "@heroicons/vue/20/solid";
 import {Link, useForm, usePage} from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SearchBar from "@/Components/SearchBar.vue";
 
 // Define options
 defineOptions({
@@ -28,19 +28,6 @@ const urlParams = new URLSearchParams(queryString);
 const form = useForm({
     search: urlParams.get('search') ? urlParams.get('search') : null,
 });
-
-//Define functions
-const submitForm = debounce(() => {
-    form.transform(data => {
-        Object.keys(data).forEach(attr => {
-            if (!data[attr]) delete data[attr];
-        });
-        return data;
-    }).get(route('users.index'), {
-        preserveScroll: true,
-        preserveState: true,
-    });
-}, 500);
 </script>
 
 <template>
@@ -62,20 +49,7 @@ const submitForm = debounce(() => {
                 </PrimaryButton>
             </div>
 
-            <div class="flex justify-between items-center flex-1 gap-6">
-                <form class="relative w-full" @submit.prevent>
-                    <MagnifyingGlassIcon class="absolute z-10 right-4 top-1/2 -translate-y-1/2 w-6 text-gray-300"/>
-
-                    <input
-                        v-model="form.search"
-                        @input="submitForm"
-                        type="text"
-                        name="search"
-                        :placeholder="t('spa.pages.dashboard.search')"
-                        class="drop-shadow-lg text-black w-full rounded-md border-none pl-4 pr-14 py-5 bg-gray-50 focus:ring-0 focus:ring-offset-0 focus:border-none"
-                    >
-                </form>
-            </div>
+            <SearchBar :form="form" :href="route('users.index')"/>
 
             <div v-if="users.data.length !== 0" class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div class="inline-block min-w-full align-middle sm:px-6 lg:px-8">

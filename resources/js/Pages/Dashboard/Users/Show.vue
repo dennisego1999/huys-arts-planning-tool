@@ -2,7 +2,7 @@
 import {useI18n} from "vue-i18n";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import InputField from "@/Components/InputField.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 
 //Define options
@@ -26,7 +26,7 @@ const {t} = useI18n();
                 <div class="sm:col-span-3">
                     <InputLabel for="first-name" :value="t('spa.pages.users.form.first_name')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="user.first_name"
                         type="text"
                         name="first-name"
@@ -39,7 +39,7 @@ const {t} = useI18n();
                 <div class="sm:col-span-3">
                     <InputLabel for="last-name" :value="t('spa.pages.users.form.last_name')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="user.last_name"
                         type="text"
                         name="last-name"
@@ -52,7 +52,7 @@ const {t} = useI18n();
                 <div class="sm:col-span-4">
                     <InputLabel for="email" :value="t('spa.pages.users.form.email')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="user.email"
                         type="text"
                         name="email"
@@ -65,7 +65,7 @@ const {t} = useI18n();
                 <div class="col-span-full">
                     <InputLabel for="street-address" :value="t('spa.pages.users.form.address')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="user.address"
                         type="text"
                         name="street-address"
@@ -78,7 +78,7 @@ const {t} = useI18n();
                 <div class="sm:col-span-2 sm:col-start-1">
                     <InputLabel for="city" :value="t('spa.pages.users.form.city')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="user.city"
                         type="text"
                         name="city"
@@ -91,7 +91,7 @@ const {t} = useI18n();
                 <div class="sm:col-span-2">
                     <InputLabel for="province" :value="t('spa.pages.users.form.province')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="user.province"
                         type="text"
                         name="province"
@@ -104,7 +104,7 @@ const {t} = useI18n();
                 <div class="sm:col-span-2">
                     <InputLabel for="zip" :value="t('spa.pages.users.form.zip')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="user.zip"
                         type="text"
                         name="zip"

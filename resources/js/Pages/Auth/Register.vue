@@ -6,7 +6,7 @@ import Checkbox from "@/Components/Checkbox.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import InputField from "@/Components/InputField.vue";
 
 const form = useForm({
     first_name: '',
@@ -35,7 +35,7 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="first_name" value="First Name" />
-                <TextInput
+                <InputField
                     id="first_name"
                     v-model="form.first_name"
                     type="text"
@@ -49,7 +49,7 @@ const submit = () => {
 
             <div class="mt-4">
                 <InputLabel for="last_name" value="Last Name" />
-                <TextInput
+                <InputField
                     id="last_name"
                     v-model="form.last_name"
                     type="text"
@@ -63,7 +63,7 @@ const submit = () => {
 
             <div class="mt-4">
                 <InputLabel for="email" value="Email" />
-                <TextInput
+                <InputField
                     id="email"
                     v-model="form.email"
                     type="email"
@@ -76,7 +76,7 @@ const submit = () => {
 
             <div class="mt-4">
                 <InputLabel for="password" value="Password" />
-                <TextInput
+                <InputField
                     id="password"
                     v-model="form.password"
                     type="password"
@@ -89,7 +89,7 @@ const submit = () => {
 
             <div class="mt-4">
                 <InputLabel for="password_confirmation" value="Confirm Password" />
-                <TextInput
+                <InputField
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"

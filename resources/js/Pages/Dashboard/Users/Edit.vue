@@ -6,7 +6,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import InputField from "@/Components/InputField.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import MultiselectDropdown from "@/Components/MultiselectDropdown.vue";
 
@@ -77,7 +77,7 @@ function submitForm() {
                 <div class="sm:col-span-3">
                     <InputLabel for="first-name" :value="t('spa.pages.users.form.first_name')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="form.first_name"
                         type="text"
                         name="first-name"
@@ -91,7 +91,7 @@ function submitForm() {
                 <div class="sm:col-span-3">
                     <InputLabel for="last-name" :value="t('spa.pages.users.form.last_name')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="form.last_name"
                         type="text"
                         name="last-name"
@@ -105,7 +105,7 @@ function submitForm() {
                 <div class="sm:col-span-4">
                     <InputLabel for="email" :value="t('spa.pages.users.form.email')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="form.email"
                         type="text"
                         name="email"
@@ -119,7 +119,7 @@ function submitForm() {
                 <div class="col-span-full">
                     <InputLabel for="street-address" :value="t('spa.pages.users.form.address')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="form.address"
                         type="text"
                         name="street-address"
@@ -133,7 +133,7 @@ function submitForm() {
                 <div class="sm:col-span-2 sm:col-start-1">
                     <InputLabel for="city" :value="t('spa.pages.users.form.city')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="form.city"
                         type="text"
                         name="city"
@@ -147,7 +147,7 @@ function submitForm() {
                 <div class="sm:col-span-2">
                     <InputLabel for="province" :value="t('spa.pages.users.form.province')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="form.province"
                         type="text"
                         name="province"
@@ -161,7 +161,7 @@ function submitForm() {
                 <div class="sm:col-span-2">
                     <InputLabel for="zip" :value="t('spa.pages.users.form.zip')"/>
 
-                    <TextInput
+                    <InputField
                         v-model="form.zip"
                         type="text"
                         name="zip"

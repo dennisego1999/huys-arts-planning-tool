@@ -6,7 +6,7 @@ import AuthenticationCardLogo from "@/Components/AuthenticationCardLogo.vue";
 import InputError from "@/Components/InputError.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import InputField from "@/Components/InputField.vue";
 
 const form = useForm({
     password: '',
@@ -40,7 +40,7 @@ const submit = () => {
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="password" value="Password" />
-                <TextInput
+                <InputField
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"

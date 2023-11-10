@@ -8,6 +8,9 @@ return [
         'save' => 'Save',
         'create_user' => 'Make a new user',
         'close' => 'Close',
+        'scan' => 'Scan',
+        'import' => 'Import',
+        'export' => 'Export',
     ],
     'pages' => [
         'dashboard' => [
@@ -39,6 +42,18 @@ return [
             'members' => [
                 'label' => 'Members',
                 'description' => 'These are the members of {name}',
+            ],
+        ],
+        'translations' => [
+            'label' => 'Translations',
+            'description' => 'A list of all translations.',
+            'table' => [
+                'group' => 'Group',
+                'key' => 'Key',
+                'text' => 'Text',
+                'locale' => 'Locale',
+                'updated_at' => 'Updated at',
+                'actions' => 'Actions',
             ],
         ],
     ],

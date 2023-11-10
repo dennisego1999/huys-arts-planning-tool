@@ -8,6 +8,9 @@ return [
         'save' => 'Bewaar',
         'create_user' => 'Maak nieuwe user aan',
         'close' => 'Sluit',
+        'scan' => 'Scan',
+        'import' => 'Importeren',
+        'export' => 'Exporteren',
     ],
     'pages' => [
         'dashboard' => [
@@ -39,6 +42,18 @@ return [
             'members' => [
                 'label' => 'Leden',
                 'description' => 'Dit zijn de leden van {name}',
+            ],
+        ],
+        'translations' => [
+            'label' => 'Vertalingen',
+            'description' => 'Een lijst van alle vertalingen.',
+            'table' => [
+                'group' => 'Groep',
+                'key' => 'Sleutel',
+                'text' => 'Tekst',
+                'locale' => 'Taal',
+                'updated_at' => 'Bijgewerkt op',
+                'actions' => 'Acties',
             ],
         ],
     ],
