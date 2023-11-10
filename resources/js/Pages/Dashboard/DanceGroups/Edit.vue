@@ -9,7 +9,7 @@ import SecondaryButton from "@/Components/SecondaryButton.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import Modal from "@/Components/Modal.vue";
-import MultiselectDropdown from "../../../Components/MultiselectDropdown.vue";
+import MultiselectDropdown from "@/Components/MultiselectDropdown.vue";
 
 //Define options
 defineOptions({
@@ -78,10 +78,6 @@ function openAddMemberModal() {
 
 function closeAddMemberModal() {
     isAddMemberModalOpen.value = false;
-}
-
-function addMember(member) {
-    form.members.push(member);
 }
 
 function removeMember(memberToBeRemoved) {

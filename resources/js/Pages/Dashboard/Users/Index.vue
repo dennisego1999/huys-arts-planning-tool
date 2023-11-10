@@ -56,9 +56,10 @@ const submitForm = debounce(() => {
                         {{ t('spa.pages.users.description') }}
                     </p>
                 </div>
-                <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-                    <PrimaryButton :href="route('users.create')">{{ t('spa.buttons.create_user') }}</PrimaryButton>
-                </div>
+
+                <PrimaryButton :href="route('users.create')">
+                    {{ t('spa.buttons.create_user') }}
+                </PrimaryButton>
             </div>
 
             <div class="flex justify-between items-center flex-1 gap-6">
