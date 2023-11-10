@@ -149,7 +149,6 @@ function importTranslations() {
 }
 
 function editTranslation(languageLine) {
-    console.log(editForm);
     editForm.put(route('translations.update', {language_line: languageLine}), {
         onSuccess: () => {
             const successId = 'translation-edit-success-toast';
@@ -205,6 +204,9 @@ function openEditTranslationModal(translation) {
 }
 
 function closeEditTranslationModal() {
+    // Reset to original value
+    editModalTranslation.value.text[usePage().props.locales.currentLocale] = editModalTranslation.value.original_text[usePage().props.locales.currentLocale];
+
     // Close the modal
     isEditTranslationModalOpen.value = false;
 
