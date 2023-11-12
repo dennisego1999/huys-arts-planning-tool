@@ -52,7 +52,8 @@ return [
             'table' => [
                 'group' => 'Groep',
                 'key' => 'Sleutel',
-                'text' => 'Tekst',
+                'original_translation' => 'Originele vertaling',
+                'new_translation' => 'Nieuwe vertaling',
                 'locale' => 'Taal',
                 'updated_at' => 'Bijgewerkt op',
                 'actions' => 'Acties',

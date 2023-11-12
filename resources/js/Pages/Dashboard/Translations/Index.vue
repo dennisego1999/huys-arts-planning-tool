@@ -213,12 +213,6 @@ function closeEditTranslationModal() {
     // Reset reactive
     editModalTranslation.value = null;
 }
-
-function updateTranslationInEditForm(value) {
-    // Update the value
-    editForm.text = editModalTranslation.value.text;
-    editForm.text[usePage().props.locales.currentLocale] = value;
-}
 </script>
 
 <template>
@@ -366,15 +360,27 @@ function updateTranslationInEditForm(value) {
                 </div>
 
                 <div class="flex flex-col gap-4">
-                    <InputLabel for="text" :value="t('spa.pages.translations.table.text')" />
+                    <InputLabel for="text" :value="t('spa.pages.translations.table.original_translation')" />
 
                     <InputField
-                        :value="editModalTranslation.text[usePage().props.locales.currentLocale]"
                         id="text"
                         type="text"
                         name="text"
                         class="text w-full"
-                        @change="updateTranslationInEditForm($event.target.value)"
+                        :value="editModalTranslation.text[usePage().props.locales.currentLocale]"
+                        disabled
+                    />
+                </div>
+
+                <div class="flex flex-col gap-4">
+                    <InputLabel for="text" :value="t('spa.pages.translations.table.new_translation')" />
+
+                    <InputField
+                        v-model="editForm.text[usePage().props.locales.currentLocale]"
+                        id="text"
+                        type="text"
+                        name="text"
+                        class="text w-full"
                     />
 
                     <InputError :message="editForm.errors['text.' + usePage().props.locales.currentLocale]" />
