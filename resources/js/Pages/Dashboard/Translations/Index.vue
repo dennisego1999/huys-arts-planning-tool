@@ -192,6 +192,7 @@ function openImportTranslationsModal() {
 }
 
 function closeImportTranslationsModal() {
+    // Set reactive
     isImportTranslationsModalOpen.value = false;
 }
 
@@ -204,14 +205,14 @@ function openEditTranslationModal(translation) {
 }
 
 function closeEditTranslationModal() {
-    // Reset to original value
-    editModalTranslation.value.text[usePage().props.locales.currentLocale] = editModalTranslation.value.original_text[usePage().props.locales.currentLocale];
-
     // Close the modal
     isEditTranslationModalOpen.value = false;
 
     // Reset reactive
     editModalTranslation.value = null;
+
+    // Reset form data
+    editForm.text = {};
 }
 </script>
 
