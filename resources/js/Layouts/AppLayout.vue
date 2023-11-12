@@ -97,6 +97,7 @@ nextTick(() => {
                                 <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
                                     <button type="button" class="-m-2.5 p-2.5" @click="sidebarOpen = false">
                                         <span class="sr-only">Close sidebar</span>
+
                                         <XMarkIcon class="h-6 w-6 text-white" aria-hidden="true" />
                                     </button>
                                 </div>
@@ -141,6 +142,7 @@ nextTick(() => {
                 <div class="flex h-16 shrink-0 items-center">
                     <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="Your Company" />
                 </div>
+
                 <nav class="flex flex-1 flex-col">
                     <ul role="list" class="flex flex-1 flex-col gap-y-7">
                         <li>
@@ -186,7 +188,9 @@ nextTick(() => {
                 <span class="sr-only">Open sidebar</span>
                 <Bars3Icon class="h-6 w-6" aria-hidden="true" />
             </button>
+
             <div class="flex-1 text-sm font-semibold leading-6 text-white">Dashboard</div>
+
             <Link v-if="usePage().props.auth.user" :href="route('profile.show')">
                 <span class="sr-only">Your profile</span>
                 <img class="h-8 w-8 rounded-full bg-indigo-700" :src="usePage().props.auth.user.profile_photo_url" alt="profile photo" />

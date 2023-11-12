@@ -3,7 +3,6 @@ import {useI18n} from "vue-i18n";
 import {nextTick} from "vue";
 import {gsap} from "gsap";
 import {Link, useForm, usePage} from "@inertiajs/vue3";
-import {PencilSquareIcon, TrashIcon} from "@heroicons/vue/20/solid";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import SearchBar from "@/Components/SearchBar.vue";
 import Pagination from "@/Components/Pagination.vue";
