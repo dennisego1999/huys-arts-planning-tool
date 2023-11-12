@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Models\User;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Hash;
 
 class UserCreateAction
@@ -20,7 +21,10 @@ class UserCreateAction
             'zip' => $data['zip'],
         ]);
 
-        //Sync roles
+        // Sync roles
         $model->syncRoles(collect($data['roles'])->pluck('name') ?? []);
+
+        // Send verify email
+        $model->sendEmailVerificationNotification();
     }
 }
