@@ -1,10 +1,18 @@
 <script setup>
 import {Link} from "@inertiajs/vue3";
+import {computed} from "vue";
 
+// Define props
 const props = defineProps({
     links: Array,
 });
 
+// Define computed variables
+const hasMultiplePages = computed(() => {
+    return props.links.filter(link => link.url).length > 1;
+});
+
+// Define functions
 function getUrl(href) {
     if(!href) {
         return '';
@@ -21,7 +29,7 @@ function getUrl(href) {
 </script>
 
 <template>
-    <nav class="pagination flex justify-center items-center gap-4 w-full mt-4 lg:mt-8">
+    <nav v-if="hasMultiplePages" class="pagination flex justify-center items-center gap-4 w-full mt-4 lg:mt-8">
         <Link
             v-for="(link, index) in links"
             :key="index"
