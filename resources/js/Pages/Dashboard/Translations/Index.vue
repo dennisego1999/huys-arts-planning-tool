@@ -56,7 +56,7 @@ function deleteTranslation(languageLine) {
             useClearToast(successId);
             useShowToast(
                 null,
-                'Translation has been deleted...',
+                t('spa.toasts.description.translation_deleted'),
                 'success',
                 {
                     id: successId,
@@ -70,7 +70,7 @@ function deleteTranslation(languageLine) {
             useClearToast(errorId);
             useShowToast(
                 null,
-                'Something went wrong...',
+                t('spa.toasts.description.error'),
                 'error',
                 {
                     id: errorId,
@@ -88,7 +88,7 @@ function scanTranslations() {
             useClearToast(successId);
             useShowToast(
                 null,
-                'Scan is complete',
+                t('spa.toasts.description.scan_completed'),
                 'info',
                 {
                     id: successId,
@@ -102,7 +102,7 @@ function scanTranslations() {
             useClearToast(errorId);
             useShowToast(
                 null,
-                'Something went wrong...',
+                t('spa.toasts.description.error'),
                 'error',
                 {
                     id: errorId,
@@ -121,7 +121,7 @@ function importTranslations() {
             useClearToast(successId);
             useShowToast(
                 null,
-                'Import is complete',
+                t('spa.toasts.description.import_completed'),
                 'info',
                 {
                     id: successId,
@@ -138,7 +138,7 @@ function importTranslations() {
             useClearToast(errorId);
             useShowToast(
                 null,
-                'Something went wrong...',
+                t('spa.toasts.description.error'),
                 'error',
                 {
                     id: errorId,
@@ -156,7 +156,7 @@ function editTranslation(languageLine) {
             useClearToast(successId);
             useShowToast(
                 null,
-                'Translation has been updated',
+                t('spa.toasts.description.translation_updated'),
                 'success',
                 {
                     id: successId,
@@ -173,7 +173,7 @@ function editTranslation(languageLine) {
             useClearToast(errorId);
             useShowToast(
                 null,
-                'Something went wrong...',
+                t('spa.toasts.description.error'),
                 'error',
                 {
                     id: errorId,

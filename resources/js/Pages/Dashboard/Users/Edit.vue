@@ -60,7 +60,7 @@ function submitForm() {
             useClearToast(errorId);
             useShowToast(
                 null,
-                'Something went wrong...',
+                t('spa.toasts.description.error'),
                 'error',
                 {
                     id: errorId,

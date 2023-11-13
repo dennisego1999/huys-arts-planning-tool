@@ -46,7 +46,7 @@ function submitForm() {
             useClearToast(successId);
             useShowToast(
                 null,
-                'User has been created...',
+                t('spa.toasts.description.user_created'),
                 'success',
                 {
                     id: successId,
@@ -60,7 +60,7 @@ function submitForm() {
             useClearToast(errorId);
             useShowToast(
                 null,
-                'Something went wrong...',
+                t('spa.toasts.description.error'),
                 'error',
                 {
                     id: errorId,

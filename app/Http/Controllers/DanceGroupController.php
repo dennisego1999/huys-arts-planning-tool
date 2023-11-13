@@ -28,10 +28,9 @@ class DanceGroupController extends Controller
         ]);
     }
 
-    public function create(DanceGroup $danceGroup)
+    public function create()
     {
         return Inertia::render('Dashboard/DanceGroups/Create', [
-            'group' => new DanceGroupResource($danceGroup),
             'users' => User::all(),
         ]);
     }

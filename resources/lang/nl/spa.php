@@ -1,6 +1,18 @@
 <?php
 
 return [
+    'toasts' => [
+        'description' => [
+            'import_completed' => 'De import is gelukt',
+            'scan_completed' => 'De scan is succesvol afgerond',
+            'translation_updated' => 'De vertaling is succesvol aangepast',
+            'translation_deleted' => 'De vertaling is verwijderd',
+            'dance_group_updated' => 'De dans group is succesvol aangepast',
+            'dance_group_created' => 'De dans group is succesvol aangemaakt',
+            'user_created' => 'De gebruiker is succesvol aangemaakt',
+            'error' => 'Er is iets fout gelopen',
+        ],
+    ],
     'labels' => [
         'select' => 'Selecteer',
     ],

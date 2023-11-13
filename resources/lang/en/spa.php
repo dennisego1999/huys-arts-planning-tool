@@ -1,6 +1,18 @@
 <?php
 
 return [
+    'toasts' => [
+        'description' => [
+            'import_completed' => 'The import was succesfull',
+            'scan_completed' => 'The scan was succesfull',
+            'translation_updated' => 'The translation is updated',
+            'translation_deleted' => 'The translation is deleted',
+            'dance_group_updated' => 'The dance group is updated',
+            'dance_group_created' => 'The dance group is created',
+            'user_created' => 'The user is created',
+            'error' => 'Something went wrong',
+        ],
+    ],
     'labels' => [
         'select' => 'Select',
     ],

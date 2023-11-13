@@ -39,7 +39,7 @@ function submit() {
             useClearToast(successId);
             useShowToast(
                 null,
-                'Dance group has been updated...',
+                t('spa.toasts.description.dance_group_updated'),
                 'success',
                 {
                     id: successId,
@@ -53,7 +53,7 @@ function submit() {
             useClearToast(errorId);
             useShowToast(
                 null,
-                'Something went wrong...',
+                t('spa.toasts.description.error'),
                 'error',
                 {
                     id: errorId,
@@ -67,8 +67,8 @@ function submit() {
 <template>
     <DanceGroupForm
         v-model:form="form"
-        :group="group"
         :users="users"
+        :edit="true"
         @submit="submit"
     />
 </template>

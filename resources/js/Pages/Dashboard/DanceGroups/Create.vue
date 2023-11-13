@@ -12,7 +12,6 @@ defineOptions({
 
 //Define props
 const props = defineProps({
-    group: Object,
     users: Array,
 });
 
@@ -37,7 +36,7 @@ function submit() {
             useClearToast(successId);
             useShowToast(
                 null,
-                'Dance group has been created...',
+                t('spa.toasts.description.dance_group_created'),
                 'success',
                 {
                     id: successId,
@@ -51,7 +50,7 @@ function submit() {
             useClearToast(errorId);
             useShowToast(
                 null,
-                'Something went wrong...',
+                t('spa.toasts.description.error'),
                 'error',
                 {
                     id: errorId,
@@ -65,7 +64,6 @@ function submit() {
 <template>
     <DanceGroupForm
         v-model:form="form"
-        :group="group"
         :users="users"
         @submit="submit"
     />

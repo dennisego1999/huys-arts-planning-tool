@@ -14,8 +14,11 @@ const emit = defineEmits(['update:form', 'submit']);
 // Define props
 const props = defineProps({
     form: Object,
-    group: Object,
     users: Array,
+    edit: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 // Set translation
@@ -90,7 +93,7 @@ function submit() {
     <div class="flex flex-col justify-between items-start gap-10">
         <div class="flex items-center justify-between gap-6 w-full">
             <div class="flex justify-start items-center gap-2">
-                <template v-if="!form.name">
+                <template v-if="!edit">
                     <h1 class="text-5xl font-bold">
                         {{ t('spa.pages.dance_groups.new_dance_group') }}
                     </h1>
