@@ -48,12 +48,16 @@ function deleteOption(optionToBeDeleted) {
 <template>
     <div class="relative 10 flex flex-wrap justify-start items-center w-full border-none">
         <div class="relative z-0 flex justify-between items-center gap-3 border-[1px] border-gray-300 rounded-md px-3 py-2 w-full">
-            <div class="relative z-10" :class="{'pointer-events-none': !deletable}">
+            <div class="relative z-10 pointer-events-none">
                 <p v-if="selectedOptions.length === 0">
                     {{ t('spa.labels.select') }}
                 </p>
 
-                <div v-else class="flex flex-wrap justify-start items-center gap-2">
+                <div
+                    v-else
+                    class="flex flex-wrap justify-start items-center gap-2"
+                    :class="{'pointer-events-auto': deletable}"
+                >
                     <div
                         v-for="(option, index) in selectedOptions"
                         :key="'selected-option-'+ index"
