@@ -1,5 +1,6 @@
 <script setup>
 import {ref} from "vue";
+import {useI18n} from "vue-i18n";
 import AngleDownIcon from "@/Components/AngleDownIcon.vue";
 import CloseIcon from "@/Components/CloseIcon.vue";
 
@@ -16,6 +17,9 @@ const props = defineProps({
         default: true,
     }
 });
+
+//Set translation
+const {t} = useI18n();
 
 //Define variables
 const selectedOptions = ref(props.modelValue ?? []);
@@ -45,7 +49,9 @@ function deleteOption(optionToBeDeleted) {
     <div class="relative 10 flex flex-wrap justify-start items-center w-full border-none">
         <div class="relative z-0 flex justify-between items-center gap-3 border-[1px] border-gray-300 rounded-md px-3 py-2 w-full">
             <div class="relative z-10" :class="{'pointer-events-none': !deletable}">
-                <p v-if="selectedOptions.length === 0">Select</p>
+                <p v-if="selectedOptions.length === 0">
+                    {{ t('spa.labels.select') }}
+                </p>
 
                 <div v-else class="flex flex-wrap justify-start items-center gap-2">
                     <div

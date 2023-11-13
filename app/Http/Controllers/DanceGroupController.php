@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\DanceGroupCreateAction;
+use App\Actions\DanceGroupDeleteAction;
 use App\Actions\DanceGroupUpdateAction;
+use App\Http\Requests\CreateDanceGroupRequest;
 use App\Http\Requests\UpdateDanceGroupRequest;
 use App\Http\Resources\DanceGroupResource;
 use App\Models\DanceGroup;
@@ -10,7 +13,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class DanceGroupsController extends Controller
+class DanceGroupController extends Controller
 {
     public function index(Request $request)
     {
@@ -25,14 +28,20 @@ class DanceGroupsController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(DanceGroup $danceGroup)
     {
-        //
+        return Inertia::render('Dashboard/DanceGroups/Create', [
+            'group' => new DanceGroupResource($danceGroup),
+            'users' => User::all(),
+        ]);
     }
 
-    public function store(Request $request)
+    public function store(CreateDanceGroupRequest $request, DanceGroupCreateAction $danceGroupCreateAction)
     {
-        //
+        $formData = $request->validated();
+        $danceGroupCreateAction->handle($formData);
+
+        return redirect()->route('dance-groups.index');
     }
 
     public function show(DanceGroup $danceGroup)
@@ -58,8 +67,10 @@ class DanceGroupsController extends Controller
         return redirect()->back();
     }
 
-    public function destroy($id)
+    public function destroy(DanceGroupDeleteAction $danceGroupDeleteAction, DanceGroup $danceGroup)
     {
-        //
+        $danceGroupDeleteAction->handle($danceGroup);
+
+        return redirect()->back();
     }
 }

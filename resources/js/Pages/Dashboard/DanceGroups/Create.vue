@@ -2,7 +2,7 @@
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {useForm} from "@inertiajs/vue3";
-import {PhotoIcon, PencilSquareIcon, TrashIcon} from "@heroicons/vue/24/outline";
+import {PhotoIcon, PlusCircleIcon, TrashIcon} from "@heroicons/vue/24/outline";
 import {useClearToast, useShowToast} from "@/Composables/Toastification";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
@@ -30,12 +30,11 @@ const isAddMemberModalOpen = ref(false);
 const photoInput = ref(null);
 const photoPreview = ref(null);
 const form = useForm({
-    _method: 'put',
-    name: props.group.name ?? null,
-    description: props.group.description ?? null,
-    image: props.group.image ?? null,
+    name: null,
+    description: null,
+    image: null,
     new_image: null,
-    members: props.group.members ?? [],
+    members: [],
 });
 
 //Define functions
@@ -85,14 +84,14 @@ function removeMember(memberToBeRemoved) {
 }
 
 function submitForm() {
-    form.post(route('dance-groups.update', {dance_group: props.group}), {
+    form.post(route('dance-groups.store', {dance_group: props.group}), {
         onSuccess: () => {
-            const successId = 'dance-group-updated-toast';
+            const successId = 'dance-group-created-toast';
 
             useClearToast(successId);
             useShowToast(
                 null,
-                'Dance group has been updated...',
+                'Dance group has been created...',
                 'success',
                 {
                     id: successId,
@@ -101,7 +100,7 @@ function submitForm() {
         },
         onError: error => {
             console.error(error);
-            const errorId = 'dance-group-updated-error-toast';
+            const errorId = 'dance-group-created-error-toast';
 
             useClearToast(errorId);
             useShowToast(
@@ -121,13 +120,13 @@ function submitForm() {
     <div class="flex flex-col justify-between items-start gap-10">
         <div class="flex items-center justify-between gap-6 w-full">
             <div class="flex justify-start items-center gap-2">
-                <h1 class="text-5xl font-bold">{{ group.name }}</h1>
+                <h1 class="text-5xl font-bold">{{ t('spa.pages.dance_groups.new_dance_group') }}</h1>
 
-                <PencilSquareIcon class="h-8 w-8 text-gray-600"/>
+                <PlusCircleIcon class="h-8 w-8 text-gray-600"/>
             </div>
 
             <div class="flex items-center justify-end gap-4">
-                <SecondaryButton :href="route('dance-groups.show', {dance_group: group})">
+                <SecondaryButton :href="route('dance-groups.index')">
                     {{ t('spa.buttons.cancel') }}
                 </SecondaryButton>
 
@@ -164,14 +163,14 @@ function submitForm() {
                         </label>
 
                         <div class="mt-2">
-                            <textarea
-                                v-model="form.description"
-                                rows="5"
-                                type="text"
-                                name="description"
-                                id="description"
-                                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
+                    <textarea
+                        v-model="form.description"
+                        rows="5"
+                        type="text"
+                        name="description"
+                        id="description"
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
 
                             <InputError :message="form.errors.description" class="mt-2"/>
                         </div>
@@ -194,12 +193,9 @@ function submitForm() {
                         >
 
                         <!-- Current Profile Photo -->
-                        <img
-                            v-if="form.image && form.image.original_url"
-                            :src="form.image.original_url"
-                            alt="dance group image"
-                            class="w-full h-full rounded-md aspect-video object-cover"
-                        >
+                        <div v-if="form.image && form.image.original_url" class="mt-2">
+                            <img :src="form.image.original_url" alt="dance group image" class="w-full aspect-video object-cover">
+                        </div>
 
                         <!-- New Profile Photo Preview -->
                         <div v-else class="relative">

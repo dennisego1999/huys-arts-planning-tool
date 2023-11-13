@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'labels' => [
+        'select' => 'Select',
+    ],
     'buttons' => [
         'go_back' => 'Back',
         'edit' => 'Edit',
@@ -12,6 +15,9 @@ return [
         'import' => 'Import',
         'export' => 'Export',
         'create_dance_group' => 'Create new dance group',
+        'add' => 'Add',
+        'remove' => 'Remove',
+        'select_new_photo' => 'Choose a new photo'
     ],
     'pages' => [
         'dashboard' => [
@@ -45,6 +51,14 @@ return [
                 'label' => 'Members',
                 'description' => 'These are the members of {name}',
             ],
+            'new_dance_group' => 'New dance group',
+            'no_members' => 'This group has no members...',
+            'update_members' => 'Update the members',
+            'form' => [
+                'name' => 'Name',
+                'description' => 'Description',
+                'photo' => 'Photo',
+            ]
         ],
         'translations' => [
             'label' => 'Translations',

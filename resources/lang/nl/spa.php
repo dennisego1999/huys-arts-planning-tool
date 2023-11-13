@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'labels' => [
+        'select' => 'Selecteer',
+    ],
     'buttons' => [
         'go_back' => 'Terug',
         'edit' => 'Pas aan',
@@ -12,6 +15,9 @@ return [
         'import' => 'Importeren',
         'export' => 'Exporteren',
         'create_dance_group' => 'Maak nieuwe dans groep',
+        'add' => 'Voeg toe',
+        'remove' => 'Verwijder',
+        'select_new_photo' => 'Kies een nieuwe foto'
     ],
     'pages' => [
         'dashboard' => [
@@ -45,6 +51,14 @@ return [
                 'label' => 'Leden',
                 'description' => 'Dit zijn de leden van {name}',
             ],
+            'new_dance_group' => 'Nieuwe dansgroep',
+            'no_members' => 'Deze groep heeft geen leden...',
+            'update_members' => 'Pas de leden aan',
+            'form' => [
+                'name' => 'Naam',
+                'description' => 'Omschrijving',
+                'photo' => 'Foto',
+            ]
         ],
         'translations' => [
             'label' => 'Vertalingen',

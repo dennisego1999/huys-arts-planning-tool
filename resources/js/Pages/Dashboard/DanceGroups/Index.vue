@@ -2,23 +2,24 @@
 import {useI18n} from "vue-i18n";
 import {nextTick} from "vue";
 import {gsap} from "gsap";
-import {Link, useForm, usePage} from "@inertiajs/vue3";
+import {TrashIcon} from "@heroicons/vue/24/outline";
+import {Link, router, useForm, usePage} from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import SearchBar from "@/Components/SearchBar.vue";
 import Pagination from "@/Components/Pagination.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 
-//Define options
+// Define options
 defineOptions({
     layout: AppLayout
 });
 
-//Define props
+// Define props
 const props = defineProps({
     groups: Object,
 });
 
-//Set translation
+// Set translation
 const {t} = useI18n();
 
 // Get url params
@@ -31,7 +32,7 @@ const form = useForm({
 });
 
 nextTick(() => {
-    //Animated in
+    // Animated in
     gsap.from('.dance-group', {
         opacity: 0,
         yPercent: 10,
@@ -40,6 +41,11 @@ nextTick(() => {
         ease: "power1.out"
     });
 });
+
+// Define functions
+function removeGroup(group) {
+    router.delete(route('dance-groups.destroy', {dance_group: group}));
+}
 </script>
 
 <template>
@@ -56,7 +62,7 @@ nextTick(() => {
             </div>
 
             <div v-if="usePage().props.policies.can.manageDanceGroups" class="flex justify-end items-center gap-4">
-                <PrimaryButton>
+                <PrimaryButton :href="route('dance-groups.create')">
                     {{ t('spa.buttons.create_dance_group') }}
                 </PrimaryButton>
             </div>
@@ -65,17 +71,24 @@ nextTick(() => {
         <SearchBar :form="form" :href="route('dance-groups.index')"/>
 
         <div v-if="groups.data.length !==0" class="mx-auto grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
-            <Link
+            <div
+                class="relative drop-shadow-xl rounded-md bg-gray-50"
                 v-for="(group, index) in groups.data"
                 :key="'dance-group-' + index"
-                :href="route('dance-groups.show', {dance_group: group})"
-                class="dance-group drop-shadow-xl rounded-md bg-gray-50"
             >
-                <img v-if="group.image" class="aspect-[14/13] w-full rounded-t-2xl object-cover" :src="group.image.original_url" alt="dance group image"/>
-                <div v-else class="aspect-[14/13] w-full rounded-t-2xl object-cover bg-gray-300"></div>
+                <Link :href="route('dance-groups.show', {dance_group: group})" class="relative z-0">
+                    <img v-if="group.image" class="aspect-[14/13] w-full rounded-t-2xl object-cover" :src="group.image.original_url" alt="dance group image"/>
+                    <div v-else class="aspect-[14/13] w-full rounded-t-2xl object-cover bg-gray-300"></div>
 
-                <h3 class="text-lg font-semibold leading-8 tracking-tight text-gray-600 p-3">{{ group.name }}</h3>
-            </Link>
+                    <h3 class="text-lg font-semibold leading-8 tracking-tight text-gray-600 p-3">{{ group.name }}</h3>
+                </Link>
+
+                <TrashIcon
+                    v-if="usePage().props.policies.can.manageDanceGroups"
+                    @click="removeGroup(group)"
+                    class="absolute z-10 top-4 right-4 h-9 w-9 p-1 bg-red-400 rounded-md text-white cursor-pointer"
+                />
+            </div>
         </div>
 
         <p v-else>No dance groups found...</p>

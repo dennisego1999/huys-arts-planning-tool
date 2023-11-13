@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\DanceGroupsController;
+use App\Http\Controllers\DanceGroupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImpersonateController;
@@ -31,7 +31,7 @@ Route::middleware([
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::post('/impersonate/{user}', ImpersonateController::class)->name('impersonate');
     Route::resource('users', UsersController::class);
-    Route::resource('dance-groups', DanceGroupsController::class);
+    Route::resource('dance-groups', DanceGroupController::class);
 
     Route::name('translations.')->prefix('translations')->group(function () {
         Route::get('/', [TranslationsController::class, 'index'])->name('index');
