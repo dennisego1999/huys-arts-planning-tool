@@ -21,6 +21,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+            'address' => ['string', 'nullable'],
+            'city' => ['string', 'nullable'],
+            'province' => ['string', 'nullable'],
+            'zip' => ['string', 'nullable'],
+            'roles' => ['array'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateProfileInformation');
 
@@ -28,15 +33,20 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $user->updateProfilePhoto($input['photo']);
         }
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
+        if ($input['email'] !== $user->email && $user instanceof MustVerifyEmail) {
             $this->updateVerifiedUser($user, $input);
         } else {
             $user->forceFill([
                 'first_name' => $input['first_name'],
                 'last_name' => $input['last_name'],
                 'email' => $input['email'],
-            ])->save();
+                'address' => $input['address'],
+                'city' => $input['city'],
+                'province' => $input['province'],
+                'zip' => $input['zip'],
+            ])
+                ->syncRoles(collect($input['roles'])->pluck('name') ?? [])
+                ->save();
         }
     }
 
@@ -52,7 +62,13 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'last_name' => $input['last_name'],
             'email' => $input['email'],
             'email_verified_at' => null,
-        ])->save();
+            'address' => $input['address'],
+            'city' => $input['city'],
+            'province' => $input['province'],
+            'zip' => $input['zip'],
+        ])
+            ->syncRoles(collect($input['roles'])->pluck('name') ?? [])
+            ->save();
 
         $user->sendEmailVerificationNotification();
     }

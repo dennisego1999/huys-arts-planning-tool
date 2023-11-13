@@ -34,6 +34,7 @@ const form = useForm({
     province: props.user.province,
     zip: props.user.zip,
     roles: props.user.roles ?? [],
+    photo: null,
 });
 
 //Define functions

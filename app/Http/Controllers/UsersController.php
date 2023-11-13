@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\UserCreateAction;
-use App\Actions\UserDestroyAction;
-use App\Actions\UserUpdateAction;
-use App\Http\Requests\CreateUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Actions\Fortify\CreateNewUser;
+use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Actions\Jetstream\DeleteUser;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -37,10 +35,10 @@ class UsersController extends Controller
         ]);
     }
 
-    public function store(CreateUserRequest $request, UserCreateAction $userCreateAction)
+    public function store(Request $request, CreateNewUser $createNewUser)
     {
-        $formData = $request->validated();
-        $userCreateAction->handle($formData);
+        // Create new user
+        $createNewUser->create($request->all());
 
         return redirect()->route('users.index');
     }
@@ -60,19 +58,21 @@ class UsersController extends Controller
         ]);
     }
 
-    public function update(UpdateUserRequest $request, UserUpdateAction $userUpdateAction, User $user)
+    public function update(Request $request, UpdateUserProfileInformation $updateUserProfileInformation, User $user)
     {
-        $formData = $request->validated();
-        $userUpdateAction->handle($formData, $user);
+        // Update user profile information
+        $updateUserProfileInformation->update($user, $request->all());
 
         return redirect()->route('users.index');
     }
 
-    public function destroy(UserDestroyAction $userDestroyAction, User $user)
+    public function destroy(DeleteUser $deleteUserAction, User $user)
     {
+        // Check permission
         $this->authorize('manage-users', User::class);
 
-        $userDestroyAction->handle($user);
+        // Delete the user
+        $deleteUserAction->delete($user);
 
         return redirect()->back();
     }
