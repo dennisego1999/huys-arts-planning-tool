@@ -24,10 +24,10 @@ class CreateDanceGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['string', 'unique_translation:dance_groups,name'],
-            'description' => ['string'],
+            'name' => ['string', 'max:255', 'unique_translation:dance_groups,name'],
+            'description' => ['string', 'max:255'],
             'new_image' => ['image', 'mimes:jpg,png,jpeg,gif', 'nullable'],
-            'members' => 'array',
+            'members' => ['array'],
         ];
     }
 }

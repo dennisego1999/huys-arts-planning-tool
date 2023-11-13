@@ -53,6 +53,7 @@ return [
             ],
             'new_dance_group' => 'Nieuwe dansgroep',
             'no_members' => 'Deze groep heeft geen leden...',
+            'no_groups' => 'Geen dans groepen gevonden...',
             'update_members' => 'Pas de leden aan',
             'form' => [
                 'name' => 'Naam',

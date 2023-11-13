@@ -13,13 +13,20 @@ class DanceGroupUpdateAction
             'description' => $data['description'],
         ]);
 
-        // Add media when necessary
-        if($data['new_image']) {
-            $danceGroup->addMedia($data['new_image'])->toMediaCollection('dance-group-assets', 'assets');
-        }
-
         // Sync members
         $memberIds = collect($data['members'])->pluck('id');
         $danceGroup->members()->sync($memberIds);
+
+        // Add media when necessary
+        if($data['new_image']) {
+            $danceGroup->addMedia($data['new_image'])->toMediaCollection('dance-group-assets', 'assets');
+
+            return;
+        }
+
+        // Remove media
+        $danceGroup
+            ->getFirstMedia('dance-group-assets')
+            ->delete();
     }
 }

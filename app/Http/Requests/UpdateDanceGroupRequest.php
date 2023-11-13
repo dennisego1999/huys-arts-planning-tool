@@ -24,8 +24,9 @@ class UpdateDanceGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['string', 'unique_translation:dance_groups,name'],
-            'description' => ['string'],
+            'id' => ['integer'],
+            'name' => ['string', 'max:255', 'unique_translation:dance_groups,name,' . $this->request->get('id')],
+            'description' => ['string', 'max:255'],
             'new_image' => ['image', 'mimes:jpg,png,jpeg,gif', 'nullable'],
             'members' => 'array',
         ];

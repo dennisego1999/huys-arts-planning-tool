@@ -53,6 +53,7 @@ return [
             ],
             'new_dance_group' => 'New dance group',
             'no_members' => 'This group has no members...',
+            'no_groups' => 'No dance groups found...',
             'update_members' => 'Update the members',
             'form' => [
                 'name' => 'Name',

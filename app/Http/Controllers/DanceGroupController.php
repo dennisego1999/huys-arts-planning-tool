@@ -64,7 +64,9 @@ class DanceGroupController extends Controller
         $formData = $request->validated();
         $danceGroupUpdateAction->handle($formData, $danceGroup);
 
-        return redirect()->back();
+        return redirect()->route('dance-groups.show', [
+            'dance_group' => $danceGroup
+        ]);
     }
 
     public function destroy(DanceGroupDeleteAction $danceGroupDeleteAction, DanceGroup $danceGroup)

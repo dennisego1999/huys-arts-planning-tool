@@ -72,7 +72,7 @@ function removeGroup(group) {
 
         <div v-if="groups.data.length !==0" class="mx-auto grid max-w-2xl grid-cols-1 gap-8 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3 xl:grid-cols-4">
             <div
-                class="relative drop-shadow-xl rounded-md bg-gray-50"
+                class="relative dance-group drop-shadow-xl rounded-md bg-gray-50"
                 v-for="(group, index) in groups.data"
                 :key="'dance-group-' + index"
             >
@@ -91,7 +91,9 @@ function removeGroup(group) {
             </div>
         </div>
 
-        <p v-else>No dance groups found...</p>
+        <p v-else class="text-base">
+            {{ t('spa.pages.dance_groups.no_groups') }}
+        </p>
 
         <Pagination v-if="groups.data.length !== 0" :links="groups.meta.links"/>
     </div>

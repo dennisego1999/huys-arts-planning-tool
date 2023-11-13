@@ -14,12 +14,14 @@ class DanceGroupCreateAction
         ]);
 
         // Add media when necessary
-        if($data['new_image']) {
+        if(isset($data['new_image'])) {
             $model->addMedia($data['new_image'])->toMediaCollection('dance-group-assets', 'assets');
         }
 
         // Sync members
-        $memberIds = collect($data['members'])->pluck('id');
-        $model->members()->sync($memberIds);
+        if(isset($data['members'])) {
+            $memberIds = collect($data['members'])->pluck('id');
+            $model->members()->sync($memberIds);
+        }
     }
 }
