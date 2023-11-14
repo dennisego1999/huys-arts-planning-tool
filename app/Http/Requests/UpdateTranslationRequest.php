@@ -24,7 +24,7 @@ class UpdateTranslationRequest extends FormRequest
     public function rules()
     {
         return [
-            'text' => ['array'],
+            'text' => ['array', 'required'],
             'text.*' => ['string', 'required'],
         ];
     }

@@ -384,7 +384,7 @@ function closeEditTranslationModal() {
                         class="text w-full"
                     />
 
-                    <InputError :message="editForm.errors['text.' + usePage().props.locales.currentLocale]" />
+                    <InputError :message="editForm.errors['text']" />
                 </div>
 
                 <div class="flex justify-start items-center gap-4">
