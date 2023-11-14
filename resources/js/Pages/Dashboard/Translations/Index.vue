@@ -81,70 +81,16 @@ function deleteTranslation(languageLine) {
 }
 
 function scanTranslations() {
-    router.post(route('translations.scan'), {}, {
-        onSuccess: () => {
-            const successId = 'translation-scan-info-toast';
-
-            useClearToast(successId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.scan_completed'),
-                'info',
-                {
-                    id: successId,
-                }
-            );
-        },
-        onError: error => {
-            console.error(error);
-            const errorId = 'translation-scan-error-toast';
-
-            useClearToast(errorId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.error'),
-                'error',
-                {
-                    id: errorId,
-                }
-            );
-        }
-    });
+    router.post(route('translations.scan'));
 }
 
 function importTranslations() {
     // Import the uploaded excel
     importForm.post(route('translations.import'), {
         onSuccess: () => {
-            const successId = 'translation-import-success-toast';
-
-            useClearToast(successId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.import_completed'),
-                'info',
-                {
-                    id: successId,
-                }
-            );
-
             // Close the modal
             closeImportTranslationsModal();
         },
-        onError: error => {
-            console.error(error);
-            const errorId = 'translation-import-error-toast';
-
-            useClearToast(errorId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.error'),
-                'error',
-                {
-                    id: errorId,
-                }
-            );
-        }
     });
 }
 

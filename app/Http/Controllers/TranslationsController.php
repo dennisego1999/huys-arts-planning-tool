@@ -54,7 +54,7 @@ class TranslationsController extends Controller
         // Call trans:import command
         Artisan::call(ImportTranslationsCommand::class);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', trans('spa.toasts.description.scan_completed'));
     }
 
     public function import(ImportTranslationsRequest $request) {
@@ -65,7 +65,7 @@ class TranslationsController extends Controller
         Excel::import(new LanguageLineImport, $formData['file']);
 
         // Send back to the previous page after running the importer
-        return redirect()->back();
+        return redirect()->back()->with('success', trans('spa.toasts.description.import_completed'));
     }
 
     public function export() {
