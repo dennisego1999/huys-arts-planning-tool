@@ -1,9 +1,8 @@
 <script setup>
-import {ref, watch} from "vue";
+import {ref} from "vue";
 import {useI18n} from "vue-i18n";
 import {router, useForm, usePage} from "@inertiajs/vue3";
 import {PencilSquareIcon, TrashIcon, ArrowUpTrayIcon, ArrowDownTrayIcon} from "@heroicons/vue/20/solid";
-import {useClearToast, useShowToast} from "@/Composables/Toastification";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -49,35 +48,7 @@ const editForm = useForm({
 
 // Define functions
 function deleteTranslation(languageLine) {
-    router.delete(route('translations.destroy', {language_line: languageLine}), {
-        onSuccess: () => {
-            const successId = 'translation-destroy-success-toast';
-
-            useClearToast(successId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.translation_deleted'),
-                'success',
-                {
-                    id: successId,
-                }
-            );
-        },
-        onError: error => {
-            console.error(error);
-            const errorId = 'translation-destroy-error-toast';
-
-            useClearToast(errorId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.error'),
-                'error',
-                {
-                    id: errorId,
-                }
-            );
-        }
-    });
+    router.delete(route('translations.destroy', {language_line: languageLine}));
 }
 
 function scanTranslations() {

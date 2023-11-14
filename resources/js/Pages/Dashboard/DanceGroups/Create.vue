@@ -1,7 +1,6 @@
 <script setup>
 import {useI18n} from "vue-i18n";
 import {useForm} from "@inertiajs/vue3";
-import {useClearToast, useShowToast} from "@/Composables/Toastification";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import DanceGroupForm from "@/Components/DanceGroupForm.vue";
 

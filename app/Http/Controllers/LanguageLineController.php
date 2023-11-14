@@ -54,7 +54,7 @@ class LanguageLineController extends Controller
         // Delete the language line
         $languageLine->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', trans('spa.toasts.description.translation_deleted'));
     }
 
     public function scan() {

@@ -4,8 +4,8 @@ import {computed, nextTick, onUnmounted, ref, watch} from "vue";
 import {usePage, Link, router} from "@inertiajs/vue3";
 import {Dialog, DialogPanel, TransitionChild, TransitionRoot} from "@headlessui/vue";
 import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon, LanguageIcon} from "@heroicons/vue/24/outline";
-import NavigationDropdown from "@/Components/NavigationDropdown.vue";
 import {useClearToast, useShowToast} from "@/Composables/Toastification";
+import NavigationDropdown from "@/Components/NavigationDropdown.vue";
 
 //Set translation
 const {t} = useI18n();
@@ -154,26 +154,28 @@ watch(
 );
 
 // Listen for validation errors
-router.on('error', (e) => {
-    // Retrieve the errors out of the event
-    let errors = Object.values(e?.detail?.errors) || [];
-    errors = new Set(errors);
+onUnmounted(() => {
+    router.on('error', (e) => {
+        // Retrieve the errors out of the event
+        let errors = Object.values(e?.detail?.errors) || [];
+        errors = new Set(errors);
 
-    // Print each error
-    errors.forEach((error) => {
-        // Set toast id
-        const errorId = 'error-toast';
+        // Print each error
+        errors.forEach((error) => {
+            // Set toast id
+            const errorId = 'error-toast';
 
-        // Toast
-        useClearToast(errorId);
-        useShowToast(
-            null,
-            error,
-            "error",
-            {
-                id: errorId
-            }
-        );
+            // Toast
+            useClearToast(errorId);
+            useShowToast(
+                null,
+                error,
+                "error",
+                {
+                    id: errorId
+                }
+            );
+        });
     });
 });
 </script>
