@@ -181,4 +181,21 @@ return [
 
     'attributes' => [],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Error messages
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used to swap for exception handlers.
+    |
+    */
+
+    'errors' => [
+        'maintenance' => 'Sorry, we zijn momenteel bezig aan een onderhoud. Probeer later opnieuw.',
+        'error' => 'Oeps, er is iets misgegaan op onze servers.',
+        'expired' => 'De pagina is verlopen. Probeer het opnieuw.',
+        'missing' => 'Sorry, de pagina die u zoekt kan niet gevonden worden.',
+        'forbidden' => 'Sorry, u heeft geen toegang tot deze pagina.'
+    ]
+
 ];

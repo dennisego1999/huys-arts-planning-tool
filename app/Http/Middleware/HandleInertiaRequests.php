@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use App\Models\Game;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -33,13 +35,10 @@ class HandleInertiaRequests extends Middleware
     {
         //Get the shared data
         $data = array_merge(parent::share($request), [
+            'flash' => $this->getSessionFlashing($request),
             //General setup
             'locales' => fn () => $this->getLocales(),
             'currentRouteName' => $request->route()->getName(),
-            'flash' => [
-                'success' => fn() => $request->session()->get('success'),
-                'error' => fn() => $request->session()->get('error'),
-            ],
             'policies' => fn() => $this->getPolicies(),
         ]);
 
@@ -50,6 +49,40 @@ class HandleInertiaRequests extends Middleware
         }
 
         return $data;
+    }
+
+    protected function getSessionFlashing(Request $request): array
+    {
+        // The default data to flash
+        $flash = [
+            'uuid' => (string) Str::uuid(),
+            'success' => Session::get('success'),
+            'error' => Session::get('error')
+        ];
+
+        // Run additional checks when logged-in
+        if ($user = $request->user()) {
+            // The user has no two-factor authentication
+            if (! $user->hasEnabledTwoFactorAuthentication()) {
+                // The user has still a valid grace period
+                if ($user->is_unlocked) {
+                    $flash['bannerType'] = 'warning';
+                    $flash['bannerMessage'] = trans('auth.two_factor.time_remaining', [
+                        'time' => $user->two_factor_grace_remaining
+                    ]);
+                }
+
+                // The user his grace period is overdue
+                if (! $user->is_unlocked) {
+                    $flash['bannerType'] = 'danger';
+                    $flash['bannerMessage'] = trans('auth.two_factor.time_overdue', [
+                        'time' => $user->two_factor_grace_remaining
+                    ]);
+                }
+            }
+        }
+
+        return $flash;
     }
 
     protected function getTranslations(): array

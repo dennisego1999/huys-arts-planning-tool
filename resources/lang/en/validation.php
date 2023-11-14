@@ -181,4 +181,21 @@ return [
 
     'attributes' => [],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Error messages
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used to swap for exception handlers.
+    |
+    */
+
+    'errors' => [
+        'maintenance' => 'Sorry, we are currently undergoing maintenance. Please try again later.',
+        'error' => 'Whoops, something went wrong on our servers. Verify you\'re using the correct region.',
+        'expired' => 'The page expired, please try again.',
+        'missing' => 'Sorry, the page you are looking for could not be found.',
+        'forbidden' => 'Sorry, you are forbidden from accessing this page.'
+    ]
+
 ];

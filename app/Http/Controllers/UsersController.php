@@ -69,7 +69,7 @@ class UsersController extends Controller
     public function destroy(DeleteUser $deleteUserAction, User $user)
     {
         // Check permission
-        $this->authorize('manage-users', User::class);
+        $this->authorize('delete', $user);
 
         // Delete the user
         $deleteUserAction->delete($user);
