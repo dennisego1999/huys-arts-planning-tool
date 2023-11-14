@@ -7,7 +7,7 @@ use Illuminate\Notifications\DatabaseNotification;
 
 class NotificationController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         return auth()->user()->unreadNotifications
             ->map
@@ -16,7 +16,10 @@ class NotificationController extends Controller
 
     public function read(DatabaseNotification $notification)
     {
+        // Authorize
         $this->authorize('view', $notification);
+
+        // Mark as read
         $notification->markAsRead();
     }
 }
