@@ -39,35 +39,7 @@ const form = useForm({
 
 //Define functions
 function submitForm() {
-    form.post(route('users.store'), {
-        onSuccess: () => {
-            const successId = 'user-created-toast';
-
-            useClearToast(successId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.user_created'),
-                'success',
-                {
-                    id: successId,
-                }
-            );
-        },
-        onError: error => {
-            console.error(error);
-            const errorId = 'user-created-error-toast';
-
-            useClearToast(errorId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.error'),
-                'error',
-                {
-                    id: errorId,
-                }
-            );
-        }
-    });
+    form.post(route('users.store'));
 }
 </script>
 

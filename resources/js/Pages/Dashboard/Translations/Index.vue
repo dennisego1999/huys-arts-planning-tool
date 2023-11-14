@@ -151,35 +151,9 @@ function importTranslations() {
 function editTranslation(languageLine) {
     editForm.put(route('translations.update', {language_line: languageLine}), {
         onSuccess: () => {
-            const successId = 'translation-edit-success-toast';
-
-            useClearToast(successId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.translation_updated'),
-                'success',
-                {
-                    id: successId,
-                }
-            );
-
             // Close the modal
             closeEditTranslationModal();
         },
-        onError: error => {
-            console.error(error);
-            const errorId = 'translation-edit-error-toast';
-
-            useClearToast(errorId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.error'),
-                'error',
-                {
-                    id: errorId,
-                }
-            );
-        }
     });
 }
 

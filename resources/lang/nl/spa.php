@@ -9,6 +9,8 @@ return [
             'translation_deleted' => 'De vertaling is verwijderd',
             'dance_group_updated' => 'De dans group is succesvol aangepast',
             'dance_group_created' => 'De dans group is succesvol aangemaakt',
+            'user_deleted' => 'De gebruiker is succesvol verwijderd',
+            'user_updated' => 'De gebruiker is succesvol aangepast',
             'user_created' => 'De gebruiker is succesvol aangemaakt',
             'error' => 'Er is iets fout gelopen',
         ],

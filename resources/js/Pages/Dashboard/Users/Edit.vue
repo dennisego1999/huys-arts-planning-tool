@@ -39,35 +39,7 @@ const form = useForm({
 
 //Define functions
 function submitForm() {
-    form.put(route('users.update', {user: props.user}), {
-        onSuccess: () => {
-            const successId = 'user-updated-toast';
-
-            useClearToast(successId);
-            useShowToast(
-                null,
-                'User has been updated...',
-                'success',
-                {
-                    id: successId,
-                }
-            );
-        },
-        onError: error => {
-            console.error(error);
-            const errorId = 'user-updated-error-toast';
-
-            useClearToast(errorId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.error'),
-                'error',
-                {
-                    id: errorId,
-                }
-            );
-        }
-    });
+    form.put(route('users.update', {user: props.user}));
 }
 </script>
 

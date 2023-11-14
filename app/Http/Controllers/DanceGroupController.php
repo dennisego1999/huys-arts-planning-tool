@@ -40,7 +40,7 @@ class DanceGroupController extends Controller
         $formData = $request->validated();
         $danceGroupCreateAction->handle($formData);
 
-        return redirect()->route('dance-groups.index');
+        return redirect()->route('dance-groups.index')->with('success', trans('spa.toasts.description.dance_group_created'));
     }
 
     public function show(DanceGroup $danceGroup)
@@ -65,7 +65,7 @@ class DanceGroupController extends Controller
 
         return redirect()->route('dance-groups.show', [
             'dance_group' => $danceGroup
-        ]);
+        ])->with('success', trans('spa.toasts.description.dance_group_updated'));
     }
 
     public function destroy(DanceGroupDeleteAction $danceGroupDeleteAction, DanceGroup $danceGroup)

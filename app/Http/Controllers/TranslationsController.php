@@ -39,7 +39,7 @@ class TranslationsController extends Controller
         $formData = $request->validated();
         $translationUpdateAction->handle($formData, $languageLine);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', trans('spa.toasts.description.translation_updated'));
     }
 
     public function destroy(LanguageLine $languageLine)

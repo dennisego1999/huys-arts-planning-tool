@@ -1,6 +1,6 @@
 <script setup>
 import {useI18n} from "vue-i18n";
-import {computed, nextTick, ref, watch} from "vue";
+import {computed, nextTick, onUnmounted, ref, watch} from "vue";
 import {usePage, Link, router} from "@inertiajs/vue3";
 import {Dialog, DialogPanel, TransitionChild, TransitionRoot} from "@headlessui/vue";
 import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon, LanguageIcon} from "@heroicons/vue/24/outline";
@@ -152,6 +152,30 @@ watch(
         immediate: true
     }
 );
+
+// Listen for validation errors
+router.on('error', (e) => {
+    // Retrieve the errors out of the event
+    let errors = Object.values(e?.detail?.errors) || [];
+    errors = new Set(errors);
+
+    // Print each error
+    errors.forEach((error) => {
+        // Set toast id
+        const errorId = 'error-toast';
+
+        // Toast
+        useClearToast(errorId);
+        useShowToast(
+            null,
+            error,
+            "error",
+            {
+                id: errorId
+            }
+        );
+    });
+});
 </script>
 
 <template>

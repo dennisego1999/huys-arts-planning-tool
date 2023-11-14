@@ -29,35 +29,7 @@ const form = useForm({
 
 //Define functions
 function submit() {
-    form.post(route('dance-groups.store', {dance_group: props.group}), {
-        onSuccess: () => {
-            const successId = 'dance-group-created-toast';
-
-            useClearToast(successId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.dance_group_created'),
-                'success',
-                {
-                    id: successId,
-                }
-            );
-        },
-        onError: error => {
-            console.error(error);
-            const errorId = 'dance-group-created-error-toast';
-
-            useClearToast(errorId);
-            useShowToast(
-                null,
-                t('spa.toasts.description.error'),
-                'error',
-                {
-                    id: errorId,
-                }
-            );
-        }
-    });
+    form.post(route('dance-groups.store', {dance_group: props.group}));
 }
 </script>
 

@@ -9,6 +9,8 @@ return [
             'translation_deleted' => 'The translation is deleted',
             'dance_group_updated' => 'The dance group is updated',
             'dance_group_created' => 'The dance group is created',
+            'user_deleted' => 'The user is deleted',
+            'user_updated' => 'The user is updated',
             'user_created' => 'The user is created',
             'error' => 'Something went wrong',
         ],
