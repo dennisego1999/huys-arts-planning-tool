@@ -22,7 +22,6 @@ const {t} = useI18n();
 //Define variables
 const form = useForm({
     _method: 'put',
-    id: props.group.id ?? null, // Post this id to backend to ignore the id of the dance group that's being edited during the unique "name" validation rule
     name: props.group.name ?? null,
     description: props.group.description ?? null,
     image: props.group.image ?? null,

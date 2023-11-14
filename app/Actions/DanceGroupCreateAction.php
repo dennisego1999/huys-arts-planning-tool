@@ -6,7 +6,7 @@ use App\Models\DanceGroup;
 
 class DanceGroupCreateAction
 {
-    public function handle(array $data)
+    public function handle(array $data): void
     {
         $model = DanceGroup::create([
             'name' => $data['name'],

@@ -6,7 +6,7 @@ use App\Models\DanceGroup;
 
 class DanceGroupUpdateAction
 {
-    public function handle(array $data, DanceGroup $danceGroup)
+    public function handle(array $data, DanceGroup $danceGroup): void
     {
         DanceGroup::updateOrCreate(['id' => $danceGroup->id], [
             'name' => $data['name'],
@@ -27,6 +27,6 @@ class DanceGroupUpdateAction
         // Remove media
         $danceGroup
             ->getFirstMedia('dance-group-assets')
-            ->delete();
+            ?->delete();
     }
 }
