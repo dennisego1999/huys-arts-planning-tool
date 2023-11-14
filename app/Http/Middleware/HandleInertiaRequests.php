@@ -33,16 +33,16 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        //Get the shared data
+        // Get the shared data
         $data = array_merge(parent::share($request), [
-            'flash' => $this->getSessionFlashing($request),
             //General setup
             'locales' => fn () => $this->getLocales(),
             'currentRouteName' => $request->route()->getName(),
             'policies' => fn() => $this->getPolicies(),
+            'flash' => $this->getSessionFlashing($request),
         ]);
 
-        //Only on the initial load
+        // Only on the initial load
         if (!$request->header('X-Inertia')) {
             $data['app_name'] = config('app.name');
             $data['translations'] = $this->getTranslations();
@@ -63,7 +63,7 @@ class HandleInertiaRequests extends Middleware
         // Run additional checks when logged-in
         if ($user = $request->user()) {
             // The user has no two-factor authentication
-            if (! $user->hasEnabledTwoFactorAuthentication()) {
+            if (!$user->hasEnabledTwoFactorAuthentication()) {
                 // The user has still a valid grace period
                 if ($user->is_unlocked) {
                     $flash['bannerType'] = 'warning';
@@ -73,7 +73,7 @@ class HandleInertiaRequests extends Middleware
                 }
 
                 // The user his grace period is overdue
-                if (! $user->is_unlocked) {
+                if (!$user->is_unlocked) {
                     $flash['bannerType'] = 'danger';
                     $flash['bannerMessage'] = trans('auth.two_factor.time_overdue', [
                         'time' => $user->two_factor_grace_remaining
@@ -87,21 +87,21 @@ class HandleInertiaRequests extends Middleware
 
     protected function getTranslations(): array
     {
-        //Get the locale settings
+        // Get the locale settings
         $locale = config('app.locale');
         $fallbackLocale = config('app.fallback_locale');
 
-        //Get the files that should be shared with the SPA
+        // Get the files that should be shared with the SPA
         $files = [
             'spa',
         ];
 
-        //Load the translations of the current locale
+        // Load the translations of the current locale
         foreach ($files as $file) {
             $translations[$locale][$file] = trans($file);
         }
 
-        //Add the fallback translations when required
+        // Add the fallback translations when required
         if ($locale !== $fallbackLocale) {
             foreach ($files as $file) {
                 $translations[$fallbackLocale][$file] = trans($file, [], $fallbackLocale);
