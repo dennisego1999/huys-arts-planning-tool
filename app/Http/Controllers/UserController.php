@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     public function index(Request $request)
     {
@@ -37,6 +37,9 @@ class UsersController extends Controller
 
     public function store(Request $request, CreateNewUser $createNewUser)
     {
+        // Authorize
+        $this->authorize('create', User::class);
+
         // Create new user
         $createNewUser->create($request->all());
 
@@ -60,6 +63,9 @@ class UsersController extends Controller
 
     public function update(Request $request, UpdateUserProfileInformation $updateUserProfileInformation, User $user)
     {
+        // Authorize
+        $this->authorize('update', $user);
+
         // Update user profile information
         $updateUserProfileInformation->update($user, $request->all());
 
@@ -68,7 +74,7 @@ class UsersController extends Controller
 
     public function destroy(DeleteUser $deleteUserAction, User $user)
     {
-        // Check permission
+        // Authorize
         $this->authorize('delete', $user);
 
         // Delete the user

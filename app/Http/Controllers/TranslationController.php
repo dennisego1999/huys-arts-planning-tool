@@ -15,7 +15,7 @@ use Inertia\Inertia;
 use Spatie\TranslationLoader\LanguageLine;
 use Maatwebsite\Excel\Facades\Excel;
 
-class TranslationsController extends Controller
+class TranslationController extends Controller
 {
     private TranslationService $translationService;
 

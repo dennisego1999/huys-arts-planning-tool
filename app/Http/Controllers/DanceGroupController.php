@@ -37,8 +37,10 @@ class DanceGroupController extends Controller
 
     public function store(CreateDanceGroupRequest $request, DanceGroupCreateAction $danceGroupCreateAction)
     {
+        // Authorize
         $this->authorize('create', DanceGroup::class);
 
+        // Create the dance group
         $formData = $request->validated();
         $danceGroupCreateAction->handle($formData);
 
@@ -62,8 +64,10 @@ class DanceGroupController extends Controller
 
     public function update(UpdateDanceGroupRequest $request, DanceGroupUpdateAction $danceGroupUpdateAction, DanceGroup $danceGroup)
     {
+        // Authorize
         $this->authorize('update', DanceGroup::class);
 
+        // Update the dance group
         $formData = $request->validated();
         $danceGroupUpdateAction->handle($formData, $danceGroup);
 
@@ -74,8 +78,10 @@ class DanceGroupController extends Controller
 
     public function destroy(DanceGroupDeleteAction $danceGroupDeleteAction, DanceGroup $danceGroup)
     {
+        // Authorize
         $this->authorize('delete', DanceGroup::class);
 
+        // Delete the dance group
         $danceGroupDeleteAction->handle($danceGroup);
 
         return redirect()->back();
