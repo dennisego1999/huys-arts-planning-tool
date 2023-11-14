@@ -10,6 +10,28 @@ import { createI18n } from "vue-i18n";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { ZiggyVue } from "../../vendor/tightenco/ziggy/dist/vue.m";
+import Axios from 'axios';
+import Pusher from 'pusher-js';
+import Echo from 'laravel-echo';
+
+// Setup axios
+window.axios = Axios;
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.withCredentials = true;
+
+// Load pusher when filled in
+if (import.meta.env.VITE_PUSHER_APP_KEY && import.meta.env.VITE_PUSHER_APP_CLUSTER) {
+    // Inject Pusher
+    window.Pusher = Pusher;
+
+    // Setup Laravel Echo
+    window.Echo = new Echo({
+        broadcaster: 'pusher',
+        key: import.meta.env.VITE_PUSHER_APP_KEY,
+        cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+        forceTLS: true
+    });
+}
 
 // Setup Vue i18n translations
 const initialPage = JSON.parse(app.dataset.page);

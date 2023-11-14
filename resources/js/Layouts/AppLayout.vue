@@ -80,6 +80,51 @@ function openProfile() {
     router.visit(route('profile.show'));
 }
 
+function fetchUnreadNotifications() {
+    axios.get(route('notification.index'))
+        .then(response => {
+            response.data.forEach((notification) => {
+                if(notification.data.title && notification.data.text) {
+                    useClearToast(notification.id);
+                    useShowToast(
+                        notification.data.title ? notification.data.title : null,
+                        notification.data.text ? notification.data.text : null,
+                        notification.data.type ? notification.data.type : 'info',
+                        {
+                            id: notification.id,
+                        }
+                    );
+                }
+
+                axios.post(route('notification.read', {notification: notification.id}))
+            })
+        });
+}
+
+function listenForPusherNotifications() {
+    Echo.private(`users.${usePage().props.auth.user.id}`)
+        .notification((notification) => {
+            if(notification.title || notification.text) {
+                useClearToast(notification.id);
+                useShowToast(
+                    notification.title ? notification.title : null,
+                    notification.text ? notification.text : null,
+                    notification.type ? notification.type  : 'info',
+                    {
+                        id: notification.id,
+                    }
+                );
+            }
+            axios.post(route('notification.read', {notification: notification.id}))
+        });
+}
+
+function removePrivateServerEventListeners() {
+    for (const channelId in Echo.connector.channels) {
+        Echo.leave(channelId);
+    }
+}
+
 nextTick(() => {
     //Remove data props
     document.getElementById('app').removeAttribute('data-page');
@@ -152,6 +197,18 @@ watch(
         immediate: true
     }
 );
+
+watch(() => usePage().props.auth.user, (newValue, oldValue) => {
+    if (!newValue) {
+        removePrivateServerEventListeners();
+        return;
+    }
+
+    if (typeof oldValue === 'undefined') {
+        listenForPusherNotifications();
+        fetchUnreadNotifications();
+    }
+}, {immediate: true});
 
 // Listen for validation errors
 onUnmounted(() => {
