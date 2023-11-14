@@ -14,10 +14,9 @@ class NotificationController extends Controller
             ->only(['id','data']);
     }
 
-    public function read(Request $request, DatabaseNotification $notification)
+    public function read(DatabaseNotification $notification)
     {
         $this->authorize('view', $notification);
-
         $notification->markAsRead();
     }
 }

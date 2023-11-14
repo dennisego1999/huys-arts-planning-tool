@@ -7,9 +7,11 @@ use App\Models\Team;
 use App\Models\User;
 use App\Policies\DanceGroupPolicy;
 use App\Policies\LanguageLinePolicy;
+use App\Policies\NotificationPolicy;
 use App\Policies\TeamPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Notifications\DatabaseNotification;
 use Spatie\TranslationLoader\LanguageLine;
 
 class AuthServiceProvider extends ServiceProvider
@@ -24,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         LanguageLine::class => LanguageLinePolicy::class,
         Team::class => TeamPolicy::class,
         User::class => UserPolicy::class,
+        DatabaseNotification::class => NotificationPolicy::class,
     ];
 
     /**

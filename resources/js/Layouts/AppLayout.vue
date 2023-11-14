@@ -85,6 +85,7 @@ function fetchUnreadNotifications() {
         .then(response => {
             response.data.forEach((notification) => {
                 if(notification.data.title && notification.data.text) {
+                    // Show toast notification
                     useClearToast(notification.id);
                     useShowToast(
                         notification.data.title ? notification.data.title : null,
@@ -96,7 +97,8 @@ function fetchUnreadNotifications() {
                     );
                 }
 
-                axios.post(route('notification.read', {notification: notification.id}))
+                // Mark the notification as read
+                axios.post(route('notification.read', {notification: notification.id}));
             })
         });
 }
@@ -105,6 +107,7 @@ function listenForPusherNotifications() {
     Echo.private(`users.${usePage().props.auth.user.id}`)
         .notification((notification) => {
             if(notification.title || notification.text) {
+                // Show toast notification
                 useClearToast(notification.id);
                 useShowToast(
                     notification.title ? notification.title : null,
@@ -115,7 +118,9 @@ function listenForPusherNotifications() {
                     }
                 );
             }
-            axios.post(route('notification.read', {notification: notification.id}))
+
+            // Mark the notification as read
+            axios.post(route('notification.read', {notification: notification.id}));
         });
 }
 
@@ -198,6 +203,7 @@ watch(
     }
 );
 
+// Listen for pusher notifications
 watch(() => usePage().props.auth.user, (newValue, oldValue) => {
     if (!newValue) {
         removePrivateServerEventListeners();
