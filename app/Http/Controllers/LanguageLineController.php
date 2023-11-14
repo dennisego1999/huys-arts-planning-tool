@@ -8,14 +8,14 @@ use App\Http\Requests\UpdateTranslationRequest;
 use ArtcoreSociety\TranslationImport\Commands\ImportTranslationsCommand;
 use ArtcoreSociety\TranslationImport\Excel\LanguageLineExport;
 use ArtcoreSociety\TranslationImport\Excel\LanguageLineImport;
+use ArtcoreSociety\TranslationImport\Models\LanguageLine;
 use ArtcoreSociety\TranslationImport\Services\TranslationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Inertia\Inertia;
-use Spatie\TranslationLoader\LanguageLine;
 use Maatwebsite\Excel\Facades\Excel;
 
-class TranslationController extends Controller
+class LanguageLineController extends Controller
 {
     private TranslationService $translationService;
 
@@ -36,6 +36,10 @@ class TranslationController extends Controller
 
     public function update(UpdateTranslationRequest $request, TranslationUpdateAction $translationUpdateAction, LanguageLine $languageLine)
     {
+        // Authorize
+        $this->authorize('update', LanguageLine::class);
+
+        // Update the translation
         $formData = $request->validated();
         $translationUpdateAction->handle($formData, $languageLine);
 
@@ -44,6 +48,9 @@ class TranslationController extends Controller
 
     public function destroy(LanguageLine $languageLine)
     {
+        // Authorize
+        $this->authorize('delete', LanguageLine::class);
+
         // Delete the language line
         $languageLine->delete();
 
