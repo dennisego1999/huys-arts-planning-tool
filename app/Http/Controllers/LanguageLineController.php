@@ -58,6 +58,9 @@ class LanguageLineController extends Controller
     }
 
     public function scan() {
+        // Authorize
+        $this->authorize('scan', LanguageLine::class);
+
         // Call trans:import command
         Artisan::call(ImportTranslationsCommand::class);
 
@@ -65,6 +68,9 @@ class LanguageLineController extends Controller
     }
 
     public function import(ImportTranslationsRequest $request) {
+        // Authorize
+        $this->authorize('import', LanguageLine::class);
+
         // Validate
         $formData = $request->validated();
 
@@ -76,6 +82,9 @@ class LanguageLineController extends Controller
     }
 
     public function export() {
+        // Authorize
+        $this->authorize('export', LanguageLine::class);
+
         // Get the current timestamp
         $timestamp = now()->format('Y-m-d H:i:s');
 

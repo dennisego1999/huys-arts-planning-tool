@@ -40,4 +40,19 @@ class LanguageLinePolicy
     {
         return $user->can('manage-translations');
     }
+
+    public function scan(User $user): bool
+    {
+        return $user->can('manage-translations');
+    }
+
+    public function import(User $user): bool
+    {
+        return $user->can('manage-translations');
+    }
+
+    public function export(User $user): bool
+    {
+        return $user->can('manage-translations');
+    }
 }
