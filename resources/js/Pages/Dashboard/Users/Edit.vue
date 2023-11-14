@@ -9,21 +9,21 @@ import InputField from "@/Components/InputField.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import MultiselectDropdown from "@/Components/MultiselectDropdown.vue";
 
-//Define options
+// Define options
 defineOptions({
     layout: AppLayout
 });
 
-//Define props
+// Define props
 const props = defineProps({
     user: Object,
     roles: Array,
 });
 
-//Set translation
+// Set translation
 const {t} = useI18n();
 
-//Define variables
+// Define variables
 const form = useForm({
     first_name: props.user.first_name,
     last_name: props.user.last_name,
@@ -36,7 +36,7 @@ const form = useForm({
     photo: null,
 });
 
-//Define functions
+// Define functions
 function submitForm() {
     form.put(route('users.update', {user: props.user}));
 }

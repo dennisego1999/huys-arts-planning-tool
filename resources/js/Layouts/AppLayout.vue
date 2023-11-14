@@ -7,13 +7,13 @@ import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon, LanguageIcon} f
 import {useClearToast, useShowToast} from "@/Composables/Toastification";
 import NavigationDropdown from "@/Components/NavigationDropdown.vue";
 
-//Set translation
+// Set translation
 const {t} = useI18n();
 
 // Get the UUID
 const flashUuid = computed(() => usePage().props.flash.uuid);
 
-//Define variables
+// Define variables
 const isNavigationDropdownOpen = ref(false);
 const sidebarOpen = ref(false);
 const navigationItems = ref([
@@ -47,16 +47,16 @@ const navigationItems = ref([
     },
 ]);
 
-//Define function
+// Define function
 function setActiveNavItem(item) {
-    //Disable previous
+    // Disable previous
     const previousActiveNavItem = navigationItems.value.find(itemToReset => itemToReset.current);
     if(previousActiveNavItem) {
         previousActiveNavItem.current = false;
     }
 
     if(item) {
-        //Enable new nav item
+        // Enable new nav item
         item.current = true;
     }
 }
@@ -70,13 +70,13 @@ function closeNavigationDropdown() {
 }
 
 function openProfile() {
-    //Set active item
+    // Set active item
     setActiveNavItem(null);
 
-    //Close dropdown
+    // Close dropdown
     closeNavigationDropdown();
 
-    //Got to profile
+    // Got to profile
     router.visit(route('profile.show'));
 }
 
@@ -131,7 +131,7 @@ function removePrivateServerEventListeners() {
 }
 
 nextTick(() => {
-    //Remove data props
+    // Remove data props
     document.getElementById('app').removeAttribute('data-page');
 });
 

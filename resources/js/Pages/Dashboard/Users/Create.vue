@@ -9,20 +9,20 @@ import InputField from "@/Components/InputField.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import MultiselectDropdown from "@/Components/MultiselectDropdown.vue";
 
-//Define options
+// Define options
 defineOptions({
     layout: AppLayout
 });
 
-//Define props
+// Define props
 const props = defineProps({
     roles: Array,
 });
 
-//Set translation
+// Set translation
 const {t} = useI18n();
 
-//Define variables
+// Define variables
 const form = useForm({
     first_name: null,
     last_name: null,
@@ -36,7 +36,7 @@ const form = useForm({
     roles: []
 });
 
-//Define functions
+// Define functions
 function submitForm() {
     form.post(route('users.store'));
 }

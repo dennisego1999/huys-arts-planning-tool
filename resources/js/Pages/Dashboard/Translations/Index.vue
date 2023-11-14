@@ -23,7 +23,7 @@ const props = defineProps({
     languageLines: Object,
 });
 
-//Set translation
+// Set translation
 const {t} = useI18n();
 
 // Get url params

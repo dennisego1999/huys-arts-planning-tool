@@ -4,20 +4,20 @@ import {useForm} from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import DanceGroupForm from "@/Components/DanceGroupForm.vue";
 
-//Define options
+// Define options
 defineOptions({
     layout: AppLayout
 });
 
-//Define props
+// Define props
 const props = defineProps({
     users: Array,
 });
 
-//Set translation
+// Set translation
 const {t} = useI18n();
 
-//Define variables
+// Define variables
 const form = useForm({
     name: null,
     description: null,
@@ -26,7 +26,7 @@ const form = useForm({
     members: [],
 });
 
-//Define functions
+// Define functions
 function submit() {
     form.post(route('dance-groups.store', {dance_group: props.group}));
 }

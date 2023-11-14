@@ -5,17 +5,17 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import InputField from "@/Components/InputField.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 
-//Define options
+// Define options
 defineOptions({
     layout: AppLayout
 });
 
-//Define props
+// Define props
 const props = defineProps({
     user: Object
 });
 
-//Set translation
+// Set translation
 const {t} = useI18n();
 </script>
 

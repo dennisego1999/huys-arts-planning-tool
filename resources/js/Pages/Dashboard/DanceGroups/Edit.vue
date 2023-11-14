@@ -4,21 +4,21 @@ import {useForm} from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import DanceGroupForm from "@/Components/DanceGroupForm.vue";
 
-//Define options
+// Define options
 defineOptions({
     layout: AppLayout
 });
 
-//Define props
+// Define props
 const props = defineProps({
     group: Object,
     users: Array,
 });
 
-//Set translation
+// Set translation
 const {t} = useI18n();
 
-//Define variables
+// Define variables
 const form = useForm({
     _method: 'put',
     name: props.group.name ?? null,
@@ -28,7 +28,7 @@ const form = useForm({
     members: props.group.members ?? [],
 });
 
-//Define functions
+// Define functions
 function submit() {
     form.post(route('dance-groups.update', {dance_group: props.group}));
 }
