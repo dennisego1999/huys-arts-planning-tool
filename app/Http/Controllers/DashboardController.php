@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\WelcomeNotification;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
