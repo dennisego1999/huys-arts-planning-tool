@@ -98,7 +98,9 @@ function fetchUnreadNotifications() {
                 }
 
                 // Mark the notification as read
-                axios.post(route('notification.read', {notification: notification.id}));
+                axios.post(route('notification.read', {
+                    notification: notification.id
+                }));
             })
         });
 }
@@ -120,7 +122,9 @@ function listenForPusherNotifications() {
             }
 
             // Mark the notification as read
-            axios.post(route('notification.read', {notification: notification.id}));
+            axios.post(route('notification.read', {
+                notification: notification.id
+            }));
         });
 }
 

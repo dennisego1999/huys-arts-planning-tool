@@ -3,7 +3,7 @@ import {useI18n} from "vue-i18n";
 import {nextTick} from "vue";
 import {gsap} from "gsap";
 import {TrashIcon} from "@heroicons/vue/24/outline";
-import {Link, router, useForm, usePage} from "@inertiajs/vue3";
+import {Head, Link, router, useForm, usePage} from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import SearchBar from "@/Components/SearchBar.vue";
 import Pagination from "@/Components/Pagination.vue";
@@ -50,6 +50,8 @@ function removeGroup(group) {
 
 <template>
     <div class="flex flex-col gap-6">
+        <Head :title="t('spa.pages.dance_groups.label')"/>
+
         <div class="sm:flex sm:items-center">
             <div class="sm:flex-auto">
                 <h1 class="text-base font-semibold leading-6 text-gray-900">

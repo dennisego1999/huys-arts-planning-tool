@@ -1,7 +1,7 @@
 <script setup>
 import {useI18n} from "vue-i18n";
 import {TrashIcon, EyeIcon, PencilSquareIcon, SparklesIcon} from "@heroicons/vue/20/solid";
-import {Link, router, useForm, usePage} from "@inertiajs/vue3";
+import {Head, Link, router, useForm, usePage} from "@inertiajs/vue3";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
@@ -32,6 +32,8 @@ const form = useForm({
 
 <template>
     <div>
+        <Head :title="t('spa.pages.users.label')"/>
+
         <div class="flex flex-col gap-6">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">

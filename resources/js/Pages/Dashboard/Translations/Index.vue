@@ -1,7 +1,7 @@
 <script setup>
 import {ref} from "vue";
 import {useI18n} from "vue-i18n";
-import {router, useForm, usePage} from "@inertiajs/vue3";
+import {Head, router, useForm, usePage} from "@inertiajs/vue3";
 import {PencilSquareIcon, TrashIcon, ArrowUpTrayIcon, ArrowDownTrayIcon} from "@heroicons/vue/20/solid";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
@@ -109,6 +109,8 @@ function closeEditTranslationModal() {
 
 <template>
     <div>
+        <Head :title="t('spa.pages.translations.label')"/>
+
         <div class="flex flex-col gap-6">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">

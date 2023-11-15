@@ -62,6 +62,15 @@ const options = {
 };
 
 createInertiaApp({
+    title: (title) => {
+        const appName = import.meta.env.VITE_APP_NAME;
+
+        if (!title) {
+            return appName;
+        }
+
+        return `${title} - ${appName}`;
+    },
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
