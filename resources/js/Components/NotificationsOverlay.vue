@@ -156,6 +156,10 @@ function selectTab(tab) {
                                                 </ul>
                                             </div>
 
+                                            <p v-else-if="filteredNotifications.length === 0 && activeTab === 'unread'">
+                                                {{ t('spa.notifications.no_unread_notifications') }}
+                                            </p>
+
                                             <p v-else>
                                                 {{ t('spa.notifications.no_notifications') }}
                                             </p>

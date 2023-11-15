@@ -3,7 +3,8 @@
 return [
     'notifications' => [
         'label' => 'Notifications',
-        'no_notifications' => 'You don\'t have any unread notification.',
+        'no_unread_notifications' => 'You don\'t have any unread notification.',
+        'no_notifications' => 'You don\'t have any notification.',
         'messages' => [
             'mark_as_read' => 'Notification has been marked as read',
             'dance_group_invitation' => 'You are added to :group',
