@@ -3,9 +3,10 @@ import {useI18n} from "vue-i18n";
 import {computed, nextTick, onUnmounted, ref, watch} from "vue";
 import {usePage, Link, router} from "@inertiajs/vue3";
 import {Dialog, DialogPanel, TransitionChild, TransitionRoot} from "@headlessui/vue";
-import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon, LanguageIcon} from "@heroicons/vue/24/outline";
+import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon, LanguageIcon, BellIcon} from "@heroicons/vue/24/outline";
 import {useClearToast, useShowToast} from "@/Composables/Toastification";
 import NavigationDropdown from "@/Components/NavigationDropdown.vue";
+import NotificationsOverlay from "../Components/NotificationsOverlay.vue";
 
 // Set translation
 const {t} = useI18n();
@@ -14,6 +15,7 @@ const {t} = useI18n();
 const flashUuid = computed(() => usePage().props.flash.uuid);
 
 // Define variables
+const isNotificationOverlayOpen = ref(false);
 const isNavigationDropdownOpen = ref(false);
 const sidebarOpen = ref(false);
 const navigationItems = ref([
@@ -22,28 +24,28 @@ const navigationItems = ref([
         href: route('dashboard'),
         icon: HomeIcon,
         check: !!usePage().props.auth.user.email_verified_at,
-        current: usePage().props.currentRouteName === 'dashboard'
+        current: usePage().props.current_route_name === 'dashboard'
     },
     {
         name: t('spa.pages.users.label'),
         href: route('users.index'),
         icon: UserIcon,
         check: !!usePage().props.auth.user.email_verified_at && usePage().props.policies.can.manageUsers,
-        current: usePage().props.currentRouteName === 'users.index'
+        current: usePage().props.current_route_name === 'users.index'
     },
     {
         name: t('spa.pages.dance_groups.label'),
         href: route('dance-groups.index'),
         icon: UserGroupIcon,
         check: !!usePage().props.auth.user.email_verified_at,
-        current: usePage().props.currentRouteName === 'dance-groups.index'
+        current: usePage().props.current_route_name === 'dance-groups.index'
     },
     {
         name: t('spa.pages.translations.label'),
         href: route('translations.index'),
         icon: LanguageIcon,
         check: !!usePage().props.auth.user.email_verified_at && usePage().props.policies.can.manageTranslations,
-        current: usePage().props.currentRouteName === 'translations.index'
+        current: usePage().props.current_route_name === 'translations.index'
     },
 ]);
 
@@ -80,58 +82,12 @@ function openProfile() {
     router.visit(route('profile.show'));
 }
 
-function fetchUnreadNotifications() {
-    axios.get(route('notification.index'))
-        .then(response => {
-            response.data.forEach((notification) => {
-                if(notification.data.title && notification.data.text) {
-                    // Show toast notification
-                    useClearToast(notification.id);
-                    useShowToast(
-                        notification.data.title ? notification.data.title : null,
-                        notification.data.text ? notification.data.text : null,
-                        notification.data.type ? notification.data.type : 'info',
-                        {
-                            id: notification.id,
-                        }
-                    );
-                }
-
-                // Mark the notification as read
-                axios.post(route('notification.read', {
-                    notification: notification.id
-                }));
-            })
-        });
+function openNotificationsOverlay() {
+    isNotificationOverlayOpen.value = true;
 }
 
-function listenForPusherNotifications() {
-    Echo.private(`users.${usePage().props.auth.user.id}`)
-        .notification((notification) => {
-            if(notification.title || notification.text) {
-                // Show toast notification
-                useClearToast(notification.id);
-                useShowToast(
-                    notification.title ? notification.title : null,
-                    notification.text ? notification.text : null,
-                    notification.type ? notification.type  : 'info',
-                    {
-                        id: notification.id,
-                    }
-                );
-            }
-
-            // Mark the notification as read
-            axios.post(route('notification.read', {
-                notification: notification.id
-            }));
-        });
-}
-
-function removePrivateServerEventListeners() {
-    for (const channelId in Echo.connector.channels) {
-        Echo.leave(channelId);
-    }
+function closeNotificationsOverlay() {
+    isNotificationOverlayOpen.value = false;
 }
 
 nextTick(() => {
@@ -206,19 +162,6 @@ watch(
         immediate: true
     }
 );
-
-// Listen for pusher notifications
-watch(() => usePage().props.auth.user, (newValue, oldValue) => {
-    if (!newValue) {
-        removePrivateServerEventListeners();
-        return;
-    }
-
-    if (typeof oldValue === 'undefined') {
-        listenForPusherNotifications();
-        fetchUnreadNotifications();
-    }
-}, {immediate: true});
 
 // Listen for validation errors
 onUnmounted(() => {
@@ -304,8 +247,15 @@ onUnmounted(() => {
         <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6">
-                <div class="flex h-16 shrink-0 items-center">
+                <div class="flex justify-between items-center h-16 shrink-0">
                     <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="Your Company" />
+
+                    <div class="relative bg-white rounded-md p-0.5 h-7 w-7 cursor-pointer">
+                        <BellIcon
+                            class="h-full w-full text-indigo-600 transition-transform hover:scale-110"
+                            @click="openNotificationsOverlay"
+                        />
+                    </div>
                 </div>
 
                 <nav class="flex flex-1 flex-col">
@@ -356,11 +306,25 @@ onUnmounted(() => {
 
             <div class="flex-1 text-sm font-semibold leading-6 text-white">Dashboard</div>
 
-            <Link v-if="usePage().props.auth.user" :href="route('profile.show')">
-                <span class="sr-only">Your profile</span>
-                <img class="h-8 w-8 rounded-full bg-indigo-700" :src="usePage().props.auth.user.profile_photo_url" alt="profile photo" />
-            </Link>
+            <div class="flex justify-between items-center gap-2">
+                <div class="relative bg-white rounded-md p-0.5 h-6 w-6 cursor-pointer">
+                    <BellIcon
+                        class="h-full w-full text-indigo-600 transition-transform hover:scale-110"
+                        @click="openNotificationsOverlay"
+                    />
+                </div>
+
+                <Link v-if="usePage().props.auth.user" :href="route('profile.show')">
+                    <span class="sr-only">Your profile</span>
+                    <img class="h-8 w-8 rounded-full bg-indigo-700" :src="usePage().props.auth.user.profile_photo_url" alt="profile photo" />
+                </Link>
+            </div>
         </div>
+
+        <NotificationsOverlay
+            :show="isNotificationOverlayOpen"
+            @close="closeNotificationsOverlay"
+        />
 
         <main class="py-4 sm:py-6 lg:py-8 lg:pl-72">
             <div class="px-4 sm:px-6 lg:px-8">

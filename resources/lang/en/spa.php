@@ -1,6 +1,16 @@
 <?php
 
 return [
+    'notifications' => [
+        'label' => 'Notifications',
+        'messages' => [
+            'mark_as_read' => 'Notification has been marked as read',
+            'dance_group_invitation' => 'You are added to :group',
+        ],
+        'types' => [
+            'dance_group_invitation' => 'Dance group invitation',
+        ]
+    ],
     'toasts' => [
         'description' => [
             'import_completed' => 'The import was succesfull',

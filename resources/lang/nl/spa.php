@@ -1,6 +1,16 @@
 <?php
 
 return [
+    'notifications' => [
+        'label' => 'Meldingen',
+        'messages' => [
+            'mark_as_read' => 'Melding is gemarkeerd als gelezen',
+            'dance_group_invitation' => 'U bent toegevoegd aan :group',
+        ],
+        'types' => [
+            'dance_group_invitation' => 'Dans groep uitnodiging',
+        ]
+    ],
     'toasts' => [
         'description' => [
             'import_completed' => 'De import is gelukt',

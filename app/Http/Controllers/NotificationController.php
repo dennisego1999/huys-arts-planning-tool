@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Notifications\DatabaseNotification;
+use App\Http\Requests\ReadNotificationRequest;
+use App\Models\Notification;
 
 class NotificationController extends Controller
 {
@@ -13,12 +14,22 @@ class NotificationController extends Controller
             ->only(['id','data']);
     }
 
-    public function read(DatabaseNotification $notification)
+    public function read(ReadNotificationRequest $request, Notification $notification)
     {
         // Authorize
-        $this->authorize('view', $notification);
+        $this->authorize('send', $notification);
+
+        // Validate request
+        $request->validated();
 
         // Mark as read
         $notification->markAsRead();
+
+        // Redirect to url
+        if($notification['url']) {
+            return redirect($notification['url'])->with('success', trans('spa.notifications.messages.mark_as_read'));
+        }
+
+        return redirect()->back()->with('success', trans('spa.notifications.messages.mark_as_read'));
     }
 }

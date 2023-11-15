@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateDanceGroupRequest;
 use App\Http\Resources\DanceGroupResource;
 use App\Models\DanceGroup;
 use App\Models\User;
+use App\Notifications\DanceGroupInvitationNotification;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 

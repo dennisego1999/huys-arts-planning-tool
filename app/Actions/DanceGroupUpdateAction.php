@@ -3,6 +3,8 @@
 namespace App\Actions;
 
 use App\Models\DanceGroup;
+use App\Models\User;
+use App\Notifications\DanceGroupInvitationNotification;
 
 class DanceGroupUpdateAction
 {
@@ -14,8 +16,16 @@ class DanceGroupUpdateAction
         ]);
 
         // Sync members
-        $memberIds = collect($data['members'])->pluck('id');
-        $danceGroup->members()->sync($memberIds);
+        if(isset($data['members'])) {
+            $memberIds = collect($data['members'])->pluck('id');
+            $danceGroup->members()->sync($memberIds);
+
+            // Notify the new members
+            foreach ($data['members'] as $member) {
+                $userModel = User::find($member['id']);
+                $userModel->notify(new DanceGroupInvitationNotification($danceGroup));
+            }
+        }
 
         // Add media when necessary
         if($data['new_image']) {

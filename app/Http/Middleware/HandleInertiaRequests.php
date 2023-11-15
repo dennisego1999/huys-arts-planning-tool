@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\Game;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Inertia\Middleware;
@@ -37,7 +38,8 @@ class HandleInertiaRequests extends Middleware
         $data = array_merge(parent::share($request), [
             //General setup
             'locales' => fn () => $this->getLocales(),
-            'currentRouteName' => $request->route()->getName(),
+            'notifications' => fn () => $this->getNotifications($request),
+            'current_route_name' => $request->route()->getName(),
             'policies' => fn() => $this->getPolicies(),
             'flash' => $this->getSessionFlashing($request),
         ]);
@@ -49,6 +51,11 @@ class HandleInertiaRequests extends Middleware
         }
 
         return $data;
+    }
+
+    private function getNotifications(Request $request): Collection
+    {
+        return $request->user()?->notifications ?: collect();
     }
 
     protected function getSessionFlashing(Request $request): array

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Lab404\Impersonate\Models\Impersonate;
@@ -72,6 +73,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function danceGroups(): BelongsToMany
     {
         return $this->belongsToMany(DanceGroup::class, 'dance_group_member');
+    }
+
+    public function notifications(): MorphMany
+    {
+        return $this
+            ->morphMany(Notification::class, 'notifiable')
+            ->orderBy('created_at', 'desc');
     }
 
     /*

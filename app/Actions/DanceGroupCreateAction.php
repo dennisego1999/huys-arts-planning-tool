@@ -3,25 +3,33 @@
 namespace App\Actions;
 
 use App\Models\DanceGroup;
+use App\Models\User;
+use App\Notifications\DanceGroupInvitationNotification;
 
 class DanceGroupCreateAction
 {
     public function handle(array $data): void
     {
-        $model = DanceGroup::create([
+        $danceGroup = DanceGroup::create([
             'name' => $data['name'],
             'description' => $data['description'],
         ]);
 
         // Add media when necessary
         if(isset($data['new_image'])) {
-            $model->addMedia($data['new_image'])->toMediaCollection('dance-group-assets', 'assets');
+            $danceGroup->addMedia($data['new_image'])->toMediaCollection('dance-group-assets', 'assets');
         }
 
         // Sync members
         if(isset($data['members'])) {
             $memberIds = collect($data['members'])->pluck('id');
-            $model->members()->sync($memberIds);
+            $danceGroup->members()->sync($memberIds);
+
+            // Notify the new members
+            foreach ($data['members'] as $member) {
+                $userModel = User::find($member['id']);
+                $userModel->notify(new DanceGroupInvitationNotification($danceGroup));
+            }
         }
     }
 }
