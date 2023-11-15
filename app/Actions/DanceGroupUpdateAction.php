@@ -15,16 +15,26 @@ class DanceGroupUpdateAction
             'description' => $data['description'],
         ]);
 
-        // Sync members
         if(isset($data['members'])) {
+            // Get the member ids
             $memberIds = collect($data['members'])->pluck('id');
-            $danceGroup->members()->sync($memberIds);
 
-            // Notify the new members
-            foreach ($data['members'] as $member) {
-                $userModel = User::find($member['id']);
-                $userModel->notify(new DanceGroupInvitationNotification($danceGroup));
+            // Check which members are new
+            $existingMemberIds = collect($danceGroup->members)->pluck('id');
+            $newMemberIds = array_diff($memberIds->toArray(), $existingMemberIds->toArray());
+
+            if(count($memberIds) !== 0) {
+                foreach ($newMemberIds as $newMemberId) {
+                    // Get the user model
+                    $userModel = User::find($newMemberId);
+
+                    // Notify the new member
+                    $userModel->notify(new DanceGroupInvitationNotification($danceGroup));
+                }
             }
+
+            // Sync members
+            $danceGroup->members()->sync($memberIds);
         }
 
         // Add media when necessary

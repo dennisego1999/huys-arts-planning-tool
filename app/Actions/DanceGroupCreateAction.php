@@ -15,11 +15,6 @@ class DanceGroupCreateAction
             'description' => $data['description'],
         ]);
 
-        // Add media when necessary
-        if(isset($data['new_image'])) {
-            $danceGroup->addMedia($data['new_image'])->toMediaCollection('dance-group-assets', 'assets');
-        }
-
         // Sync members
         if(isset($data['members'])) {
             $memberIds = collect($data['members'])->pluck('id');
@@ -30,6 +25,11 @@ class DanceGroupCreateAction
                 $userModel = User::find($member['id']);
                 $userModel->notify(new DanceGroupInvitationNotification($danceGroup));
             }
+        }
+
+        // Add media when necessary
+        if(isset($data['new_image'])) {
+            $danceGroup->addMedia($data['new_image'])->toMediaCollection('dance-group-assets', 'assets');
         }
     }
 }
