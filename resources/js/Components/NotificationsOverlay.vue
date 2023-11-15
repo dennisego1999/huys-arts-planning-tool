@@ -118,42 +118,48 @@ function selectTab(tab) {
                                             </div>
                                         </div>
 
-                                        <div class="overflow-hidden rounded-md bg-white shadow-lg">
-                                            <ul role="list" class="divide-y divide-gray-200">
-                                                <li
-                                                    v-for="(notification, index) in filteredNotifications"
-                                                    :key="'notification-' + index"
-                                                    class="px-6 py-4"
-                                                >
-                                                    <div
-                                                        class="flex justify-between items-center w-full"
-                                                        :class="{'cursor-pointer': !notification.read_at}"
-                                                        @click="markAsRead(notification)"
+                                        <Transition name="fade" mode="out-in">
+                                            <div v-if="filteredNotifications.length !== 0" class="overflow-hidden rounded-md bg-white shadow-lg">
+                                                <ul role="list" class="divide-y divide-gray-200">
+                                                    <li
+                                                        v-for="(notification, index) in filteredNotifications"
+                                                        :key="'notification-' + index"
+                                                        class="px-6 py-4"
                                                     >
-                                                        <div class="flex flex-col justify-center items-start gap-1">
-                                                            <p
-                                                                v-if="notification.label"
-                                                                class="text-sm font-semibold leading-6 text-gray-900"
-                                                            >
-                                                                {{ notification.label }}
-                                                            </p>
+                                                        <div
+                                                            class="flex justify-between items-center w-full"
+                                                            :class="{'cursor-pointer': !notification.read_at}"
+                                                            @click="markAsRead(notification)"
+                                                        >
+                                                            <div class="flex flex-col justify-center items-start gap-1">
+                                                                <p
+                                                                    v-if="notification.label"
+                                                                    class="text-sm font-semibold leading-6 text-gray-900"
+                                                                >
+                                                                    {{ notification.label }}
+                                                                </p>
 
-                                                            <p
-                                                                v-if="notification.message"
-                                                                class="text-xs leading-5 text-gray-500"
-                                                            >
-                                                                {{ notification.message }}
-                                                            </p>
+                                                                <p
+                                                                    v-if="notification.message"
+                                                                    class="text-xs leading-5 text-gray-500"
+                                                                >
+                                                                    {{ notification.message }}
+                                                                </p>
+                                                            </div>
+
+                                                            <CheckCircleIcon
+                                                                v-if="!notification.read_at"
+                                                                class="h-7 w-7 text-indigo-600"
+                                                            />
                                                         </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
 
-                                                        <CheckCircleIcon
-                                                            v-if="!notification.read_at"
-                                                            class="h-7 w-7 text-indigo-600"
-                                                        />
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                            <p v-else>
+                                                {{ t('spa.notifications.no_notifications') }}
+                                            </p>
+                                        </Transition>
                                     </div>
                                 </div>
                             </DialogPanel>

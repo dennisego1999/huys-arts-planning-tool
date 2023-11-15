@@ -3,6 +3,7 @@
 return [
     'notifications' => [
         'label' => 'Meldingen',
+        'no_notifications' => 'U heeft op deze moment geen ongelezen meldingen.',
         'messages' => [
             'mark_as_read' => 'Melding is gemarkeerd als gelezen',
             'dance_group_invitation' => 'U bent toegevoegd aan :group',
