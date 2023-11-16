@@ -104,33 +104,17 @@ const {t} = useI18n();
                 <div style="width: 165%" class="flex max-w-full flex-none flex-col sm:max-w-none md:max-w-full">
                     <div ref="containerNav" class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8">
                         <div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
-                            <button type="button" class="flex flex-col items-center pb-3 pt-2">
-                                M
-                                <span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">10</span>
-                            </button>
-                            <button type="button" class="flex flex-col items-center pb-3 pt-2">
-                                T
-                                <span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">11</span>
-                            </button>
-                            <button type="button" class="flex flex-col items-center pb-3 pt-2">
-                                W
-                                <span class="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white">12</span>
-                            </button>
-                            <button type="button" class="flex flex-col items-center pb-3 pt-2">
-                                T
-                                <span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">13</span>
-                            </button>
-                            <button type="button" class="flex flex-col items-center pb-3 pt-2">
-                                F
-                                <span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">14</span>
-                            </button>
-                            <button type="button" class="flex flex-col items-center pb-3 pt-2">
-                                S
-                                <span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">15</span>
-                            </button>
-                            <button type="button" class="flex flex-col items-center pb-3 pt-2">
-                                S
-                                <span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">16</span>
+                            <button
+                                v-for="(date, index) in weekInfo.dates"
+                                :key="'extra-short-date-' + index"
+                                type="button"
+                                class="flex flex-col items-center pb-3 pt-2"
+                            >
+                                {{ date.day_extra_short }}
+
+                                <span class="mt-1 flex h-8 w-8 items-center justify-center font-semibold text-gray-900">
+                                    {{ date.day_number }}
+                                </span>
                             </button>
                         </div>
 

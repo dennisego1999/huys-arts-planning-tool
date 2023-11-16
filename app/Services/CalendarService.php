@@ -30,6 +30,7 @@ class CalendarService
             $dates->push([
                 'date' => $date,
                 'day_short' => $p->format('D'),
+                'day_extra_short' => substr($p->format('D'), 0, 1),
                 'day_full' => $day,
                 'day_full_formatted' => ucfirst($day),
                 'day_number' => $p->format('d'),
