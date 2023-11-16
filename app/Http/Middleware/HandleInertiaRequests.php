@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Game;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Inertia\Middleware;
@@ -34,6 +34,11 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // Abort logged-out
+        if (Auth::guest()) {
+            return parent::share($request);
+        }
+
         // Get the shared data
         $data = array_merge(parent::share($request), [
             //General setup
@@ -118,7 +123,7 @@ class HandleInertiaRequests extends Middleware
         return $translations;
     }
 
-    private function getLocales(): array
+    protected function getLocales(): array
     {
         return [
             'currentLocale' => config('app.locale')
