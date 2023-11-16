@@ -22,11 +22,6 @@ class CalendarController extends Controller
         // Use today by default
         $fallbackDate = now();
 
-        // Go to next week inside the weekend
-        if ($fallbackDate->isWeekend()) {
-            $fallbackDate = $fallbackDate->nextWeekday();
-        }
-
         // Get the current date
         $currentDate = CarbonImmutable::parse($date ?: $fallbackDate->format('Y-m-d'));
 

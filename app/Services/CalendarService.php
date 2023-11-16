@@ -49,11 +49,6 @@ class CalendarService
         // Get the date as fall back without a specific date
         $fallbackDate = now();
 
-        // Go to the next week by default in weekends
-        if ($fallbackDate->isWeekend()) {
-            $fallbackDate = $fallbackDate->nextWeekday();
-        }
-
         // Get the requested date or fall back to today
         $date = CarbonImmutable::createFromFormat('Y-m-d', $date ?: $fallbackDate->format('Y-m-d'));
 
