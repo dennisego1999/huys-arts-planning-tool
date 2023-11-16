@@ -87,6 +87,11 @@ return [
                 'photo' => 'Foto',
             ]
         ],
+        'calendar' => [
+            'label' => 'Kalender',
+            'today' => 'Vandaag',
+            'add_event' => 'Voeg evenement toe',
+        ],
         'translations' => [
             'label' => 'Vertalingen',
             'description' => 'Een lijst van alle vertalingen.',

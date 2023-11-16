@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DanceGroupController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -36,6 +37,7 @@ Route::middleware([
     Route::post('/impersonate/{user}', ImpersonateController::class)->name('impersonate');
     Route::resource('users', UserController::class);
     Route::resource('dance-groups', DanceGroupController::class);
+    Route::get('/calendar/{date?}', [CalendarController::class, 'index'])->name('calendar.index');
 
     Route::name('translations.')->prefix('translations')->group(function () {
         Route::get('/', [LanguageLineController::class, 'index'])->name('index');

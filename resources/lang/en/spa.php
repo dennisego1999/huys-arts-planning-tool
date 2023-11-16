@@ -87,6 +87,11 @@ return [
                 'photo' => 'Photo',
             ]
         ],
+        'calendar' => [
+            'label' => 'Calendar',
+            'today' => 'Today',
+            'add_event' => 'Add event',
+        ],
         'translations' => [
             'label' => 'Translations',
             'description' => 'A list of all translations.',

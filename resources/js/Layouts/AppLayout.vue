@@ -3,7 +3,7 @@ import {useI18n} from "vue-i18n";
 import {computed, nextTick, onUnmounted, ref, watch} from "vue";
 import {usePage, Link, router} from "@inertiajs/vue3";
 import {Dialog, DialogPanel, TransitionChild, TransitionRoot} from "@headlessui/vue";
-import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon, LanguageIcon, BellIcon} from "@heroicons/vue/24/outline";
+import {Bars3Icon, HomeIcon, XMarkIcon, UserIcon, UserGroupIcon, LanguageIcon, BellIcon, CalendarDaysIcon} from "@heroicons/vue/24/outline";
 import {useClearToast, useShowToast} from "@/Composables/Toastification";
 import NavigationDropdown from "@/Components/NavigationDropdown.vue";
 import NotificationsOverlay from "../Components/NotificationsOverlay.vue";
@@ -39,6 +39,13 @@ const navigationItems = ref([
         icon: UserGroupIcon,
         check: !!usePage().props.auth.user.email_verified_at,
         current: usePage().props.current_route_name === 'dance-groups.index'
+    },
+    {
+        name: t('spa.pages.calendar.label'),
+        href: route('calendar.index'),
+        icon: CalendarDaysIcon,
+        check: !!usePage().props.auth.user.email_verified_at,
+        current: usePage().props.current_route_name === 'calendar.index'
     },
     {
         name: t('spa.pages.translations.label'),
