@@ -93,7 +93,8 @@ return [
             'table' => [
                 'group' => 'Group',
                 'key' => 'Key',
-                'text' => 'Text',
+                'original_translation' => 'Original translation',
+                'new_translation' => 'New translation',
                 'locale' => 'Locale',
                 'updated_at' => 'Updated at',
                 'actions' => 'Actions',
