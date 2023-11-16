@@ -250,9 +250,16 @@ onUnmounted(() => {
                 <div class="flex justify-between items-center h-16 shrink-0">
                     <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="Your Company" />
 
-                    <div class="relative bg-white rounded-md p-0.5 h-7 w-7 cursor-pointer">
+                    <div class="relative h-6 w-6 cursor-pointer">
+                        <Transition name="fade">
+                            <div
+                                v-if="usePage().props.notifications.filter(n => !n.read_at).length !== 0"
+                                class="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-600"
+                            ></div>
+                        </Transition>
+
                         <BellIcon
-                            class="h-full w-full text-indigo-600 transition-transform hover:scale-110"
+                            class="h-full w-full text-white transition-transform hover:scale-110"
                             @click="openNotificationsOverlay"
                         />
                     </div>
@@ -306,10 +313,17 @@ onUnmounted(() => {
 
             <div class="flex-1 text-sm font-semibold leading-6 text-white">Dashboard</div>
 
-            <div class="flex justify-between items-center gap-2">
-                <div class="relative bg-white rounded-md p-0.5 h-6 w-6 cursor-pointer">
+            <div class="flex justify-between items-center gap-4">
+                <div class="relative h-6 w-6 cursor-pointer">
+                    <Transition name="fade">
+                        <div
+                            v-if="usePage().props.notifications.filter(n => !n.read_at).length !== 0"
+                            class="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-600"
+                        ></div>
+                    </Transition>
+
                     <BellIcon
-                        class="h-full w-full text-indigo-600 transition-transform hover:scale-110"
+                        class="h-full w-full text-white transition-transform hover:scale-110"
                         @click="openNotificationsOverlay"
                     />
                 </div>
