@@ -64,6 +64,49 @@ function addEvent() {
 		}
 	});
 }
+
+function calculateEventContainersStyles(event, columnIndex) {
+	const startTime = new Date(event.starts_at);
+	const endTime = new Date(event.ends_at);
+
+	// Calculate row position based on start time (assuming each row is 1 hour)
+	const startRow = startTime.getHours(); // Since the grid starts at 12 AM
+
+	// Calculate the number of days the event spans
+	const eventDays = Math.ceil((endTime - startTime + 1) / (1000 * 60 * 60 * 24)); // Add 1 to include the end day
+
+	// Initialize an array to store the style objects for each day
+	const styles = [];
+
+	// Loop through each day the event spans
+	for (let day = 0; day < eventDays; day++) {
+		const currentDay = new Date(startTime);
+		currentDay.setDate(startTime.getDate() + day);
+
+		// Calculate the row and column for the current day
+		const currentStartRow = day === 0 ? startRow : 0;
+		const currentGridColumn = columnIndex + day;
+
+		// Calculate the style object for the current day
+		const style = {
+			gridRow: `${currentStartRow + 2} / span ${24 - currentStartRow}`, // Extend to the end of the day
+
+			// Adjust the gridRow for the last day to stop at the correct hour
+			...(day === eventDays - 1
+				? { gridRow: `${currentStartRow + 2} / span ${endTime.getHours() - currentStartRow}` }
+				: {}),
+
+			// Each day occupies one column
+			gridColumn: `${currentGridColumn + 1} / span 1`
+		};
+
+		// Add the style object to the array
+		styles.push(style);
+	}
+
+	// Return the array of style objects
+	return styles;
+}
 </script>
 
 <template>
@@ -442,23 +485,37 @@ function addEvent() {
 								<div class="col-start-8 row-span-full w-8" />
 							</div>
 
-							<!-- Events -->
-							<ol
+							<div
 								class="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
-								style="grid-template-rows: 1.75rem repeat(288, minmax(0, 1fr)) auto"
+								style="grid-template-rows: 1.75rem repeat(24, minmax(0, 1fr)) auto"
 							>
-								<li class="relative mt-px flex sm:col-start-3" style="grid-row: 74 / span 12">
-									<a
-										href="#"
-										class="group absolute inset-1 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 hover:bg-blue-100"
-									>
-										<p class="order-1 font-semibold text-blue-700">Breakfast</p>
-										<p class="text-blue-500 group-hover:text-blue-700">
-											<time datetime="2022-01-12T06:00">6:00 AM</time>
-										</p>
-									</a>
-								</li>
-							</ol>
+								<!-- Events -->
+								<template
+									v-for="(date, columnIndex) in weekInfo.dates"
+									:key="'date-loop-' + columnIndex"
+								>
+									<template v-for="(event, index) in date.events" :key="'event-' + index">
+										<div
+											v-for="(style, styleIndex) in calculateEventContainersStyles(
+												event,
+												columnIndex
+											)"
+											:key="'event-style-' + styleIndex"
+											:style="style"
+											class="relative mt-px flex"
+										>
+											<!-- Event container content -->
+											<div
+												class="w-full m-1.5 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 cursor-pointer transition-colors hover:bg-blue-100"
+											>
+												<p class="order-1 font-semibold text-blue-700">
+													{{ event.eventable.name[usePage().props.locales.currentLocale] }}
+												</p>
+											</div>
+										</div>
+									</template>
+								</template>
+							</div>
 						</div>
 					</div>
 				</div>
