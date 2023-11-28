@@ -27,6 +27,13 @@ class CalendarService
             // Get the name of the day
             $day = strtolower($p->format('l'));
 
+            // Get the events for the date
+            $events = auth()->user()
+                ->calendarEvents()
+                ->where('starts_at', 'like', $date . '%')
+                ->with(['eventable'])
+                ->get();
+
             $dates->push([
                 'date' => $date,
                 'day_short' => $p->format('D'),
@@ -35,6 +42,7 @@ class CalendarService
                 'day_full_formatted' => ucfirst($day),
                 'day_number' => $p->format('d'),
                 'is_current' => $date === $currentDate,
+                'events' => $events
             ]);
         }
 
