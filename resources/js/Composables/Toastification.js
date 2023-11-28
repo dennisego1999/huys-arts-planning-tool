@@ -1,6 +1,6 @@
-import Toastification from "@/Components/Toastification.vue";
-import {useToast} from "vue-toastification";
-import {nextTick} from "vue";
+import Toastification from '@/Components/Toastification.vue';
+import { useToast } from 'vue-toastification';
+import { nextTick } from 'vue';
 
 // Create toast instance
 const toastPopup = useToast();
@@ -11,7 +11,7 @@ async function useShowToast(title, text, type, options) {
 		component: Toastification,
 		props: {
 			title: title ? title : '',
-			text: text ? text : '',
+			text: text ? text : ''
 		},
 		listeners: {
 			click: () => options?.onClick ?? null
@@ -49,8 +49,4 @@ async function useClearToasts() {
 	toastPopup.clear();
 }
 
-export {
-	useShowToast,
-	useClearToast,
-	useClearToasts,
-};
+export { useShowToast, useClearToast, useClearToasts };

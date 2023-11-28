@@ -137,6 +137,7 @@ class HandleInertiaRequests extends Middleware
                 'manageUsers' => auth()->check() ? auth()->user()->can('manage-users', User::class) : false,
                 'manageTranslations' => auth()->check() ? auth()->user()->can('manage-translations', User::class) : false,
                 'manageDanceGroups' => auth()->check() ? auth()->user()->can('manage-dance-groups', User::class) : false,
+                'manageCalendar' => auth()->check() ? auth()->user()->can('manage-calendar', User::class) : false,
                 'impersonate' => auth()->check() ? auth()->user()->can('impersonate', User::class) : false,
             ]
         ];

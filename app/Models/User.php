@@ -82,6 +82,11 @@ class User extends Authenticatable implements MustVerifyEmail
             ->orderBy('created_at', 'desc');
     }
 
+    public function calendarEvents(): BelongsToMany
+    {
+        return $this->belongsToMany(CalendarEvent::class);
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

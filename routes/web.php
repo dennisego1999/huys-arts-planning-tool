@@ -38,6 +38,7 @@ Route::middleware([
     Route::resource('users', UserController::class);
     Route::resource('dance-groups', DanceGroupController::class);
     Route::get('/calendar/{date?}', [CalendarController::class, 'index'])->name('calendar.index');
+    Route::post('/calendar/create-event', [CalendarController::class, 'store'])->name('calendar.store');
 
     Route::name('translations.')->prefix('translations')->group(function () {
         Route::get('/', [LanguageLineController::class, 'index'])->name('index');
@@ -48,6 +49,5 @@ Route::middleware([
         Route::delete('/{language_line}/delete', [LanguageLineController::class, 'destroy'])->name('destroy');
     });
 
-    Route::get('/notification', [NotificationController::class, 'index'])->name('notification.index');
     Route::post('/notification/{notification}/read', [NotificationController::class, 'read'])->name('notification.read');
 });

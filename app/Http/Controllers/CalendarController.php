@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CalendarEventCreateAction;
+use App\Http\Requests\StoreCalendarEventRequest;
+use App\Models\User;
 use App\Services\CalendarService;
 use Carbon\CarbonImmutable;
 use Inertia\Inertia;
 
 class CalendarController extends Controller
 {
-
     private CalendarService $calendarService;
 
     public function __construct(CalendarService $calendarService)
@@ -32,6 +34,15 @@ class CalendarController extends Controller
 
         return Inertia::render('Dashboard/Calendar/Index', [
             'weekInfo' => $this->calendarService->getWeekInfo($date),
+            'users' => User::all(),
         ]);
+    }
+
+    public function store(StoreCalendarEventRequest $request, CalendarEventCreateAction $calendarEventCreateAction)
+    {
+        $formData = $request->validated();
+        $calendarEventCreateAction->handle($formData);
+
+        return redirect()->back()->with('success', trans('spa.pages.calendar.event_added'));
     }
 }

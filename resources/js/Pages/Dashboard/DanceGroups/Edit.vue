@@ -1,44 +1,39 @@
 <script setup>
-import {useI18n} from "vue-i18n";
-import {useForm} from "@inertiajs/vue3";
-import AppLayout from "@/Layouts/AppLayout.vue";
-import DanceGroupForm from "@/Components/DanceGroupForm.vue";
+import { useI18n } from 'vue-i18n';
+import { useForm } from '@inertiajs/vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import DanceGroupForm from '@/Components/DanceGroupForm.vue';
 
 // Define options
 defineOptions({
-    layout: AppLayout
+	layout: AppLayout
 });
 
 // Define props
 const props = defineProps({
-    group: Object,
-    users: Array,
+	group: Object,
+	users: Array
 });
 
 // Set translation
-const {t} = useI18n();
+const { t } = useI18n();
 
 // Define variables
 const form = useForm({
-    _method: 'put',
-    name: props.group.name ?? null,
-    description: props.group.description ?? null,
-    image: props.group.image ?? null,
-    new_image: null,
-    members: props.group.members ?? [],
+	_method: 'put',
+	name: props.group.name ?? null,
+	description: props.group.description ?? null,
+	image: props.group.image ?? null,
+	new_image: null,
+	members: props.group.members ?? []
 });
 
 // Define functions
 function submit() {
-    form.post(route('dance-groups.update', {dance_group: props.group}));
+	form.post(route('dance-groups.update', { dance_group: props.group }));
 }
 </script>
 
 <template>
-    <DanceGroupForm
-        v-model:form="form"
-        :users="users"
-        :edit="true"
-        @submit="submit"
-    />
+	<DanceGroupForm v-model:form="form" :users="users" :edit="true" @submit="submit" />
 </template>

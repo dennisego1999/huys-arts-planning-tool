@@ -28,7 +28,25 @@ return [
         ],
     ],
     'labels' => [
+        'name' => 'Naam',
+        'description' => 'Omschrijving',
+        'photo' => 'Foto',
         'select' => 'Selecteer',
+        'first_name' => 'Voornaam',
+        'last_name' => 'Achternaam',
+        'email' => 'E-mailadres',
+        'password' => 'Wachtwoord',
+        'password_confirmation' => 'Bevestig wachtwoord',
+        'address' => 'Adres',
+        'city' => 'Stad',
+        'province' => 'Provincie',
+        'zip' => 'Postcode',
+        'roles' => 'Rollen',
+        'starts_at' => 'Begint om',
+        'ends_at' => 'Eindigt om',
+        'add_all' => 'Voeg alles toe',
+        'remove_all' => 'Verwijder alles',
+        'event_type' => 'Evenement type',
     ],
     'buttons' => [
         'go_back' => 'Terug',
@@ -57,18 +75,6 @@ return [
         'users' => [
             'label' => 'Gebruikers',
             'description' => 'Een lijst van alle gebruikers met alle nodige informatie.',
-            'form' => [
-                'first_name' => 'Voornaam',
-                'last_name' => 'Achternaam',
-                'email' => 'E-mailadres',
-                'password' => 'Wachtwoord',
-                'password_confirmation' => 'Bevestig wachtwoord',
-                'address' => 'Adres',
-                'city' => 'Stad',
-                'province' => 'Provincie',
-                'zip' => 'Postcode',
-                'roles' => 'Rollen'
-            ]
         ],
         'dance_groups' => [
             'label' => 'Dans groepen',
@@ -81,16 +87,12 @@ return [
             'no_members' => 'Deze groep heeft geen leden...',
             'no_groups' => 'Geen dans groepen gevonden...',
             'update_members' => 'Pas de leden aan',
-            'form' => [
-                'name' => 'Naam',
-                'description' => 'Omschrijving',
-                'photo' => 'Foto',
-            ]
         ],
         'calendar' => [
             'label' => 'Kalender',
             'today' => 'Vandaag',
             'add_event' => 'Voeg evenement toe',
+            'event_added' => 'Nieuw event is toegevoegd',
         ],
         'translations' => [
             'label' => 'Vertalingen',

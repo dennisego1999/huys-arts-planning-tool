@@ -28,7 +28,25 @@ return [
         ],
     ],
     'labels' => [
+        'name' => 'Name',
+        'description' => 'Description',
+        'photo' => 'Photo',
         'select' => 'Select',
+        'first_name' => 'First name',
+        'last_name' => 'Last name',
+        'email' => 'Email',
+        'password' => 'Password',
+        'password_confirmation' => 'Confirm password',
+        'address' => 'Address',
+        'city' => 'City',
+        'province' => 'Province',
+        'zip' => 'Zip',
+        'roles' => 'Roles',
+        'starts_at' => 'Starts at',
+        'ends_at' => 'Ends at',
+        'add_all' => 'Add all',
+        'remove_all' => 'Remove all',
+        'event_type' => 'Event type',
     ],
     'buttons' => [
         'go_back' => 'Back',
@@ -43,7 +61,10 @@ return [
         'create_dance_group' => 'Create new dance group',
         'add' => 'Add',
         'remove' => 'Remove',
-        'select_new_photo' => 'Choose a new photo'
+        'select_new_photo' => 'Choose a new photo',
+        'date' => 'Date',
+        'add_all' => 'Add all',
+        'remove_all' => 'Remove all',
     ],
     'pages' => [
         'dashboard' => [
@@ -57,18 +78,6 @@ return [
         'users' => [
             'label' => 'Users',
             'description' => 'A list of all users with all necessary information.',
-            'form' => [
-                'first_name' => 'First name',
-                'last_name' => 'Last name',
-                'email' => 'Email',
-                'password' => 'Password',
-                'password_confirmation' => 'Confirm password',
-                'address' => 'Address',
-                'city' => 'City',
-                'province' => 'Province',
-                'zip' => 'Zip',
-                'roles' => 'Roles'
-            ]
         ],
         'dance_groups' => [
             'label' => 'Dance groups',
@@ -81,16 +90,12 @@ return [
             'no_members' => 'This group has no members...',
             'no_groups' => 'No dance groups found...',
             'update_members' => 'Update the members',
-            'form' => [
-                'name' => 'Name',
-                'description' => 'Description',
-                'photo' => 'Photo',
-            ]
         ],
         'calendar' => [
             'label' => 'Calendar',
             'today' => 'Today',
             'add_event' => 'Add event',
+            'event_added' => 'New event added',
         ],
         'translations' => [
             'label' => 'Translations',

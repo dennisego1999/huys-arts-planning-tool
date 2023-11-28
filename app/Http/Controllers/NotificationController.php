@@ -7,13 +7,6 @@ use App\Models\Notification;
 
 class NotificationController extends Controller
 {
-    public function index()
-    {
-        return auth()->user()->unreadNotifications
-            ->map
-            ->only(['id','data']);
-    }
-
     public function read(ReadNotificationRequest $request, Notification $notification)
     {
         // Authorize
