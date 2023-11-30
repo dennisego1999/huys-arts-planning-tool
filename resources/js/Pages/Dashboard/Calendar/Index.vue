@@ -1,5 +1,5 @@
 <script setup>
-import { nextTick, ref } from 'vue';
+import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon } from '@heroicons/vue/20/solid';
@@ -29,6 +29,7 @@ console.log(props.weekInfo);
 const { t } = useI18n();
 
 // Set variables
+const usedColors = [];
 const rowHeight = ref(112);
 const isEventModalOpen = ref(false);
 const eventTypes = ref([
@@ -43,6 +44,18 @@ const form = useForm({
 	type: null,
 	users: []
 });
+const backgroundColors = [
+	'#3498db',
+	'#e74c3c',
+	'#2ecc71',
+	'#f39c12',
+	'#9b59b6',
+	'#1abc9c',
+	'#e67e22',
+	'#34495e',
+	'#16a085',
+	'#c0392b'
+];
 
 // Set functions
 function openEventModal() {
@@ -66,7 +79,7 @@ function addEvent() {
 	});
 }
 
-function calculateEventContainersStyles(event, columnIndex) {
+function getEventContainersWithStyles(event, columnIndex) {
 	const startTime = new Date(event.starts_at);
 	const endTime = new Date(event.ends_at);
 
@@ -506,7 +519,7 @@ function calculateEventContainersStyles(event, columnIndex) {
 								>
 									<template v-for="(event, index) in date.events" :key="'event-' + index">
 										<div
-											v-for="(style, styleIndex) in calculateEventContainersStyles(
+											v-for="(style, styleIndex) in getEventContainersWithStyles(
 												event,
 												columnIndex
 											)"
@@ -516,9 +529,9 @@ function calculateEventContainersStyles(event, columnIndex) {
 										>
 											<!-- Event container content -->
 											<div
-												class="w-full m-1.5 flex flex-col overflow-y-auto rounded-lg bg-blue-50 p-2 text-xs leading-5 cursor-pointer transition-colors hover:bg-blue-100"
+												class="w-full border-2 border-white m-1.5 flex flex-col overflow-y-auto rounded-lg bg-indigo-500 hover:bg-indigo-500/[0.9] p-2 text-xs leading-5 cursor-pointer transition-colors"
 											>
-												<p class="order-1 font-semibold text-blue-700">
+												<p class="order-1 font-bold text-white">
 													{{ event.eventable.name[usePage().props.locales.currentLocale] }}
 												</p>
 											</div>
