@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon } from '@heroicons/vue/20/solid';
@@ -29,6 +29,7 @@ console.log(props.weekInfo);
 const { t } = useI18n();
 
 // Set variables
+const rowHeight = ref(112);
 const isEventModalOpen = ref(false);
 const eventTypes = ref([
 	{
@@ -70,7 +71,7 @@ function calculateEventContainersStyles(event, columnIndex) {
 	const endTime = new Date(event.ends_at);
 
 	// Calculate row position based on start time (assuming each row is 1 hour)
-	const startRow = startTime.getHours(); // Since the grid starts at 12 AM
+	const startRow = startTime.getUTCHours(); // Since the grid starts at 12 AM
 
 	// Calculate the number of days the event spans
 	const eventDays = Math.ceil((endTime - startTime + 1) / (1000 * 60 * 60 * 24)); // Add 1 to include the end day
@@ -99,6 +100,15 @@ function calculateEventContainersStyles(event, columnIndex) {
 			// Each day occupies one column
 			gridColumn: `${currentGridColumn + 1} / span 1`
 		};
+
+		// Calculate padding top and bottom based on start and end times
+		if (day === 0 && startTime.getUTCMinutes() > 0) {
+			style.paddingTop = `${(startTime.getUTCMinutes() / 60) * rowHeight.value}px`;
+		}
+
+		if (day === eventDays - 1 && endTime.getUTCMinutes() > 0) {
+			style.paddingBottom = `${((60 - endTime.getUTCMinutes()) / 60) * rowHeight.value}px`;
+		}
 
 		// Add the style object to the array
 		styles.push(style);
@@ -274,7 +284,7 @@ function calculateEventContainersStyles(event, columnIndex) {
 							<!-- Horizontal lines -->
 							<div
 								class="col-start-1 col-end-2 row-start-1 grid divide-y divide-gray-100"
-								style="grid-template-rows: repeat(48, minmax(3.5rem, 1fr))"
+								:style="`grid-template-rows: repeat(48, ${rowHeight / 2}px)`"
 							>
 								<div ref="containerOffset" class="row-end-1 h-7" />
 								<div>
@@ -487,7 +497,7 @@ function calculateEventContainersStyles(event, columnIndex) {
 
 							<div
 								class="col-start-1 col-end-2 row-start-1 grid grid-cols-1 sm:grid-cols-7 sm:pr-8"
-								style="grid-template-rows: 1.75rem repeat(24, minmax(0, 1fr)) auto"
+								:style="`grid-template-rows: 1.75rem repeat(24, ${rowHeight}px) auto`"
 							>
 								<!-- Events -->
 								<template
