@@ -29,7 +29,7 @@ class CalendarController extends Controller
 
         // Prevent navigating to previous dates
         if ($currentDate->isBefore(now()->startOfWeek())) {
-            return to_route('whereabouts.index');
+            return to_route('calendar.index');
         }
 
         return Inertia::render('Dashboard/Calendar/Index', [

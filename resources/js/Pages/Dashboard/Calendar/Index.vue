@@ -74,13 +74,13 @@ function getEventContainersWithStyles(event, columnIndex) {
 	const startRow = startTime.getUTCHours(); // Since the grid starts at 12 AM
 
 	// Calculate the number of days the event spans
-	const eventDays = Math.ceil((endTime - startTime + 1) / (1000 * 60 * 60 * 24)); // Add 1 to include the end day
+	const eventDiff = endTime.getUTCDay() - startTime.getUTCDay();
 
 	// Initialize an array to store the container objects for each day
 	const containers = [];
 
 	// Loop through each day the event spans
-	for (let day = 0; day < eventDays; day++) {
+	for (let day = 0; day <= eventDiff; day++) {
 		const currentDay = new Date(startTime);
 		currentDay.setDate(startTime.getDate() + day);
 
@@ -93,7 +93,7 @@ function getEventContainersWithStyles(event, columnIndex) {
 			gridRow: `${currentStartRow + 2} / span ${24 - currentStartRow}`, // Extend to the end of the day
 
 			// Adjust the gridRow for the last day to stop at the correct hour
-			...(day === eventDays - 1
+			...(day === eventDiff
 				? { gridRow: `${currentStartRow + 2} / span ${endTime.getHours() - currentStartRow}` }
 				: {}),
 
@@ -106,7 +106,7 @@ function getEventContainersWithStyles(event, columnIndex) {
 			style.paddingTop = `${(startTime.getUTCMinutes() / 60) * rowHeight.value}px`;
 		}
 
-		if (day === eventDays - 1 && endTime.getUTCMinutes() > 0) {
+		if (day === eventDiff && endTime.getUTCMinutes() > 0) {
 			style.paddingBottom = `${((60 - endTime.getUTCMinutes()) / 60) * rowHeight.value}px`;
 		}
 

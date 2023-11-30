@@ -67,7 +67,7 @@ class CalendarService
 
         // Get the previous and next weeks for navigation
         $previousWeek = $date->subWeek()->startOfWeek();
-        $nextWeek = $date->addWeeks(2)->startOfWeek();
+        $nextWeek = $date->addWeeks()->startOfWeek();
 
         // Decide we should interval between dates
         $dateInterval = DateInterval::createFromDateString('1 day');
