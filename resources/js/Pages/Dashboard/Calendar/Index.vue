@@ -29,7 +29,6 @@ console.log(props.weekInfo);
 const { t } = useI18n();
 
 // Set variables
-const usedColors = [];
 const rowHeight = ref(112);
 const isEventModalOpen = ref(false);
 const eventTypes = ref([
@@ -44,18 +43,6 @@ const form = useForm({
 	type: null,
 	users: []
 });
-const backgroundColors = [
-	'#3498db',
-	'#e74c3c',
-	'#2ecc71',
-	'#f39c12',
-	'#9b59b6',
-	'#1abc9c',
-	'#e67e22',
-	'#34495e',
-	'#16a085',
-	'#c0392b'
-];
 
 // Set functions
 function openEventModal() {
@@ -89,8 +76,8 @@ function getEventContainersWithStyles(event, columnIndex) {
 	// Calculate the number of days the event spans
 	const eventDays = Math.ceil((endTime - startTime + 1) / (1000 * 60 * 60 * 24)); // Add 1 to include the end day
 
-	// Initialize an array to store the style objects for each day
-	const styles = [];
+	// Initialize an array to store the container objects for each day
+	const containers = [];
 
 	// Loop through each day the event spans
 	for (let day = 0; day < eventDays; day++) {
@@ -123,12 +110,15 @@ function getEventContainersWithStyles(event, columnIndex) {
 			style.paddingBottom = `${((60 - endTime.getUTCMinutes()) / 60) * rowHeight.value}px`;
 		}
 
-		// Add the style object to the array
-		styles.push(style);
+		// Add the object to the array
+		containers.push({
+			event_id: event.id,
+			style: style
+		});
 	}
 
-	// Return the array of style objects
-	return styles;
+	// Return the array of containers
+	return containers;
 }
 </script>
 
@@ -519,17 +509,17 @@ function getEventContainersWithStyles(event, columnIndex) {
 								>
 									<template v-for="(event, index) in date.events" :key="'event-' + index">
 										<div
-											v-for="(style, styleIndex) in getEventContainersWithStyles(
+											v-for="(container, containerIndex) in getEventContainersWithStyles(
 												event,
 												columnIndex
 											)"
-											:key="'event-style-' + styleIndex"
-											:style="style"
-											class="relative mt-px flex"
+											:key="'event-container-' + containerIndex"
+											:style="container.style"
+											class="relative mt-px flex justify-center pointer-events-none"
 										>
 											<!-- Event container content -->
 											<div
-												class="w-full border-2 border-white m-1.5 flex flex-col overflow-y-auto rounded-lg bg-indigo-500 hover:bg-indigo-500/[0.9] p-2 text-xs leading-5 cursor-pointer transition-colors"
+												class="pointer-events-auto w-full border-2 border-white m-1.5 flex flex-col overflow-y-auto rounded-lg bg-indigo-500 hover:bg-indigo-700 p-2 text-xs leading-5 cursor-pointer transition-colors"
 											>
 												<p class="order-1 font-bold text-white">
 													{{ event.eventable.name[usePage().props.locales.currentLocale] }}
