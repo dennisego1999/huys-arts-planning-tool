@@ -93,6 +93,8 @@ return [
             'today' => 'Vandaag',
             'add_event' => 'Voeg evenement toe',
             'event_added' => 'Nieuw event is toegevoegd',
+            'starts_at' => 'Begint op',
+            'ends_at' => 'Eindigt op',
         ],
         'translations' => [
             'label' => 'Vertalingen',

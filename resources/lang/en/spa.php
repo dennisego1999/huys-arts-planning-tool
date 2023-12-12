@@ -96,6 +96,8 @@ return [
             'today' => 'Today',
             'add_event' => 'Add event',
             'event_added' => 'New event added',
+            'starts_at' => 'Starts at',
+            'ends_at' => 'Ends at',
         ],
         'translations' => [
             'label' => 'Translations',

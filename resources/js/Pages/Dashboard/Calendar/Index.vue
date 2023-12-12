@@ -29,6 +29,8 @@ console.log(props.weekInfo);
 const { t } = useI18n();
 
 // Set variables
+const selectedEvent = ref(null);
+const isShowingEventDetailModal = ref(false);
 const rowHeight = ref(112);
 const isEventModalOpen = ref(false);
 const eventTypes = ref([
@@ -73,14 +75,20 @@ function getEventContainersWithStyles(event, columnIndex) {
 	// Calculate row position based on start time (assuming each row is 1 hour)
 	const startRow = startTime.getUTCHours(); // Since the grid starts at 12 AM
 
-	// Calculate the number of days the event spans
-	const eventDiff = endTime.getUTCDay() - startTime.getUTCDay();
+	// Calculate the difference in years
+	const yearDiff = endTime.getUTCFullYear() - startTime.getUTCFullYear();
+
+	// Calculate the difference in days within the same year
+	const dayDiffInSameYear = (endTime.getUTCDay() !== 0 ? endTime.getUTCDay() : 7) - startTime.getUTCDay();
+
+	// Calculate the total difference in days
+	let totalDayDiff = yearDiff * 365 + dayDiffInSameYear;
 
 	// Initialize an array to store the container objects for each day
 	const containers = [];
 
 	// Loop through each day the event spans
-	for (let day = 0; day <= eventDiff; day++) {
+	for (let day = 0; day <= totalDayDiff; day++) {
 		const currentDay = new Date(startTime);
 		currentDay.setDate(startTime.getDate() + day);
 
@@ -93,7 +101,7 @@ function getEventContainersWithStyles(event, columnIndex) {
 			gridRow: `${currentStartRow + 2} / span ${24 - currentStartRow}`, // Extend to the end of the day
 
 			// Adjust the gridRow for the last day to stop at the correct hour
-			...(day === eventDiff
+			...(day === totalDayDiff
 				? { gridRow: `${currentStartRow + 2} / span ${endTime.getHours() - currentStartRow}` }
 				: {}),
 
@@ -106,7 +114,7 @@ function getEventContainersWithStyles(event, columnIndex) {
 			style.paddingTop = `${(startTime.getUTCMinutes() / 60) * rowHeight.value}px`;
 		}
 
-		if (day === eventDiff && endTime.getUTCMinutes() > 0) {
+		if (day === totalDayDiff && endTime.getUTCMinutes() > 0) {
 			style.paddingBottom = `${((60 - endTime.getUTCMinutes()) / 60) * rowHeight.value}px`;
 		}
 
@@ -120,11 +128,74 @@ function getEventContainersWithStyles(event, columnIndex) {
 	// Return the array of containers
 	return containers;
 }
+
+function openDetailEventModal(event) {
+	// Set reactive
+	selectedEvent.value = event;
+
+	// Show modal
+	isShowingEventDetailModal.value = true;
+}
+
+function closeDetailEventModal() {
+	// Hide modal
+	isShowingEventDetailModal.value = false;
+
+	// Reset reactive
+	selectedEvent.value = null;
+}
+
+function formatDate(dateString) {
+	const options = {
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+		second: '2-digit',
+		timeZoneName: 'short'
+	};
+
+	const date = new Date(dateString);
+	const adjustedDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
+	return adjustedDate.toLocaleDateString('en-US', options);
+}
 </script>
 
 <template>
 	<div>
 		<Head :title="t('spa.pages.calendar.label')" />
+
+		<Modal :show="isShowingEventDetailModal" @close="closeDetailEventModal">
+			<div class="flex flex-col gap-4">
+				<div class="flex flex-col gap-4">
+					<div>
+						<h2 class="text-2xl">
+							{{ selectedEvent.eventable.name[usePage().props.locales.currentLocale] }}
+						</h2>
+						<p class="text-lg">
+							{{ selectedEvent.eventable.subject[usePage().props.locales.currentLocale] }}
+						</p>
+					</div>
+
+					<div>
+						<div class="flex justify-start items-center gap-2">
+							<p>{{ t('spa.pages.calendar.starts_at') + ':' }}</p>
+							<p class="text-indigo-500 font-bold">{{ formatDate(selectedEvent.starts_at) }}</p>
+						</div>
+
+						<div class="flex justify-start items-center gap-2">
+							<p>{{ t('spa.pages.calendar.ends_at') + ':' }}</p>
+							<p class="text-indigo-500 font-bold">{{ formatDate(selectedEvent.ends_at) }}</p>
+						</div>
+					</div>
+				</div>
+
+				<PrimaryButton @click="closeDetailEventModal">
+					{{ t('spa.buttons.close') }}
+				</PrimaryButton>
+			</div>
+		</Modal>
 
 		<div class="flex h-full flex-col">
 			<header class="flex flex-none items-center justify-between border-b border-gray-200 px-6 py-4">
@@ -520,6 +591,7 @@ function getEventContainersWithStyles(event, columnIndex) {
 											<!-- Event container content -->
 											<div
 												class="pointer-events-auto w-full border-2 border-white m-1.5 flex flex-col overflow-y-auto rounded-lg bg-indigo-500 hover:bg-indigo-700 p-2 text-xs leading-5 cursor-pointer transition-colors"
+												@click="openDetailEventModal(event)"
 											>
 												<p class="order-1 font-bold text-white">
 													{{ event.eventable.name[usePage().props.locales.currentLocale] }}
