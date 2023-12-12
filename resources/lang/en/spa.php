@@ -98,6 +98,10 @@ return [
             'event_added' => 'New event added',
             'starts_at' => 'Starts at',
             'ends_at' => 'Ends at',
+            'deleted_event' => 'Successfully deleted the event',
+            'event_types' => [
+                'dance_lesson' => 'Dance lesson'
+            ],
         ],
         'translations' => [
             'label' => 'Translations',

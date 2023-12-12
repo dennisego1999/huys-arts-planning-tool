@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CalendarEventCreateAction;
+use App\Actions\CalendarEventDestroyAction;
 use App\Http\Requests\StoreCalendarEventRequest;
+use App\Models\CalendarEvent;
 use App\Models\User;
 use App\Services\CalendarService;
 use Carbon\CarbonImmutable;
@@ -44,5 +46,17 @@ class CalendarController extends Controller
         $calendarEventCreateAction->handle($formData);
 
         return redirect()->back()->with('success', trans('spa.pages.calendar.event_added'));
+    }
+
+    public function destroy(CalendarEventDestroyAction $calendarEventDestroyAction, CalendarEvent $calendarEvent)
+    {
+        // Authorize
+        $this->authorize('delete', CalendarEvent::class);
+
+        // Delete the event
+        $calendarEventDestroyAction->handle($calendarEvent);
+
+        // Redirect back
+        return redirect()->back()->with('success', trans('spa.pages.calendar.deleted_event'));
     }
 }

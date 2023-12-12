@@ -1,8 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
-import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon } from '@heroicons/vue/20/solid';
+import { Head, Link, router, useForm, usePage } from '@inertiajs/vue3';
+import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon, TrashIcon } from '@heroicons/vue/20/solid';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import Modal from '@/Components/Modal.vue';
@@ -158,7 +158,32 @@ function formatDate(dateString) {
 
 	const date = new Date(dateString);
 	const adjustedDate = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' }));
+
 	return adjustedDate.toLocaleDateString('en-US', options);
+}
+
+function stringifyEventType(type) {
+	let string;
+
+	if (type === 'App\\Models\\DanceLesson') {
+		string = t('spa.pages.calendar.event_types.dance_lesson');
+	}
+
+	return string;
+}
+
+function deleteEvent() {
+	// Delete the selected event
+	router.post(
+		route('calendar.destroy', { calendar_event: selectedEvent.value }),
+		{},
+		{
+			onSuccess: () => {
+				// Close the event detail modal
+				closeDetailEventModal();
+			}
+		}
+	);
 }
 </script>
 
@@ -170,9 +195,26 @@ function formatDate(dateString) {
 			<div class="flex flex-col gap-4">
 				<div class="flex flex-col gap-4">
 					<div>
-						<h2 class="text-2xl">
-							{{ selectedEvent.eventable.name[usePage().props.locales.currentLocale] }}
-						</h2>
+						<div class="flex justify-between items-center">
+							<div class="flex justify-start items-center gap-2">
+								<h2 class="text-2xl">
+									{{ selectedEvent.eventable.name[usePage().props.locales.currentLocale] }}
+								</h2>
+
+								<small class="font-bold uppercase">
+									({{ stringifyEventType(selectedEvent.eventable_type) }})
+								</small>
+							</div>
+
+							<div
+								v-if="usePage().props.policies.can.manageCalendar"
+								class="p-2 w-fit rounded-md bg-red-400 cursor-pointer"
+								@click="deleteEvent"
+							>
+								<TrashIcon class="h-5 w-5 flex-none text-white" />
+							</div>
+						</div>
+
 						<p class="text-lg">
 							{{ selectedEvent.eventable.subject[usePage().props.locales.currentLocale] }}
 						</p>

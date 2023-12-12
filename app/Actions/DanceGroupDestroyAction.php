@@ -4,7 +4,7 @@ namespace App\Actions;
 
 use App\Models\DanceGroup;
 
-class DanceGroupDeleteAction
+class DanceGroupDestroyAction
 {
     public function handle(DanceGroup $danceGroup): void
     {

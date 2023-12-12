@@ -39,6 +39,7 @@ Route::middleware([
     Route::resource('dance-groups', DanceGroupController::class);
     Route::get('/calendar/{date?}', [CalendarController::class, 'index'])->name('calendar.index');
     Route::post('/calendar/create-event', [CalendarController::class, 'store'])->name('calendar.store');
+    Route::post('/calendar/delete-event/{calendar_event}', [CalendarController::class, 'destroy'])->name('calendar.destroy');
 
     Route::name('translations.')->prefix('translations')->group(function () {
         Route::get('/', [LanguageLineController::class, 'index'])->name('index');

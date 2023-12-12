@@ -95,6 +95,10 @@ return [
             'event_added' => 'Nieuw event is toegevoegd',
             'starts_at' => 'Begint op',
             'ends_at' => 'Eindigt op',
+            'deleted_event' => 'Het event is succesvol verwijderd',
+            'event_types' => [
+                'dance_lesson' => 'Dans les'
+            ],
         ],
         'translations' => [
             'label' => 'Vertalingen',

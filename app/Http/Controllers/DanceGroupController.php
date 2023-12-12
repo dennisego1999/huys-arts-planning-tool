@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\DanceGroupCreateAction;
-use App\Actions\DanceGroupDeleteAction;
+use App\Actions\DanceGroupDestroyAction;
 use App\Actions\DanceGroupUpdateAction;
 use App\Http\Requests\CreateDanceGroupRequest;
 use App\Http\Requests\UpdateDanceGroupRequest;
@@ -76,13 +76,13 @@ class DanceGroupController extends Controller
         ])->with('success', trans('spa.toasts.description.dance_group_updated'));
     }
 
-    public function destroy(DanceGroupDeleteAction $danceGroupDeleteAction, DanceGroup $danceGroup)
+    public function destroy(DanceGroupDestroyAction $danceGroupDestroyAction, DanceGroup $danceGroup)
     {
         // Authorize
         $this->authorize('delete', DanceGroup::class);
 
         // Delete the dance group
-        $danceGroupDeleteAction->handle($danceGroup);
+        $danceGroupDestroyAction->handle($danceGroup);
 
         return redirect()->back();
     }
